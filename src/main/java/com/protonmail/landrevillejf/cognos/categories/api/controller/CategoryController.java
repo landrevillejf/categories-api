@@ -1,10 +1,9 @@
 package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
 
-
+import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
-import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +13,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class CategoryController {
-
+    Logger logger = LoggerFactory.getLogger(CategoryController.class);
     private final ICommonService<Category> iCommonService;
 
     //region Get Category
@@ -44,6 +45,7 @@ public class CategoryController {
             @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws Exception{
         List<Category> categoryList= iCommonService.findAll(page, limit);
         if (categoryList.isEmpty()){
+            logger.error(ApiExceptionEnums.EMPTY_LIST.name());
             throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
         }
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
@@ -61,6 +63,7 @@ public class CategoryController {
         if (category !=null) {
             return new ResponseEntity<>(category, HttpStatus.OK);
         } else {
+            logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
     }
@@ -78,6 +81,7 @@ public class CategoryController {
             )
     public ResponseEntity<Category> createCategory(@RequestBody Category category)throws Exception{
         if(category.getName().isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         Category newCategory= iCommonService.save(category);
@@ -99,9 +103,11 @@ public class CategoryController {
     )
     public ResponseEntity<Category> updateCategory(@RequestBody Category category,@PathVariable("uid") String uid)throws Exception{
         if(category.getName().isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         if(uid.isEmpty()){
+            logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         Category newCategory= iCommonService.update(category,uid);
@@ -119,6 +125,7 @@ public class CategoryController {
     )
     public ResponseEntity<Category> deleteCategory(@PathVariable("uid") String uid)throws Exception{
         if(uid.isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         iCommonService.deleteByUid(uid);

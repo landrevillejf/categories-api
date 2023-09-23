@@ -3,10 +3,9 @@ package com.protonmail.landrevillejf.cognos.categories.api.config;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.CategoryEnum;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.*;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
-
-import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

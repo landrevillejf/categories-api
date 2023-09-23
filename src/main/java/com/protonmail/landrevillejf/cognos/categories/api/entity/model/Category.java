@@ -1,7 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import com.protonmail.landrevillejf.cognos.categories.api.entity.common.CommonEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

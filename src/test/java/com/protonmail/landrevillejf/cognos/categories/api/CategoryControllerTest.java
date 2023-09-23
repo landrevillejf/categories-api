@@ -1,7 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.protonmail.landrevillejf.cognos.categories.api.controller.CategoryController;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
@@ -11,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,7 +27,7 @@ public class CategoryControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private ICommonService<Category> categoryService;
 
     @Autowired
@@ -53,5 +53,4 @@ public class CategoryControllerTest {
     }
 
     // Add more controller tests for other endpoints and behaviors
-
 }

@@ -1,9 +1,8 @@
 package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
-import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
-import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
+import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,6 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +28,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class SubCategoryController {
-
+    Logger logger = LoggerFactory.getLogger(SubCategoryController.class);
     @Autowired
     ICommonService<SubCategory> iCommonService;
 
@@ -45,6 +46,7 @@ public class SubCategoryController {
             @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws Exception{
         List<SubCategory> categoryList= iCommonService.findAll(page, limit);
         if (categoryList.isEmpty()){
+            logger.error(ApiExceptionEnums.EMPTY_LIST.name());
             throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
         }
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
@@ -62,6 +64,7 @@ public class SubCategoryController {
         if (category !=null) {
             return new ResponseEntity<>(category, HttpStatus.OK);
         } else {
+            logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
     }
@@ -79,6 +82,7 @@ public class SubCategoryController {
             )
     public ResponseEntity<SubCategory> createSubCategory(@RequestBody SubCategory category)throws Exception{
         if(category.getName().isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         SubCategory newCategory= iCommonService.save(category);
@@ -100,9 +104,11 @@ public class SubCategoryController {
     )
     public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategory category,@PathVariable("uid") String uid)throws Exception{
         if(category.getName().isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         if(uid.isEmpty()){
+            logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         SubCategory newCategory= iCommonService.update(category,uid);
@@ -120,6 +126,7 @@ public class SubCategoryController {
     )
     public ResponseEntity<SubCategory> deleteSubCategory(@PathVariable("uid") String uid)throws Exception{
         if(uid.isEmpty()){
+            logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         iCommonService.deleteByUid(uid);
