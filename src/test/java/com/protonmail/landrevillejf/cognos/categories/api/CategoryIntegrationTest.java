@@ -33,16 +33,11 @@ public class CategoryIntegrationTest {
         Category category = new Category();
         category.setName("Category Name");
         category.setDescription("Category Description");
-        // Set other properties as needed
-
-        // Mock the service to return this category
         Mockito.when(iCommonService.findAll(Mockito.anyInt(), Mockito.anyInt()))
                 .thenReturn(Collections.singletonList(category));
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/cognos-categories-api/categories"))
                 .andExpect(status().isOk());
-
-        // You can add more assertions here if needed
     }
 }
 

@@ -41,17 +41,5 @@ public class CategoryTest {
         assertEquals("Test Name", category.getName());
         assertEquals("Test Description", category.getDescription());
     }
-
-    @Test
-    public void testConstructorWithAllParameters() {
-        // If you have additional fields in your class, you can test them here
-        // Example: Category category = new Category("Test Name", "Test Description", subCategories);
-        // assertEquals("Test Name", category.getName());
-        // assertEquals("Test Description", category.getDescription());
-        // assertEquals(subCategories, category.getSubCategories());
-    }
-
-    // Add more test cases as needed for other methods or behavior
-
 }
 

@@ -51,6 +51,4 @@ public class CategoryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(categories)));
     }
-
-    // Add more controller tests for other endpoints and behaviors
 }

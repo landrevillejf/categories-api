@@ -33,25 +33,14 @@ public class CategoryServiceImplTest {
 
     @Test
     public void testFindAll() {
-        // Create a list of categories
         List<Category> categories = new ArrayList<>();
         categories.add(new Category("Category1", "Description1"));
         categories.add(new Category("Category2", "Description2"));
-
-        // Create a Page object with the list of categories
         Page<Category> categoryPage = new PageImpl<>(categories);
-
-        // Mock the behavior of categoryRepository.findAll to return the Page object
         when(categoryRepository.findAll(any(Pageable.class))).thenReturn(categoryPage);
-
-        // Call the service method
         List<Category> result = categoryService.findAll(1, 15);
-
-        // Assertions
         assertNotNull(result);
         assertEquals(categories.size(), result.size());
         assertEquals(categories, result);
     }
-
-    // Add more service tests for other methods and behaviors
 }
