@@ -1,6 +1,8 @@
 package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
 import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.SubCategoryDto;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
@@ -12,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +32,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubCategoryController {
     Logger logger = LoggerFactory.getLogger(SubCategoryController.class);
-    @Autowired
-    ICommonService<SubCategory> iCommonService;
+    private final ICommonService<SubCategory> iCommonService;
+    private final ModelMapper modelMapper;
 
     //region Get SubCategory
     @Operation(summary = "Retrieve all SubCategory", tags = { "SubCategory", "get", "filter" })
@@ -80,7 +83,8 @@ public class SubCategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
             )
-    public ResponseEntity<SubCategory> createSubCategory(@RequestBody SubCategory category)throws Exception{
+    public ResponseEntity<SubCategory> createSubCategory(@RequestBody SubCategoryDto dto)throws Exception{
+        SubCategory category = modelMapper.map(dto, SubCategory.class);
         if(category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
@@ -102,7 +106,8 @@ public class SubCategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategory category,@PathVariable("uid") String uid)throws Exception{
+    public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategoryDto dto,@PathVariable("uid") String uid)throws Exception{
+        SubCategory category = modelMapper.map(dto, SubCategory.class);
         if(category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());

@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
 
 import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryDto;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ import java.util.List;
 public class CategoryController {
     Logger logger = LoggerFactory.getLogger(CategoryController.class);
     private final ICommonService<Category> iCommonService;
+    private final ModelMapper modelMapper;
 
     //region Get Category
     @Operation(summary = "Retrieve all Categories", tags = { "categories", "get", "filter" })
@@ -79,7 +82,8 @@ public class CategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
             )
-    public ResponseEntity<Category> createCategory(@RequestBody Category category)throws Exception{
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto dto)throws Exception{
+        Category category = modelMapper.map(dto, Category.class);
         if(category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
@@ -101,7 +105,8 @@ public class CategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category,@PathVariable("uid") String uid)throws Exception{
+    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto dto,@PathVariable("uid") String uid)throws Exception{
+        Category category = modelMapper.map(dto, Category.class);
         if(category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
