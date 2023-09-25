@@ -40,8 +40,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 CategoryEnum.BUSINESS,
                 CategoryEnum.DESIGN,
                 CategoryEnum.DEVELOPMENT,
-                CategoryEnum.FITNESS,//vide
-                CategoryEnum.FINANCE_ACCOUNTING,//vide
+                CategoryEnum.FITNESS,
+                CategoryEnum.FINANCE_ACCOUNTING,
                 CategoryEnum.HEALTH,
                 CategoryEnum.IT_SOFTWARE,
                 CategoryEnum.LIFESTYLE,
