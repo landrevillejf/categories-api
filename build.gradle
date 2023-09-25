@@ -122,3 +122,17 @@ tasks.register('deleteStaticFolder', Delete) {
     }
 }
 
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--glue', 'com.protonmail.landrevillejf.cognos.categories.api.cucumber', // Set your glue path
+                    '--plugin', 'pretty', // You can customize the output format
+                    'src/test/resources' // Path to your feature files
+            ]
+        }
+    }
+}
