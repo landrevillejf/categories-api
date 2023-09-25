@@ -30,7 +30,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         initializeCategories();
     }
 
@@ -58,13 +58,10 @@ public class DatabaseInitializer implements CommandLineRunner {
                 category.setName(String.valueOf(statusName.getDisplayName()));
                 category.setDescription(String.valueOf(statusName.getDescription()));
                 category.setUid(UUIDGenerator.generateType1UUID().toString());
-
-                // Save the category to get its ID
                 category = categoryRepository.save(category);
 
                 logger.info("Category " + statusName + " inserted into the database.");
 
-                // Create a mapping between categories and their subcategories
                 Map<CategoryEnum, List<? extends Enum<?>>> categorySubcategoryMap = new HashMap<>();
                 categorySubcategoryMap.put(CategoryEnum.ACADEMICS, Arrays.asList(
                         AcademicsSubCategoriesEnum.Humanities,
@@ -113,8 +110,6 @@ public class DatabaseInitializer implements CommandLineRunner {
                         DevelopmentSubCategoriesEnum.SOFTWARE_TESTING,
                         DevelopmentSubCategoriesEnum.WEB_DEVELOPMENT
                 ));
-
-
 
                 categorySubcategoryMap.put(CategoryEnum.FINANCE_ACCOUNTING, Arrays.asList(
                         DevelopmentSubCategoriesEnum.DATABASES,
@@ -267,9 +262,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                         TestPrepSubCategoriesEnum.TEST_TAKING_SKILLS,
                         TestPrepSubCategoriesEnum.OTHER
                 ));
-                // Add mappings for other categories in a similar manner
 
-                // Iterate through categories and their subcategories to create associations
                 for (Map.Entry<CategoryEnum, List<? extends Enum<?>>> entry : categorySubcategoryMap.entrySet()) {
                     CategoryEnum categoryEnum = entry.getKey();
                     List<? extends Enum<?>> subCategoriesEnums = entry.getValue();
@@ -280,11 +273,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                             subCategory.setName(String.valueOf(subCategoryEnum));
                             subCategory.setDescription("Description for " + String.valueOf(subCategoryEnum));
                             subCategory.setUid(UUIDGenerator.generateType1UUID().toString());
-
-                            // Set the categoryId for the subcategory
                             subCategory.setCategory(category);
-
-                            // Save the subcategory
                             subCategoryRepository.save(subCategory);
                             logger.info("SubCategory " + subCategoryEnum + " inserted into the database.");
                         }
