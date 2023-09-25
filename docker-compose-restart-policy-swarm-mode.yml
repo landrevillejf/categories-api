@@ -16,22 +16,6 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-  product-server:
-    container_name: product-server
-    build:
-      context: docker-product-server
-      dockerfile: Dockerfile
-    image: product-server:latest
-    ports:
-      - 19999:9999
-    networks:
-      - spring-cloud-network
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 3s
-        max_attempts: 5
-        window: 60s
 networks:
   spring-cloud-network:
     driver: bridge

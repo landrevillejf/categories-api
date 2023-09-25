@@ -10,16 +10,6 @@ services:
       - 18888:8888
     networks:
       - spring-cloud-network
-  product-server:
-    container_name: product-server
-    build:
-      context: docker-product-server
-      dockerfile: Dockerfile
-    image: product-server:latest
-    ports:
-      - 19999:9999
-    networks:
-      - spring-cloud-network
 networks:
   spring-cloud-network:
     driver: bridge
