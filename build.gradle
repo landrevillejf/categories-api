@@ -93,14 +93,16 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-// JUnit Jupiter API
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
-    // JUnit Jupiter Engine (to run tests)
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'io.cucumber:cucumber-java:7.2.3'
+    implementation 'io.cucumber:cucumber-spring:7.2.3'
+    implementation 'io.cucumber:cucumber-junit:7.2.3'
 
     // Exclude commons-logging from Spring dependencies
     configurations {
@@ -119,4 +121,4 @@ tasks.register('deleteStaticFolder', Delete) {
             delete "${dirName}/${f}"
     }
 }
-//processResources.dependsOn('application-frontend:build')
+
