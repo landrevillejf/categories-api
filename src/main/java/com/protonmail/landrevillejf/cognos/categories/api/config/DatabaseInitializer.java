@@ -271,7 +271,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                         for (Enum<?> subCategoryEnum : subCategoriesEnums) {
                             SubCategory subCategory = new SubCategory();
                             subCategory.setName(String.valueOf(subCategoryEnum));
-                            subCategory.setDescription("Description for " + String.valueOf(subCategoryEnum));
+                            subCategory.setDescription("Description for " + subCategoryEnum);
                             subCategory.setUid(UUIDGenerator.generateType1UUID().toString());
                             subCategory.setCategory(category);
                             subCategoryRepository.save(subCategory);
