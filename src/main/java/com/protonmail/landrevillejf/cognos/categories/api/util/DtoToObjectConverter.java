@@ -5,13 +5,25 @@ import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import org.modelmapper.ModelMapper;
 
 public class DtoToObjectConverter {
+    /**
+     * ModelMapper
+     */
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public DtoToObjectConverter(ModelMapper modelMapper) {
+    /**
+     *
+     * @param modelMapper
+     */
+    public DtoToObjectConverter(final ModelMapper modelMapper) {
         DtoToObjectConverter.modelMapper = modelMapper;
     }
 
-    public static Category convertCategoryDtoToCategory(CategoryDto categoryDto) {
+    /**
+     *
+     * @param categoryDto
+     * @return
+     */
+    public static Category convertCategoryDtoToCategory(final CategoryDto categoryDto) {
         return modelMapper.map(categoryDto, Category.class);
     }
 }
