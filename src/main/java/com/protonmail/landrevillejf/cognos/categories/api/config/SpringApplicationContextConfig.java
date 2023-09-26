@@ -6,6 +6,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringApplicationContextConfig {
+
+    /**SpringApplicationContext.
+     *
+     * @return SpringApplicationContext
+     */
     @Bean
     public SpringApplicationContext springApplicationContext() {
         return new SpringApplicationContext();

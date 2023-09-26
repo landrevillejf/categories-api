@@ -6,6 +6,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubCategoryDto {
+    /**
+     *
+     */
     private String name;
+    /**
+     *
+     */
     private String description;
 }

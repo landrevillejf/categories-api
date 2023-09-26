@@ -17,23 +17,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("CheckStyle")
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
-    Logger logger = LoggerFactory.getLogger(DatabaseInitializer.class);
+    @SuppressWarnings("CheckStyle")
+    /**
+     *
+     */
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializer.class);
+    /**
+     *
+     */
     private final CategoryRepository categoryRepository;
+    /**
+     *
+     */
     private final SubCategoryRepository subCategoryRepository;
 
-    public DatabaseInitializer(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository) {
+    /**
+     *
+     * @param categoryRepository
+     * @param subCategoryRepository
+     */
+    public DatabaseInitializer(final CategoryRepository categoryRepository, final SubCategoryRepository subCategoryRepository) {
         this.categoryRepository = categoryRepository;
         this.subCategoryRepository = subCategoryRepository;
     }
 
-
+    /**
+     *
+     * @param args incoming main method arguments
+     */
     @Override
-    public void run(String... args) {
+    public void run(final String... args) {
         initializeCategories();
     }
 
+    /**
+     *
+     */
     private void initializeCategories() {
         List<CategoryEnum> statusNames = Arrays.asList(
                 CategoryEnum.ACADEMICS,

@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/")
     public String index() {
         // Using "redirect:" to serve the Swagger UI HTML page

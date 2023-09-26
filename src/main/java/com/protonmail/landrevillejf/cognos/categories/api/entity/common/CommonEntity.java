@@ -8,16 +8,23 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 @Setter
 @MappedSuperclass
 public class CommonEntity implements Serializable{
 
+    /** id.
+     *
+     */
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "uid",nullable = false)
+    /** uid.
+     *
+     */
+    @Column(name = "uid", nullable = false)
     private String uid;
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SuppressWarnings("CheckStyle")
 @Tag(name = "SubCategory", description = "E-Learning SubCategories management APIs")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(Api.SUBCATEGORY)

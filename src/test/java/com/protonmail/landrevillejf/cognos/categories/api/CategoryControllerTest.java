@@ -1,12 +1,10 @@
 package com.protonmail.landrevillejf.cognos.categories.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.protonmail.landrevillejf.cognos.categories.api.controller.CategoryController;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

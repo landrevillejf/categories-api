@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum MusicSubCategoriesEnum {
     INSTRUMENTS("Instruments","Instruments"),
@@ -12,10 +13,21 @@ public enum MusicSubCategoriesEnum {
     MUSIC_SOFTWARE("Music Software","Music Software"),
     OTHER("Music Other","Music Other");
 
+    /**displayName.
+     *
+     */
     private final String displayName;
+    /**description.
+     *
+     */
     private final String description;
 
-    MusicSubCategoriesEnum(String displayName, String description) {
+    /**MusicSubCategoriesEnum.
+     *
+     * @param displayName
+     * @param description
+     */
+    MusicSubCategoriesEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

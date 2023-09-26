@@ -10,6 +10,10 @@ import java.time.Duration;
 @Configuration
 public class CircuitBreakerConfiguration {
 
+    /**circuitBreaker.
+     *
+     * @return CircuitBreaker
+     */
     @Bean
     public CircuitBreaker circuitBreaker() {
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SuppressWarnings("CheckStyle")
 @Tag(name = "Category", description = "E-Learning Categories management APIs")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(Api.CATEGORY)
