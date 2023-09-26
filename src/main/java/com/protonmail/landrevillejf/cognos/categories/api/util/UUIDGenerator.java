@@ -8,14 +8,18 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
+@SuppressWarnings("CheckStyle")
 public class UUIDGenerator {
+
+    /**
+     *
+     */
     private final static Logger logger = LoggerFactory.getLogger(UUIDGenerator.class);
 
     /**
      * Type 1 UUID Generation
      */
     public static UUID generateType1UUID() {
-
         long most64SigBits = 0;
         long least64SigBits = 0;
         try {
