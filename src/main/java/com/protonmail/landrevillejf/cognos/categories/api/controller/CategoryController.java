@@ -30,11 +30,28 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class CategoryController {
-    Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    /**
+     * Logger
+     */
+    private final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    /**
+     * ICommonService<Category>
+     */
     private final ICommonService<Category> iCommonService;
+    /**
+     * ModelMapper
+     */
     private final ModelMapper modelMapper;
 
     //region Get Category
+
+    /**
+     * Retrieve all Categories
+     * @param page
+     * @param limit
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Retrieve all Categories", tags = { "categories", "get", "filter" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
@@ -45,8 +62,8 @@ public class CategoryController {
     @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Category>> getAllCategories (
             @RequestParam(value = "page", defaultValue = "1",required = false) int page,
-            @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws Exception{
-        List<Category> categoryList= iCommonService.findAll(page, limit);
+            @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws CommonApiException{
+        List<Category> categoryList = iCommonService.findAll(page, limit);
         if (categoryList.isEmpty()){
             logger.error(ApiExceptionEnums.EMPTY_LIST.name());
             throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
@@ -54,6 +71,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
+    /**
+     * Get a category by its uid
+     * @param uid
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Get a category by its uid")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the category",
@@ -61,9 +84,9 @@ public class CategoryController {
             @ApiResponse(responseCode = "400", description = "Invalid uid supplied", content = @Content),
             @ApiResponse(responseCode = "404", description = "Category not found", content = @Content)}) // @formatter:on
     @GetMapping(Api.CATEGORY_BY_CATEGORY_UID)
-    public ResponseEntity<Category> getCategoryByUid(@PathVariable("uid") String uid) throws Exception{
+    public ResponseEntity<Category> getCategoryByUid(@PathVariable("uid") String uid) throws CommonApiException{
         Category category = iCommonService.findByUid(uid);
-        if (category !=null) {
+        if (category != null) {
             return new ResponseEntity<>(category, HttpStatus.OK);
         } else {
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
@@ -73,6 +96,13 @@ public class CategoryController {
     //endregion
 
     //region Save Category
+
+    /**
+     * Create a new Category
+     * @param dto
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Create a new Category", tags = { "categories", "post" })
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = {
@@ -82,18 +112,26 @@ public class CategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
             )
-    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto dto)throws Exception{
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto dto)throws CommonApiException{
         Category category = modelMapper.map(dto, Category.class);
-        if(category.getName().isEmpty()){
+        if (category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
         Category newCategory= iCommonService.save(category);
-        return new ResponseEntity<>(newCategory,HttpStatus.CREATED);
+        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
     //endregion
 
     //region Update Category
+
+    /**
+     * Update a Category by Uid
+     * @param dto
+     * @param uid
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Update a Category by Uid", tags = { "categories", "put" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
@@ -105,13 +143,13 @@ public class CategoryController {
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto dto,@PathVariable("uid") String uid)throws Exception{
+    public ResponseEntity<Category> updateCategory(@RequestBody CategoryDto dto,@PathVariable("uid") String uid)throws CommonApiException{
         Category category = modelMapper.map(dto, Category.class);
-        if(category.getName().isEmpty()){
+        if (category.getName().isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
-        if(uid.isEmpty()){
+        if (uid.isEmpty()){
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
@@ -121,6 +159,13 @@ public class CategoryController {
     //endregion
 
     //region Delete Category By Uid
+
+    /**
+     * Delete a Category by Uid
+     * @param uid
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Delete a Category by Uid", tags = { "categories", "delete" })
     @ApiResponses({ @ApiResponse(responseCode = "204", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
@@ -128,8 +173,8 @@ public class CategoryController {
             path =Api.CATEGORY_BY_CATEGORY_UID,
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Category> deleteCategory(@PathVariable("uid") String uid)throws Exception{
-        if(uid.isEmpty()){
+    public ResponseEntity<Category> deleteCategory(@PathVariable("uid") String uid)throws CommonApiException{
+        if (uid.isEmpty()){
             logger.error(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
             throw new CommonApiException(ApiExceptionEnums.FIELDS_NULL_EXCEPTION.name());
         }
@@ -139,13 +184,19 @@ public class CategoryController {
     //endregion
 
     //region Delete Category All
+
+    /**
+     * Delete all Categories
+     * @return
+     * @throws CommonApiException
+     */
     @Operation(summary = "Delete all Categories", tags = { "categories", "delete" })
     @ApiResponses({ @ApiResponse(responseCode = "204", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @DeleteMapping(
             produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
     )
-    public ResponseEntity<Category> deleteAllCategory()throws Exception{
+    public ResponseEntity<Category> deleteAllCategory()throws CommonApiException{
         iCommonService.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
