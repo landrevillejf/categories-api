@@ -5,7 +5,7 @@ public class Api {
     /**
      * API_URI_PATH
      */
-    public static final String API_URI_PATH = "/api/**";
+    public static final String API_URI_PATH = "/**";
     /**
      *
      */
@@ -36,4 +36,25 @@ public class Api {
      * Get SubCategory by Uid
      */
     public static final String SUBCATEGORY_BY_SUBCATEGORY_UID = "/{uid}";
+
+    /**
+     * Get Verb
+     */
+    public static final String GET = "GET";
+    /**
+     * Post Verb
+     */
+    public static final String POST = "POST";
+    /**
+     * Put Verb
+     */
+    public static final String PUT = "PUT";
+    /**
+     * Delete Verb
+     */
+    public static final String DELETE = "DELETE";
+    /**
+     * ALLOWED_HEADERS
+     */
+    public static final String ALLOWED_HEADERS = "*";
 }
