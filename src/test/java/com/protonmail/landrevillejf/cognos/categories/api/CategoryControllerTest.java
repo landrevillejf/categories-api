@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -21,7 +22,8 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
-@WebMvcTest(CategoryController.class)
+@WebMvcTest(CategoryControllerTest.class)
+@ContextConfiguration(classes = { TestConfig.class })
 public class CategoryControllerTest {
 
     @Autowired
@@ -46,7 +48,7 @@ public class CategoryControllerTest {
 
         when(categoryService.findAll(1, 15)).thenReturn(categories);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/categories")
+        mockMvc.perform(MockMvcRequestBuilders.get("/cognos-categories-api/categories")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(categories)));
