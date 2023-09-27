@@ -1,5 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ public class UUIDGenerator {
     /**
      * Type 1 UUID Generation
      */
+    @ExecutionTime
     public static UUID generateType1UUID() {
         long most64SigBits = 0;
         long least64SigBits = 0;

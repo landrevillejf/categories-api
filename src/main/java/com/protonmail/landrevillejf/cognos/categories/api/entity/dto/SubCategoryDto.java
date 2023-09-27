@@ -14,4 +14,8 @@ public class SubCategoryDto {
      *
      */
     private String description;
+    /**
+     *
+     */
+    private String category;
 }

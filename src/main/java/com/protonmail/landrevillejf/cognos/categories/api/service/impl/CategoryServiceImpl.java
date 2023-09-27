@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -135,6 +136,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
             entity.setUid(UUIDGenerator.generateType1UUID().toString());
+            entity.setCreatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to save values: {}", e.getMessage(), e);
@@ -161,6 +163,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
         try {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
+            entity.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
@@ -185,6 +188,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
         try {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
+            entity.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);

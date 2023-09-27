@@ -17,7 +17,11 @@ import org.springframework.stereotype.Component;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 @Slf4j
@@ -25,7 +29,9 @@ import java.util.zip.ZipOutputStream;
 @Component
 public class SimpleReportExporter {
 
-
+    /**
+     *
+     */
     private final SimpleReportFiller reportFiller;
 
 
@@ -45,7 +51,7 @@ public class SimpleReportExporter {
 
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(records);
 
-        jasperParameters.put(JRParameter.REPORT_LOCALE, Locale.ITALY);    // set Locale to Italy
+        jasperParameters.put(JRParameter.REPORT_LOCALE, Locale.US);    // set Locale to Italy
 
         try {
             JasperPrint jasperPrint = reportFiller.prepareReport(jrxmlFileName, jasperParameters, dataSource);
@@ -63,8 +69,6 @@ public class SimpleReportExporter {
         }
     }
 
-
-
     /**
      * This method is used to generate a <strong>JasperPrint</strong> by providing the
      * list of records, the name of the generated file and the name of the jrxml file
@@ -79,7 +83,6 @@ public class SimpleReportExporter {
         return this.extractResultsToJasperPrint(records, new HashMap<>(), reportFileName, jrxmlFileName);
     }
 
-
     /**
      * Exports the generated report object received as parameter into Excel format and
      * returns the binary content as a byte array.
@@ -90,7 +93,7 @@ public class SimpleReportExporter {
      */
     public byte[] exportReportToExcel(JasperPrint jasperPrint) throws JRException {
 
-        if(jasperPrint == null) {
+        if (jasperPrint == null) {
             throw new ReportGenerationException("Error generating report occurred in exportReportToExcel method because jasperPrint is null.");
         }
 
@@ -108,8 +111,6 @@ public class SimpleReportExporter {
         }
     }
 
-
-
     /**
      * Exports the generated report object received as parameter into Excel or PDF and
      * returns the binary content as a byte array.
@@ -121,10 +122,9 @@ public class SimpleReportExporter {
     public byte[] exportJasperPrintToByteArray(JasperPrint jasperPrint) throws JRException {
 
 
-        if(jasperPrint == null) {
+        if (jasperPrint == null) {
             throw new ReportGenerationException("Error generating report occurred in exportReportToExcel method because jasperPrint is null.");
         }
-
 
         String extension = Optional.ofNullable(jasperPrint.getName())
                 .map(name -> name.substring(name.lastIndexOf(".") + 1).toLowerCase())
@@ -139,9 +139,7 @@ public class SimpleReportExporter {
         } else {
             throw new ReportGenerationException("Currently '" + extension + "' format cannot be exported to byte[].");
         }
-
     }
-
 
     /**
      * This method is used when we want to put a sub-report inside our generated file, and we have to specify a data source.
@@ -151,7 +149,6 @@ public class SimpleReportExporter {
     public JRBeanCollectionDataSource getSubReportDataSource(List<?> records) {
         return new JRBeanCollectionDataSource(records);
     }
-
 
     /**
      * This method is used to export a report to byte array
@@ -163,9 +160,7 @@ public class SimpleReportExporter {
      * @throws JRException
      */
     public byte[] exportReportToByteArray(List<?> records, String fileName, String jrxmlFileLocation) throws JRException {
-
         JasperPrint jasperPrint = this.extractResultsToJasperPrint(records, fileName, jrxmlFileLocation);
-
         return this.getReportByteArray(jasperPrint);
     }
 
@@ -181,17 +176,18 @@ public class SimpleReportExporter {
      * @return report as a byte array
      * @throws JRException
      */
-    public byte[] exportReportToByteArray(List<?> recordsOfMainReport, Map<String, Object> jasperParameters, String fileName, String jrxmlFileLocation) throws JRException {
-
+    public byte[] exportReportToByteArray(
+            List<?> recordsOfMainReport, Map<String, Object> jasperParameters, String fileName, String jrxmlFileLocation)
+            throws JRException {
         JasperPrint jasperPrint = this.extractResultsToJasperPrint(recordsOfMainReport, jasperParameters, fileName, jrxmlFileLocation);
-
         return this.getReportByteArray(jasperPrint);
     }
 
 
     private byte[] getReportByteArray(JasperPrint jasperPrint) throws JRException {
 
-        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.exportJasperPrintToByteArray(jasperPrint))) {
+        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+                this.exportJasperPrintToByteArray(jasperPrint))) {
 
             byte[] bytes = new byte[byteArrayInputStream.available()];
             byteArrayInputStream.read(bytes);
@@ -215,15 +211,15 @@ public class SimpleReportExporter {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ZipOutputStream zipFile = new ZipOutputStream(byteArrayOutputStream);
 
-        for (int j = 0; j < listOfJasperPrints.size(); j++) {
+        for (JasperPrint listOfJasperPrint : listOfJasperPrints) {
 
             byte[] reportAsBytes = null;
             byte[] buffer = new byte[1024];
 
-            reportAsBytes = this.exportJasperPrintToByteArray(listOfJasperPrints.get(j));
+            reportAsBytes = this.exportJasperPrintToByteArray(listOfJasperPrint);
 
             ByteArrayInputStream fis = new ByteArrayInputStream(reportAsBytes);
-            zipFile.putNextEntry(new ZipEntry(listOfJasperPrints.get(j).getName()));
+            zipFile.putNextEntry(new ZipEntry(listOfJasperPrint.getName()));
             int length;
 
             while ((length = fis.read(buffer, 0, 1024)) > 0) {

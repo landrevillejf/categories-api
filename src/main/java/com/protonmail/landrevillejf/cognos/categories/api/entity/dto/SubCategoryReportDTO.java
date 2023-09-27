@@ -14,13 +14,32 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubCategoryReportDTO {
-
+    /**
+     *
+     */
     private Long id;
-    private String departmentCode;
-    private String departmentName;
-    private String departmentDescription;
-    private Integer totalEmployees;
+    /**
+     *
+     */
+    private String name;
+    /**
+     *
+     */
+    private String description;
+    /**
+     *
+     */
+    private String category;
+    /**
+     *
+     */
     private LocalDateTime createdAt;
+    /**
+     *
+     */
     private LocalDateTime updatedAt;
-
+    /**
+     *
+     */
+    private Integer totalSubcategories;
 }

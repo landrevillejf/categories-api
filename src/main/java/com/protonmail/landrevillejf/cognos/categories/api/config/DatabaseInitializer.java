@@ -21,11 +21,13 @@ import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCatego
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +72,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     /**
      *
      */
+    @ExecutionTime
     private void initializeCategories() {
         List<CategoryEnum> statusNames = Arrays.asList(
                 CategoryEnum.ACADEMICS,
@@ -94,6 +97,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 category.setName(String.valueOf(statusName.getDisplayName()));
                 category.setDescription(String.valueOf(statusName.getDescription()));
                 category.setUid(UUIDGenerator.generateType1UUID().toString());
+                category.setCreatedAt(LocalDateTime.now());
                 category = categoryRepository.save(category);
 
                 logger.info("Category " + statusName + " inserted into the database.");
@@ -309,6 +313,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                             subCategory.setName(String.valueOf(subCategoryEnum));
                             subCategory.setDescription("Description for " + subCategoryEnum);
                             subCategory.setUid(UUIDGenerator.generateType1UUID().toString());
+                            subCategory.setCreatedAt(LocalDateTime.now());
                             subCategory.setCategory(category);
                             subCategoryRepository.save(subCategory);
                             logger.info("SubCategory " + subCategoryEnum + " inserted into the database.");

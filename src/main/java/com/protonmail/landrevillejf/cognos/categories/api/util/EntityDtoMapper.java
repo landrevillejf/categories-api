@@ -3,6 +3,9 @@ package com.protonmail.landrevillejf.cognos.categories.api.util;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class EntityDtoMapper {
 
     /**
@@ -36,6 +39,20 @@ public class EntityDtoMapper {
      */
     public static <D, E> E convertToEntity(D dto, Class<E> entityClass) {
         return modelMapper.map(dto, entityClass);
+    }
+
+    /**
+     * Convert a list of entities to a list of DTOs.
+     * @param entities  List of entity objects.
+     * @param dtoClass  Class of the DTO.
+     * @param <D>       Type of the DTO.
+     * @param <E>       Type of the entity.
+     * @return          List of DTO objects.
+     */
+    public static <D, E> List<D> convertToDtoList(List<E> entities, Class<D> dtoClass) {
+        return entities.stream()
+                .map(entity -> convertToDto(entity, dtoClass))
+                .collect(Collectors.toList());
     }
 
     // If you have more complex mappings or specific configuration, you can configure ModelMapper here

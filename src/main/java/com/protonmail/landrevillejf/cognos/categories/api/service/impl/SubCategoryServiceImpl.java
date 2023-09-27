@@ -1,6 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
-import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
@@ -16,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +50,13 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
      */
     @Override
     public List<SubCategory> findAll(int page, int limit) {
-        if(page >0) page -=1;
-        Pageable pageable= PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
-        Page<SubCategory> categoryPage= repository.findAll(pageable);
-
+        Page<SubCategory> categoryPage = null;
+        if (page > 0) {
+            page -= 1;
+            Pageable pageable = PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
+            categoryPage = repository.findAll(pageable);
+        }
+        assert categoryPage != null;
         return categoryPage.getContent();
     }
 
@@ -65,7 +68,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
      * @return
      */
     @Override
-    public List<SubCategory> findAllByCriteria(int page, final int limit, final String search) {
+    public List<SubCategory> findAllByCriteria(int page, int limit, String search) {
         Pageable pageable = null;
         Page<SubCategory> subCategories = null;
         try {
@@ -104,10 +107,10 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //region Save Category
     @Override
     public SubCategory save(SubCategory entity) {
-        String categoryName=(entity.getName().trim()).toLowerCase();
+        String categoryName = (entity.getName().trim()).toLowerCase();
 
         SubCategory getCategory= repository.findByName(categoryName);
-        if(getCategory != null){
+        if (getCategory != null){
             logger.error(ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
         }
@@ -115,6 +118,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
             entity.setUid(UUIDGenerator.generateType1UUID().toString());
+            entity.setCreatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to save values: {}", e.getMessage(), e);
@@ -126,14 +130,15 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //region Update Category
     @Override
     public SubCategory update(SubCategory entity) {
-        SubCategory category=findByUid(entity.getUid());
-        if(category == null){
+        SubCategory category = findByUid(entity.getUid());
+        if (category == null){
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
+            entity.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
@@ -144,14 +149,15 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
 
     @Override
     public SubCategory update(SubCategory entity, String uid) {
-        SubCategory category=findByUid(uid);
-        if(category == null){
+        SubCategory category = findByUid(uid);
+        if (category == null){
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
+            entity.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
@@ -164,8 +170,8 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //region Delete Category
     @Override
     public void delete(SubCategory entity) {
-        int categoryListSize= repository.findAll().size();
-        if(categoryListSize <1) {
+        int categoryListSize = repository.findAll().size();
+        if (categoryListSize < 1) {
             logger.error(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
         }
@@ -184,8 +190,8 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
 
     @Override
     public void deleteAll() {
-        int categoryListSize=repository.findAll().size();
-        if(categoryListSize <1) {
+        int categoryListSize = repository.findAll().size();
+        if(categoryListSize < 1) {
             logger.error(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
             throw new CommonApiException(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
         }

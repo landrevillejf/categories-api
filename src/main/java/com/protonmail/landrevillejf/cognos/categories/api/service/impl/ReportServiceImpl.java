@@ -1,7 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryDto;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryReportDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.SubCategoryReportDTO;
@@ -46,9 +45,13 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public FileDTO generateCategoriesExcelReport() throws JRException {
 
-        List<Category> categories = categoryRepository.findAll();
-        List<CategoryReportDTO> reportRecords = Collections.singletonList(
-                EntityDtoMapper.convertToDto(categories, CategoryReportDTO.class));
+        List<Category> categoryList = categoryRepository.findAll();
+        List<CategoryReportDTO> reportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+
+        for (Category category : categoryList) {
+            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            reportRecords.add(reportDTO);
+        }
 
         String dateAsString = Utils.getCurrentDateAsString();
         String fileName = "Category_Report_" + dateAsString + ".xlsx";
@@ -57,7 +60,6 @@ public class ReportServiceImpl implements ReportService {
                 reportRecords, fileName, "jrxml/excel/categoriesExcelReport");
 
         String base64String = Base64.encodeBase64String(reportAsByteArray);
-
 
         FileDTO fileDTO = new FileDTO();
         fileDTO.setFileContent(base64String);
@@ -68,25 +70,33 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public FileDTO generateSubCategoriesExcelReport() throws JRException {
-        List<SubCategory> subcategoryListSubReport = subCategoryRepository.findAll();
-        List<SubCategoryReportDTO> subReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
+        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+        List<SubCategoryReportDTO> reportRecords = new ArrayList<>();
+
+        for (SubCategory subCategory : subCategoryList) {
+            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            int totalSubcategories = calculateTotalSubcategories(subCategory);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            reportRecords.add(reportDTO);
+        }
 
         String dateAsString = Utils.getCurrentDateAsString();
-        String fileName = "Category_Report_" + dateAsString + ".xlsx";
+        String fileName = "SubCategory_Report_" + dateAsString + ".xlsx";
 
         byte[] reportAsByteArray = reportExporter.exportReportToByteArray(
-                subReportRecords, fileName, "jrxml/excel/subcategoriesExcelReport");
+                reportRecords, fileName, "jrxml/excel/subcategoriesExcelReport");
 
         String base64String = Base64.encodeBase64String(reportAsByteArray);
-
 
         FileDTO fileDTO = new FileDTO();
         fileDTO.setFileContent(base64String);
         fileDTO.setFileName(fileName);
 
         return fileDTO;
+    }
+
+    private int calculateTotalSubcategories(SubCategory subCategory) {
+        return (int) subCategoryRepository.count();
     }
 
     @ExecutionTime
@@ -100,8 +110,8 @@ public class ReportServiceImpl implements ReportService {
 
         List<SubCategory> subcategoryListSubReport = subCategoryRepository.findAll();
         List<SubCategoryReportDTO> subReportRecords =
-                Collections.singletonList
-                        (EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
+                Collections.singletonList(
+                        EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
 
         String dateAsString = Utils.getCurrentDateAsString();
         String fileName = "Full_Report_" + dateAsString + ".pdf";

@@ -5,6 +5,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.service.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -20,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Tag(name = "Report", description = "Reports management APIs")
 @AllArgsConstructor
 @RequestMapping(Api.REPORTS)
 @RestController
@@ -73,7 +75,7 @@ public class ReportController {
     }
 
 
-    @Operation(summary = "Generate a PDF report containing all the departments along with all the employees")
+    @Operation(summary = "Generate a PDF report containing all the categories along with all the subcategories")
     @GetMapping(Api.PDF_FULL_REPORT)
     public ResponseEntity<InputStreamResource> generatePdfFullReport() throws JRException {
 
@@ -116,7 +118,7 @@ public class ReportController {
     }
 
 
-    @Operation(summary = "Generate a multi-sheet Excel report containing departments and employees")
+    @Operation(summary = "Generate a multi-sheet Excel report containing categories and subcategories")
     @GetMapping(Api.MULTI_SHEET_EXCEL_REPORT)
     public ResponseEntity<InputStreamResource> generateMultiSheetExcelReport() throws JRException {
 

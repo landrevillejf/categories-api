@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("CheckStyle")
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
