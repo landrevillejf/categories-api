@@ -36,7 +36,6 @@ public class ReportServiceImpl implements ReportService {
 
     private final CategoryRepository categoryRepository;
     private final SubCategoryRepository subCategoryRepository;
-    private final ObjectMapper mapper;
     private final SimpleReportExporter reportExporter;
     private final SimpleReportFiller simpleReportFiller;
 
@@ -50,6 +49,8 @@ public class ReportServiceImpl implements ReportService {
 
         for (Category category : categoryList) {
             CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            int totalSubcategories = subCategoryRepository.countByCategory(category);
+            reportDTO.setTotalSubcategories(totalSubcategories);
             reportRecords.add(reportDTO);
         }
 

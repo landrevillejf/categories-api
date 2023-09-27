@@ -1,5 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.repository;
 
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.common.CommonRepository;
 import org.springframework.data.domain.Page;
@@ -29,4 +30,6 @@ public interface SubCategoryRepository extends CommonRepository<SubCategory> {
      * @return
      */
     boolean existsByName(String s);
+
+    int countByCategory(Category category);
 }
