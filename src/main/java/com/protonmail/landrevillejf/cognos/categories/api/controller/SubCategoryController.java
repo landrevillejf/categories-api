@@ -6,6 +6,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCatego
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,7 +20,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -42,7 +52,10 @@ public class SubCategoryController {
      * ModelMapper
      */
     private final ModelMapper modelMapper;
-
+    /**
+     * CircuitBreaker
+     */
+    private final CircuitBreaker circuitBreaker;
     //region Get SubCategory
 
     /**
@@ -54,20 +67,23 @@ public class SubCategoryController {
      */
     @Operation(summary = "Retrieve all SubCategory", tags = { "SubCategory", "get", "filter" })
     @ApiResponses({
-    @ApiResponse(responseCode = "200", content = {
-            @Content(schema = @Schema(implementation = SubCategory.class), mediaType = "application/json") }),
-    @ApiResponse(responseCode = "204", description = "There are no SubCategory", content = {
-            @Content(schema = @Schema()) }),
-    @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = SubCategory.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "204", description = "There are no SubCategory", content = {
+                    @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<SubCategory>> getAllSubCategories (
-           final @RequestParam(value = "page", defaultValue = "1", required = false) int page,
-           final @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws CommonApiException{
-        List<SubCategory> categoryList = iCommonService.findAll(page, limit);
-        if (categoryList.isEmpty()){
-            logger.error(ApiExceptionEnums.EMPTY_LIST.name());
-            throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
-        }
+    public ResponseEntity<List<SubCategory>> getAllCategories (
+            @RequestParam(value = "page", defaultValue = "1",required = false) int page,
+            @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws CommonApiException{
+        List<SubCategory> categoryList = circuitBreaker.executeSupplier(() -> {
+            List<SubCategory> result = iCommonService.findAll(page, limit);
+            if (result.isEmpty()){
+                logger.error(ApiExceptionEnums.EMPTY_LIST.name());
+                throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
+            }
+            return result;
+        });
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
