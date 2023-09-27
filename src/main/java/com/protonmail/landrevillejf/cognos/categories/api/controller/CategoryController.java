@@ -22,6 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+
 import java.util.List;
 
 @SuppressWarnings("CheckStyle")
@@ -43,9 +45,12 @@ public class CategoryController {
      * ModelMapper
      */
     private final ModelMapper modelMapper;
+    /**
+     * CircuitBreaker
+     */
+    private final CircuitBreaker circuitBreaker;
 
     //region Get Category
-
     /**
      * Retrieve all Categories
      * @param page
@@ -64,11 +69,14 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getAllCategories (
             @RequestParam(value = "page", defaultValue = "1",required = false) int page,
             @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws CommonApiException{
-        List<Category> categoryList = iCommonService.findAll(page, limit);
-        if (categoryList.isEmpty()){
-            logger.error(ApiExceptionEnums.EMPTY_LIST.name());
-            throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
-        }
+        List<Category> categoryList = circuitBreaker.executeSupplier(() -> {
+            List<Category> result = iCommonService.findAll(page, limit);
+            if (result.isEmpty()){
+                logger.error(ApiExceptionEnums.EMPTY_LIST.name());
+                throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
+            }
+            return result;
+        });
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
