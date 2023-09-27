@@ -38,6 +38,13 @@ public class Api {
      */
     public static final String SUBCATEGORY_BY_SUBCATEGORY_UID = "/{uid}";
 
+    //Reports Api
+    public static final String REPORTS = "/reports";
+    public static final String EXCEL_CATEGORIES_REPORT = "/excel/categories";
+    public static final String EXCEL_SUB_CATEGORIES_REPORT = "/excel/subcategories";
+    public static final String PDF_FULL_REPORT = "/pdf/full-report";
+    public static final String ZIP_REPORT = "/zip";
+    public static final String MULTI_SHEET_EXCEL_REPORT = "/multi-sheet-excel";
     /** Get Verb.
      *
      */
@@ -58,4 +65,7 @@ public class Api {
      *
      */
     public static final String ALLOWED_HEADERS = "*";
+
+
+
 }

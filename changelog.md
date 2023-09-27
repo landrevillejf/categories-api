@@ -13,7 +13,8 @@ All notable changes to this project will be documented in this fileDB.
 - Feature CircuitBreaker: CategoryController & SubCategoryController.
 - Logging in Controllers & Services.
 - UUIDGenerator to generate Uid field, eg.: 01ee5bcc-5b0e-137c-b955-6c9bb0ea43d1.
-
+- Feature Jasper Reports generation for categories and subcategories.
+- Excel reports for categories and subcategories, full pdf report, excel multi-sheets report, zip report.
 ### Changed
 
 - Change A: Description of a change or modification to an existing feature.
