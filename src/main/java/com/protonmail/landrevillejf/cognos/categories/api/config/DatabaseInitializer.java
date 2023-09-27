@@ -1,7 +1,21 @@
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.CategoryEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.*;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.AcademicsSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.BusinessSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.DesignSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.DevelopmentSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.HealthFitnessSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.ITSoftwareSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.LanguageSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.LifestyleSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.MarketingSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.MusicSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.OfficeProductivitySubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.PersonalDevelopmentSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.PhotographySubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.TeacherTrainingSubCategories;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.TestPrepSubCategoriesEnum;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;

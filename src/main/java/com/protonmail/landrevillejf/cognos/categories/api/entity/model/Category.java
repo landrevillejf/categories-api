@@ -2,7 +2,12 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.common.CommonEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
