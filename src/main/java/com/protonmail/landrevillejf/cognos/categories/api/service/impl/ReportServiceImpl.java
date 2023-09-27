@@ -77,6 +77,7 @@ public class ReportServiceImpl implements ReportService {
             SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
             int totalSubcategories = calculateTotalSubcategories(subCategory);
             reportDTO.setTotalSubcategories(totalSubcategories);
+            reportDTO.setCategory(subCategory.getCategory().getName());
             reportRecords.add(reportDTO);
         }
 

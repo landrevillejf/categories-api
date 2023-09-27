@@ -17,5 +17,5 @@ public class SubCategoryDto {
     /**
      *
      */
-    private String category;
+    private String categoryName;
 }
