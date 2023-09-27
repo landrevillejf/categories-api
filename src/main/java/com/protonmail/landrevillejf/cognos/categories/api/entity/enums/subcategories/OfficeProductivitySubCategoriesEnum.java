@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum OfficeProductivitySubCategoriesEnum {
     MICROSOFT("Microsoft","Microsoft"),
@@ -13,10 +14,21 @@ public enum OfficeProductivitySubCategoriesEnum {
     ORACLE("Oracle","Oracle"),
     OTHER("Office & Productivity Other","Office & Productivity Other");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
-    OfficeProductivitySubCategoriesEnum(String displayName, String description) {
+    /**
+     *
+     * @param displayName
+     * @param description
+     */
+    OfficeProductivitySubCategoriesEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

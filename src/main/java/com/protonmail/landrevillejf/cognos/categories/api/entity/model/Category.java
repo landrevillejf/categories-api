@@ -16,7 +16,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("CheckStyle")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,18 +26,29 @@ import java.util.List;
 public class Category extends CommonEntity {
 
     //region Fields Entity
-
-    @Column(name = "name",nullable = false)
+    /**
+     *
+     */
+    @Column(name = "name", nullable = false)
     private String name;
-
+    /**
+     *
+     */
     @Column(name = "description")
     private String description;
-
+    /**
+     *
+     */
     @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubCategory> subCategories = new ArrayList<>();
 
-    public Category(String name, String description) {
+    /**
+     *
+     * @param name
+     * @param description
+     */
+    public Category(final String name, final String description) {
         super();
         this.name = name;
         this.description = description;

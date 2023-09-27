@@ -9,18 +9,38 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 @Setter
 @Profile("dev,prod")
 @Configuration
 @ConfigurationProperties("spring.datasource")
 public class DBConfiguration {
-    Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
+    /**
+     *
+     */
+    private Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
+    /**
+     *
+     */
     private String driverClassName;
+    /**
+     *
+     */
     private String url;
+    /**
+     *
+     */
     private String username;
+    /**
+     *
+     */
     private String password;
 
+    /**
+     *
+     * @return
+     */
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {
@@ -30,6 +50,10 @@ public class DBConfiguration {
         return "DB connection for DEV";
     }
 
+    /**
+     *
+     * @return
+     */
     @Profile("test")
     @Bean
     public String testDatabaseConnection() {
@@ -39,6 +63,10 @@ public class DBConfiguration {
         return "DB Connection to TEST - Low Cost Instance";
     }
 
+    /**
+     *
+     * @return
+     */
     @Profile("staging")
     @Bean
     public String stagingDatabaseConnection() {
@@ -48,6 +76,10 @@ public class DBConfiguration {
         return "DB Connection to STAGING - Instance";
     }
 
+    /**
+     *
+     * @return
+     */
     @Profile("uat")
     @Bean
     public String uatDatabaseConnection() {
@@ -57,6 +89,10 @@ public class DBConfiguration {
         return "DB Connection to UAT - Instance";
     }
 
+    /**
+     *
+     * @return
+     */
     @Profile("prod")
     @Bean
     public String prodDatabaseConnection() {

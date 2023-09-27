@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("CheckStyle")
 @Transactional
 @Service
 public class CategoryServiceImpl implements ICommonService<Category> {

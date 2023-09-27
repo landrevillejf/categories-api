@@ -20,13 +20,19 @@ import lombok.Setter;
 public class SubCategory extends CommonEntity {
 
     //region Fields Entity
-
-    @Column(name = "name",nullable = false)
+    /**
+     *
+     */
+    @Column(name = "name", nullable = false)
     private String name;
-
+    /**
+     *
+     */
     @Column(name = "description")
     private String description;
-
+    /**
+     *
+     */
     @ManyToOne
     private Category category;
 }

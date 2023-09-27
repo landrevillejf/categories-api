@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum DevelopmentSubCategoriesEnum {
     WEB_DEVELOPMENT("Web Development","Web Development"),
@@ -14,10 +15,16 @@ public enum DevelopmentSubCategoriesEnum {
     DEVELOPMENT_TOOLS("Development Tools","Development Tools"),
     ECOMMERCE("E-Commerce","E-Commerce");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
-    DevelopmentSubCategoriesEnum(String displayName, String description) {
+    DevelopmentSubCategoriesEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

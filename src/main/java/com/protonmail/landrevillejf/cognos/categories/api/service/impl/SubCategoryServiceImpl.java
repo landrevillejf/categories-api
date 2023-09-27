@@ -1,5 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
@@ -21,39 +22,71 @@ import java.util.Optional;
 @Transactional
 @Service
 public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
+    /**
+     *
+     */
     Logger logger = LoggerFactory.getLogger(SubCategoryServiceImpl.class);
 
+    /**
+     *
+     */
     private final SubCategoryRepository repository;
 
+    /**
+     *
+     * @param repository
+     */
     public SubCategoryServiceImpl(SubCategoryRepository repository) {
         this.repository = repository;
     }
 
     //region Find Category
+
+    /**
+     *
+     * @param page
+     * @param limit
+     * @return
+     */
     @Override
     public List<SubCategory> findAll(int page, int limit) {
         if(page >0) page -=1;
-        Pageable pageable= PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC,"id"));
+        Pageable pageable= PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
         Page<SubCategory> categoryPage= repository.findAll(pageable);
 
         return categoryPage.getContent();
     }
 
+    /**
+     *
+     * @param page
+     * @param limit
+     * @param search
+     * @return
+     */
     @Override
-    public List<SubCategory> findAllByCriteria(int page, int limit, String search) {
-        if(page>0) page -=1;
-        Pageable pageable= PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC,"id"));
-        Page<SubCategory> featureTogglePage = null;
-        if(search ==null){
-            featureTogglePage= repository.findAll(pageable);
+    public List<SubCategory> findAllByCriteria(int page, final int limit, final String search) {
+        Pageable pageable = null;
+        Page<SubCategory> subCategories = null;
+        try {
+            if (page > 0) {
+                page -= 1;
+                pageable = PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
+            }
+            if (search == null) {
+                assert pageable != null;
+                subCategories = repository.findAll(pageable);
+            } else if (search.isEmpty()) {
+                assert pageable != null;
+                subCategories = repository.findAll(pageable);
+            } else {
+                subCategories = repository.findByNameContaining(pageable, search);
+            }
+        } catch (Exception e) {
+            logger.error("Error: {}", e.getMessage(), e);
         }
-        else if(search.isEmpty()){
-            featureTogglePage= repository.findAll(pageable);
-        }else{
-            featureTogglePage= repository.findByNameContaining(pageable,search);
-        }
-        assert featureTogglePage != null;
-        return featureTogglePage.getContent();
+        assert subCategories != null;
+        return subCategories.getContent();
     }
 
     @Override

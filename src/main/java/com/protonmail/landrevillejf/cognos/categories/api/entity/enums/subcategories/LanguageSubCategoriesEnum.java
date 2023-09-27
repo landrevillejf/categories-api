@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum LanguageSubCategoriesEnum {
     ENGLISH("English","English"),
@@ -18,10 +19,21 @@ public enum LanguageSubCategoriesEnum {
     ITALIAN("Italian","Italian"),
     OTHER("Other","Other");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
-    LanguageSubCategoriesEnum(String displayName, String description) {
+    /**
+     *
+     * @param displayName
+     * @param description
+     */
+    LanguageSubCategoriesEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

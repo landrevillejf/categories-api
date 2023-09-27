@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums;
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum CategoryEnum {
     BUSINESS("Business","Business"),
@@ -23,10 +24,21 @@ public enum CategoryEnum {
     TEST_PREP("Test Preparation","Test Preparation"),
     LANGUAGE("Language","Language");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
-    CategoryEnum(String displayName, String description) {
+    /**
+     *
+     * @param displayName
+     * @param description
+     */
+    CategoryEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

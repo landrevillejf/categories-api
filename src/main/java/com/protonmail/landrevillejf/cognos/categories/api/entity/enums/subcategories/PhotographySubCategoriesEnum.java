@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum PhotographySubCategoriesEnum {
     DIGITAL_PHOTOGRAPHY("Digital Photography","Digital Photography"),
@@ -17,10 +18,21 @@ public enum PhotographySubCategoriesEnum {
     Wildlife_PHOTOGRAPHY("Wildlife Photography","Wildlife Photography"),
     OTHER("Photography Other","Photography Other");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
-    PhotographySubCategoriesEnum(String displayName, String description) {
+    /**
+     *
+     * @param displayName
+     * @param description
+     */
+    PhotographySubCategoriesEnum(final String displayName, final String description) {
         this.displayName = displayName;
         this.description = description;
     }

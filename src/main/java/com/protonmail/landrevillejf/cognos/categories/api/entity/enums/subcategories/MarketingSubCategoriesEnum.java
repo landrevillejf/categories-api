@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcateg
 
 import lombok.Getter;
 
+@SuppressWarnings("CheckStyle")
 @Getter
 public enum MarketingSubCategoriesEnum {
     Digital_Marketing("Digital Marketing","Digital Marketing"),
@@ -20,9 +21,20 @@ public enum MarketingSubCategoriesEnum {
     Affiliate_Marketing("Affiliate Marketing","Affiliate Marketing"),
     OTHER("Marketing Other","Marketing Other");
 
+    /**
+     *
+     */
     private final String displayName;
+    /**
+     *
+     */
     private final String description;
 
+    /**
+     *
+     * @param displayName
+     * @param description
+     */
     MarketingSubCategoriesEnum(String displayName, String description) {
         this.displayName = displayName;
         this.description = description;

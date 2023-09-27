@@ -8,9 +8,25 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubCategoryRepository extends CommonRepository<SubCategory> {
+    /**
+     *
+     * @param name
+     * @return
+     */
     SubCategory findByName(String name);
 
+    /**
+     *
+     * @param pageable
+     * @param search
+     * @return
+     */
     Page<SubCategory> findByNameContaining(Pageable pageable, String search);
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     boolean existsByName(String s);
 }

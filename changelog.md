@@ -6,9 +6,13 @@ All notable changes to this project will be documented in this fileDB.
 
 ### Added
 
-- Feature Cucumber Test: A brief description of the new feature or enhancement.
-- Feature Changelog: Another new feature or enhancement.
-- Dto / Object Mapper: Another new feature or enhancement.
+- Feature Cucumber Tests: A brief description of the new feature or enhancement.
+- Feature JUnit 5 Tests: End to End tests.
+- Feature Changelog: File for changelog details.
+- Dto / Object Mapper: Use ObjectMapper to map to DTOs.
+- Feature CircuitBreaker: CategoryController & SubCategoryController.
+- Logging in Controllers & Services.
+- UUIDGenerator to generate Uid field, eg.: 01ee5bcc-5b0e-137c-b955-6c9bb0ea43d1.
 
 ### Changed
 
