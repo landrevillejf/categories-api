@@ -28,20 +28,25 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements ICommonService<Category> {
     /**
-     *
+     * Logger for this class.
      */
     private final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     /**
-     *
+     * The repository for Category entities.
      */
     private final CategoryRepository repository;
 
+    /**
+     * The repository for SubCategory entities.
+     */
     private final SubCategoryRepository subCategoryRepository;
 
     /**
-     * @param repository
-     * @param subCategoryRepository
+     * Constructs a new CategoryServiceImpl with the specified repositories.
+     *
+     * @param repository            The repository for Category entities.
+     * @param subCategoryRepository The repository for SubCategory entities.
      */
     public CategoryServiceImpl(final CategoryRepository repository, SubCategoryRepository subCategoryRepository) {
         this.repository = repository;
@@ -114,9 +119,10 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     }
 
     /**
+     * Find a Category entity by its unique identifier (UID).
      *
-     * @param uid
-     * @return
+     * @param uid The UID of the Category to find.
+     * @return The found Category entity, or null if not found.
      */
     @ExecutionTime
     @Override
@@ -126,11 +132,11 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     //endregion
 
     //region Save Category
-
     /**
+     * Save a new Category entity.
      *
-     * @param entity
-     * @return
+     * @param entity The Category entity to save.
+     * @return The saved Category entity.
      */
     @ExecutionTime
     @Override
@@ -144,24 +150,18 @@ public class CategoryServiceImpl implements ICommonService<Category> {
         }
 
         try {
-            // Create and add SubCategory entities here if needed
             List<SubCategory> subCategories = entity.getSubCategories();
             if (subCategories != null) {
                 for (SubCategory subCategory : subCategories) {
-                    // Check if the subCategory has a uid
                     if (subCategory.getUid() == null) {
                         logger.error("ERROR");
                         throw new CommonApiException("Subcategory UID is required");
                     }
-
-                    // Retrieve the SubCategory by uid
                     SubCategory existingSubCategory = subCategoryRepository.findByUid(subCategory.getUid());
                     if (existingSubCategory == null) {
                         logger.error("Subcategory not found");
                         throw new CommonApiException("Subcategory not found with UID: " + subCategory.getUid());
                     }
-
-                    // Set the reference to the parent Category
                     subCategory.setCategory(existingSubCategory.getCategory());
                 }
             }
@@ -171,23 +171,19 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             entity.setUid(UUIDGenerator.generateType1UUID().toString());
             entity.setCreatedAt(LocalDateTime.now());
         } catch (Exception e) {
-            // Log the exception
             logger.error("Failed to save values: {}", e.getMessage(), e);
         }
 
         return repository.save(entity);
     }
-
-
-
     //endregion
 
     //region Update Category
-
     /**
+     * Update an existing Category entity.
      *
-     * @param entity
-     * @return
+     * @param entity The updated Category entity.
+     * @return The updated Category entity.
      */
     @ExecutionTime
     @Override
@@ -210,10 +206,11 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     }
 
     /**
+     * Update an existing Category entity by its UID.
      *
-     * @param entity
-     * @param uid
-     * @return
+     * @param entity The updated Category entity.
+     * @param uid    The UID of the Category to update.
+     * @return The updated Category entity.
      */
     @ExecutionTime
     @Override
@@ -239,8 +236,9 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     //region Delete Category
 
     /**
+     * Delete a Category entity.
      *
-     * @param entity
+     * @param entity The Category entity to delete.
      */
     @ExecutionTime
     @Override
@@ -254,8 +252,9 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     }
 
     /**
+     * Delete a Category entity by its UID.
      *
-     * @param uid
+     * @param uid The UID of the Category to delete.
      */
     @ExecutionTime
     @Override
@@ -269,7 +268,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     }
 
     /**
-     *
+     * Delete all Category entities.
      */
     @ExecutionTime
     @Override
@@ -286,8 +285,9 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     //region Count Category
 
     /**
+     * Get the total count of Category entities.
      *
-     * @return
+     * @return The total count of Category entities.
      */
     @ExecutionTime
     @Override
