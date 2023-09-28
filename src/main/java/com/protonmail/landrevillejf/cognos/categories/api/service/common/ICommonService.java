@@ -7,6 +7,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+
 @SuppressWarnings("CheckStyle")
 @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
