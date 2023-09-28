@@ -1,5 +1,6 @@
-package com.protonmail.landrevillejf.cognos.categories.api.filter;
+package com.protonmail.landrevillejf.cognos.categories.api.config;
 
+import com.protonmail.landrevillejf.cognos.categories.api.filter.LoggingFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
