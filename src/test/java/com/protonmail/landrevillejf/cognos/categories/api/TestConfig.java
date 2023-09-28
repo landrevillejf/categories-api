@@ -13,8 +13,8 @@ public class TestConfig {
         return new ModelMapper();
     }
 
-    @Bean
+    @Bean(name = "cognosCircuitBreaker")
     public CircuitBreaker circuitBreaker() {
-        return CircuitBreaker.ofDefaults("myCircuitBreakerName");
+        return CircuitBreaker.ofDefaults("cognosCircuitBreaker");
     }
 }

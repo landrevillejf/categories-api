@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +58,9 @@ public class CategoryController {
     /**
      * CircuitBreaker
      */
-    private final CircuitBreaker circuitBreaker;
+    @Autowired
+    @Qualifier("cognosCircuitBreaker")
+    private CircuitBreaker circuitBreaker;
 
     //region Get Category
     /**

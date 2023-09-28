@@ -5,6 +5,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,7 @@ public class CircuitBreakerConfiguration {
      *
      * @return CircuitBreaker
      */
+    @Qualifier("cognosCircuitBreaker")
     @Bean
     public CircuitBreaker circuitBreaker() {
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
