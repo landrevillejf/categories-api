@@ -1,6 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.entity.common;
 
-
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
@@ -15,6 +14,10 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * This is a base class for common entities in the application.
+ * It provides common fields like 'id' and 'uid' for entity classes.
+ */
 @SuppressWarnings("CheckStyle")
 @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
@@ -29,7 +32,7 @@ import java.io.Serializable;
 public class CommonEntity implements Serializable{
 
     /** id.
-     *
+     * The unique identifier for the entity.
      */
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @Id
@@ -37,7 +40,7 @@ public class CommonEntity implements Serializable{
     private long id;
 
     /** uid.
-     *
+     * The universally unique identifier (UID) for the entity.
      */
     @Column(name = "uid", nullable = false)
     private String uid;
