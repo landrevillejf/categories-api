@@ -122,10 +122,13 @@ public class ReportServiceImpl implements ReportService {
         List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
         for (Category category : categoryList) {
-            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
             int totalSubcategories = subCategoryRepository.countByCategory(category);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            mainReportRecords.add(reportDTO);
+            categoryReportDTO.setTotalSubcategories(totalSubcategories);
+            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+            mainReportRecords.add(categoryReportDTO);
         }
 
         String dateAsString = Utils.getCurrentDateAsString();
@@ -140,9 +143,11 @@ public class ReportServiceImpl implements ReportService {
         List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
 
         for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            reportDTO.setCategory(subCategory.getCategory().getName());
-            subReportRecords.add(reportDTO);
+            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+            subReportRecords.add(subCategoryReportDTO);
         }
 
         String dateAsString = Utils.getCurrentDateAsString();
@@ -159,19 +164,24 @@ public class ReportServiceImpl implements ReportService {
         List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
         for (Category category : categoryList) {
-            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
             int totalSubcategories = subCategoryRepository.countByCategory(category);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            mainReportRecords.add(reportDTO);
+            categoryReportDTO.setTotalSubcategories(totalSubcategories);
+            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+            mainReportRecords.add(categoryReportDTO);
         }
 
         List<SubCategory> subCategoryList = subCategoryRepository.findAll();
         List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
 
         for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            reportDTO.setCategory(subCategory.getCategory().getName());
-            subReportRecords.add(reportDTO);
+            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+            subReportRecords.add(subCategoryReportDTO);
         }
 
 
@@ -211,19 +221,24 @@ public class ReportServiceImpl implements ReportService {
         List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
         for (Category category : categoryList) {
-            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
             int totalSubcategories = subCategoryRepository.countByCategory(category);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            mainReportRecords.add(reportDTO);
+            categoryReportDTO.setTotalSubcategories(totalSubcategories);
+            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+            mainReportRecords.add(categoryReportDTO);
         }
 
         List<SubCategory> subCategoryList = subCategoryRepository.findAll();
         List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
 
         for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            reportDTO.setCategory(subCategory.getCategory().getName());
-            subReportRecords.add(reportDTO);
+            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+            subReportRecords.add(subCategoryReportDTO);
         }
 
         String subCategoryFileName = "SubCategory_Report_" + dateAsString + ".xlsx";
@@ -266,21 +281,24 @@ public class ReportServiceImpl implements ReportService {
         List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
         for (Category category : categoryList) {
-            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
             int totalSubcategories = subCategoryRepository.countByCategory(category);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            mainReportRecords.add(reportDTO);
+            categoryReportDTO.setTotalSubcategories(totalSubcategories);
+            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+            mainReportRecords.add(categoryReportDTO);
         }
 
         List<SubCategory> subCategoryList = subCategoryRepository.findAll();
         List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
 
         for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            int totalSubcategories = calculateTotalSubcategories(subCategory);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            reportDTO.setCategory(subCategory.getCategory().getName());
-            subReportRecords.add(reportDTO);
+            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+            subReportRecords.add(subCategoryReportDTO);
         }
 
         // prepare categories sub report
