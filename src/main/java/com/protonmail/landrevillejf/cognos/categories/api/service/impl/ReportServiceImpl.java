@@ -1,6 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryReportDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.SubCategoryReportDTO;
@@ -24,34 +23,50 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@SuppressWarnings("CheckStyle")
 @AllArgsConstructor
 @Service
 public class ReportServiceImpl implements ReportService {
-
+    /**
+     *
+     */
     private final CategoryRepository categoryRepository;
+    /**
+     *
+     */
     private final SubCategoryRepository subCategoryRepository;
+    /**
+     *
+     */
     private final SimpleReportExporter reportExporter;
+    /**
+     *
+     */
     private final SimpleReportFiller simpleReportFiller;
 
-
+    /**
+     *
+     * @return
+     * @throws JRException
+     */
     @ExecutionTime
     @Override
     public FileDTO generateCategoriesExcelReport() throws JRException {
-
         List<Category> categoryList = categoryRepository.findAll();
-        List<CategoryReportDTO> reportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+        List<CategoryReportDTO> reportRecords = new ArrayList<>();
 
         for (Category category : categoryList) {
-            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
             int totalSubcategories = subCategoryRepository.countByCategory(category);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            reportRecords.add(reportDTO);
+            categoryReportDTO.setTotalSubcategories(totalSubcategories);
+            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+            reportRecords.add(categoryReportDTO);
         }
 
         String dateAsString = Utils.getCurrentDateAsString();
@@ -75,11 +90,11 @@ public class ReportServiceImpl implements ReportService {
         List<SubCategoryReportDTO> reportRecords = new ArrayList<>();
 
         for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            int totalSubcategories = calculateTotalSubcategories(subCategory);
-            reportDTO.setTotalSubcategories(totalSubcategories);
-            reportDTO.setCategory(subCategory.getCategory().getName());
-            reportRecords.add(reportDTO);
+            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+            reportRecords.add(subCategoryReportDTO);
         }
 
         String dateAsString = Utils.getCurrentDateAsString();
@@ -102,18 +117,63 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @ExecutionTime
+    public FileDTO generatePdfCategoriesReport() throws JRException {
+        List<Category> categoryList = categoryRepository.findAll();
+        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+
+        for (Category category : categoryList) {
+            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            int totalSubcategories = subCategoryRepository.countByCategory(category);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            mainReportRecords.add(reportDTO);
+        }
+
+        String dateAsString = Utils.getCurrentDateAsString();
+        String fileName = "Categories_Report_" + dateAsString + ".pdf";
+
+        return null;
+    }
+
+    @ExecutionTime
+    public FileDTO generatePdfSubCategoriesReport() throws JRException {
+        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+        List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
+
+        for (SubCategory subCategory : subCategoryList) {
+            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            reportDTO.setCategory(subCategory.getCategory().getName());
+            subReportRecords.add(reportDTO);
+        }
+
+        String dateAsString = Utils.getCurrentDateAsString();
+        String fileName = "Subcategories_Report_" + dateAsString + ".pdf";
+
+        return null;
+    }
+
+    @ExecutionTime
     @Override
     public FileDTO generatePdfFullReport() throws JRException {
 
-        List<Category> categoriesMainReport = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(categoriesMainReport, CategoryReportDTO.class));
+        List<Category> categoryList = categoryRepository.findAll();
+        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
-        List<SubCategory> subcategoryListSubReport = subCategoryRepository.findAll();
-        List<SubCategoryReportDTO> subReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
+        for (Category category : categoryList) {
+            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            int totalSubcategories = subCategoryRepository.countByCategory(category);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            mainReportRecords.add(reportDTO);
+        }
+
+        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+        List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
+
+        for (SubCategory subCategory : subCategoryList) {
+            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            reportDTO.setCategory(subCategory.getCategory().getName());
+            subReportRecords.add(reportDTO);
+        }
+
 
         String dateAsString = Utils.getCurrentDateAsString();
         String fileName = "Full_Report_" + dateAsString + ".pdf";
@@ -147,19 +207,30 @@ public class ReportServiceImpl implements ReportService {
 
         String dateAsString = Utils.getCurrentDateAsString();
 
-        List<SubCategory> subcategoryListSubReport = subCategoryRepository.findAll();
-        List<SubCategoryReportDTO> subReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
+        List<Category> categoryList = categoryRepository.findAll();
+        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+
+        for (Category category : categoryList) {
+            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            int totalSubcategories = subCategoryRepository.countByCategory(category);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            mainReportRecords.add(reportDTO);
+        }
+
+        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+        List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
+
+        for (SubCategory subCategory : subCategoryList) {
+            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            reportDTO.setCategory(subCategory.getCategory().getName());
+            subReportRecords.add(reportDTO);
+        }
+
         String subCategoryFileName = "SubCategory_Report_" + dateAsString + ".xlsx";
 
         JasperPrint jasperPrintSubCategories = reportExporter.extractResultsToJasperPrint(
                 subReportRecords, subCategoryFileName, "jrxml/excel/subcategoriesExcelReport");
 
-        List<Category> categoriesMainReport = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(categoriesMainReport, CategoryReportDTO.class));
         String categoryFileName = "Category_Report_" + dateAsString + ".xlsx";
 
         JasperPrint jasperPrintCategories = reportExporter.extractResultsToJasperPrint(
@@ -191,15 +262,26 @@ public class ReportServiceImpl implements ReportService {
         String dateAsString = Utils.getCurrentDateAsString();
         String excelFileName = "Multi_Sheet_Report_" + dateAsString + ".xlsx";
 
-        List<Category> categoriesMainReport = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(categoriesMainReport, CategoryReportDTO.class));
+        List<Category> categoryList = categoryRepository.findAll();
+        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
 
-        List<SubCategory> subcategoryListSubReport = subCategoryRepository.findAll();
-        List<SubCategoryReportDTO> subReportRecords =
-                Collections.singletonList(
-                        EntityDtoMapper.convertToDto(subcategoryListSubReport, SubCategoryReportDTO.class));
+        for (Category category : categoryList) {
+            CategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+            int totalSubcategories = subCategoryRepository.countByCategory(category);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            mainReportRecords.add(reportDTO);
+        }
+
+        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+        List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
+
+        for (SubCategory subCategory : subCategoryList) {
+            SubCategoryReportDTO reportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+            int totalSubcategories = calculateTotalSubcategories(subCategory);
+            reportDTO.setTotalSubcategories(totalSubcategories);
+            reportDTO.setCategory(subCategory.getCategory().getName());
+            subReportRecords.add(reportDTO);
+        }
 
         // prepare categories sub report
         JasperReport categorySubReport = simpleReportFiller.compileReport("jrxml/excel/categoriesExcelReport");

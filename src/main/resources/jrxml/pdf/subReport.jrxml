@@ -7,6 +7,7 @@
 	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<field name="id" class="java.lang.Long"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="category" class="java.lang.String"/>
@@ -36,7 +37,7 @@
 					<font size="12" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Total Subcategories:]]></text>
+				<text><![CDATA[Total Employees:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="120" y="6" width="160" height="25" uuid="f33f8398-1d1e-4b0b-ac25-1ad0dc31f25c">
@@ -64,7 +65,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[name]]></text>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="140" y="0" width="140" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="6da2c99a-5193-4289-bb7f-70f663a4c39e">
@@ -77,7 +78,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[description]]></text>
+				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="280" y="0" width="150" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="2b97378e-10d4-4aff-bfdf-b7a37e69457a">
@@ -90,11 +91,23 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<text><![CDATA[category]]></text>
+				<text><![CDATA[Description]]></text>
 			</staticText>
-
 			<staticText>
-				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="430" y="0" width="140" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="61ce10d4-f5a5-4cc8-87f1-cc9dd9e73b28">
+				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="430" y="0" width="150" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="c2004f05-a50d-4048-a2c2-d1593d540742">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Category Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="580" y="0" width="140" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="61ce10d4-f5a5-4cc8-87f1-cc9dd9e73b28">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -107,7 +120,7 @@
 				<text><![CDATA[Created At]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="580" y="0" width="120" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="32eacc63-6c24-4fa6-be3e-6aac00c26275">
+				<reportElement positionType="Float" stretchType="ContainerHeight" mode="Opaque" x="720" y="0" width="120" height="45" forecolor="#FFFFFF" backcolor="#1B82CC" uuid="32eacc63-6c24-4fa6-be3e-6aac00c26275">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -138,7 +151,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="140" y="0" width="140" height="32" uuid="193fa4b8-454b-46ad-9185-ef90912a5f16">
@@ -155,7 +168,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="280" y="0" width="150" height="32" uuid="b818b5f1-3dbc-44a8-b033-556dcb363b8e">
@@ -171,11 +184,26 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
-
+			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="430" y="0" width="150" height="32" uuid="fcd11e9e-dab5-4061-80d7-36db724fc397">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
 			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="430" y="0" width="140" height="32" uuid="dcca902d-4315-4a40-8006-87dc4a070ca0">
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="580" y="0" width="140" height="32" uuid="dcca902d-4315-4a40-8006-87dc4a070ca0">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -191,7 +219,7 @@
 				<textFieldExpression><![CDATA[java.util.Date.from($F{createdAt}.atZone(java.time.ZoneId.systemDefault()).toInstant())]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="580" y="0" width="120" height="32" uuid="22dc3feb-47de-4b6b-89d7-a75696091ffa">
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="720" y="0" width="120" height="32" uuid="22dc3feb-47de-4b6b-89d7-a75696091ffa">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
