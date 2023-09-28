@@ -112,50 +112,7 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
-    private int calculateTotalSubcategories(SubCategory subCategory) {
-        return (int) subCategoryRepository.count();
-    }
-
-    @ExecutionTime
-    public FileDTO generatePdfCategoriesReport() throws JRException {
-        List<Category> categoryList = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
-
-        for (Category category : categoryList) {
-            CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
-            int totalSubcategories = subCategoryRepository.countByCategory(category);
-            categoryReportDTO.setTotalSubcategories(totalSubcategories);
-            categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
-            categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
-
-            mainReportRecords.add(categoryReportDTO);
-        }
-
-        String dateAsString = Utils.getCurrentDateAsString();
-        String fileName = "Categories_Report_" + dateAsString + ".pdf";
-
-        return null;
-    }
-
-    @ExecutionTime
-    public FileDTO generatePdfSubCategoriesReport() throws JRException {
-        List<SubCategory> subCategoryList = subCategoryRepository.findAll();
-        List<SubCategoryReportDTO> subReportRecords = new ArrayList<>();
-
-        for (SubCategory subCategory : subCategoryList) {
-            SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
-            subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
-            subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
-            subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
-            subReportRecords.add(subCategoryReportDTO);
-        }
-
-        String dateAsString = Utils.getCurrentDateAsString();
-        String fileName = "Subcategories_Report_" + dateAsString + ".pdf";
-
-        return null;
-    }
-
+    // TODO: 2023-09-28 not working
     @ExecutionTime
     @Override
     public FileDTO generatePdfFullReport() throws JRException {
@@ -271,6 +228,7 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    // TODO: 2023-09-28 not working
     @Override
     public FileDTO generateMultiSheetExcelReport() throws JRException {
 
