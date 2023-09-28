@@ -19,34 +19,38 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service implementation class for managing SubCategory entities.
+ */
 @Transactional
 @Service
 public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     /**
-     *
+     * Logger for this class.
      */
-    Logger logger = LoggerFactory.getLogger(SubCategoryServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(SubCategoryServiceImpl.class);
 
     /**
-     *
+     * The repository for SubCategory entities.
      */
     private final SubCategoryRepository repository;
 
     /**
+     * Constructs a new SubCategoryServiceImpl with the specified repository.
      *
-     * @param repository
+     * @param repository The repository for SubCategory entities.
      */
     public SubCategoryServiceImpl(SubCategoryRepository repository) {
         this.repository = repository;
     }
 
     //region Find Category
-
     /**
+     * Find all SubCategory entities with pagination.
      *
-     * @param page
-     * @param limit
-     * @return
+     * @param page  The page number.
+     * @param limit The number of SubCategory entities per page.
+     * @return A list of SubCategory entities for the specified page and limit.
      */
     @Override
     public List<SubCategory> findAll(int page, int limit) {
@@ -61,11 +65,12 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     }
 
     /**
+     * Find all SubCategory entities by criteria with pagination.
      *
-     * @param page
-     * @param limit
-     * @param search
-     * @return
+     * @param page   The page number.
+     * @param limit  The number of SubCategory entities per page.
+     * @param search The search criteria for filtering SubCategory entities.
+     * @return A list of SubCategory entities based on the criteria.
      */
     @Override
     public List<SubCategory> findAllByCriteria(int page, int limit, String search) {
@@ -92,12 +97,23 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         return subCategories.getContent();
     }
 
+    /**
+     * Find a SubCategory entity by its ID.
+     *
+     * @param id The ID of the SubCategory to find.
+     * @return The found SubCategory entity, or null if not found.
+     */
     @Override
     public SubCategory findById(long id) {
         Optional <SubCategory> category = repository.findById(id);
         return category.orElse(null);
     }
-
+    /**
+     * Find a SubCategory entity by its unique identifier (UID).
+     *
+     * @param uid The UID of the SubCategory to find.
+     * @return The found SubCategory entity, or null if not found.
+     */
     @Override
     public SubCategory findByUid(String uid) {
         return repository.findByUid(uid);
@@ -105,6 +121,12 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //endregion
 
     //region Save Category
+    /**
+     * Save a new SubCategory entity.
+     *
+     * @param entity The SubCategory entity to save.
+     * @return The saved SubCategory entity.
+     */
     @Override
     public SubCategory save(SubCategory entity) {
         String categoryName = (entity.getName().trim()).toLowerCase();
@@ -128,6 +150,12 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //endregion
 
     //region Update Category
+    /**
+     * Update an existing SubCategory entity.
+     *
+     * @param entity The updated SubCategory entity.
+     * @return The updated SubCategory entity.
+     */
     @Override
     public SubCategory update(SubCategory entity) {
         SubCategory category = findByUid(entity.getUid());
@@ -146,7 +174,13 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
 
         return repository.save(category);
     }
-
+    /**
+     * Update an existing SubCategory entity by its UID.
+     *
+     * @param entity The updated SubCategory entity.
+     * @param uid    The UID of the SubCategory to update.
+     * @return The updated SubCategory entity.
+     */
     @Override
     public SubCategory update(SubCategory entity, String uid) {
         SubCategory category = findByUid(uid);
@@ -168,6 +202,11 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //endregion
 
     //region Delete Category
+    /**
+     * Delete a SubCategory entity.
+     *
+     * @param entity The SubCategory entity to delete.
+     */
     @Override
     public void delete(SubCategory entity) {
         int categoryListSize = repository.findAll().size();
@@ -177,7 +216,11 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         }
         repository.delete(entity);
     }
-
+    /**
+     * Delete a SubCategory entity by its UID.
+     *
+     * @param uid The UID of the SubCategory to delete.
+     */
     @Override
     public void deleteByUid(String uid) {
         SubCategory category=findByUid(uid);
@@ -187,7 +230,9 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         }
         repository.delete(category);
     }
-
+    /**
+     * Delete all SubCategory entities.
+     */
     @Override
     public void deleteAll() {
         int categoryListSize = repository.findAll().size();
@@ -200,6 +245,11 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     //endregion
 
     //region Count Category
+    /**
+     * Get the total count of SubCategory entities.
+     *
+     * @return The total count of SubCategory entities.
+     */
     @Override
     public long count() {
         return repository.count();
