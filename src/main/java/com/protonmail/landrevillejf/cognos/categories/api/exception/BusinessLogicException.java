@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class BusinessLogicException extends RuntimeException {
 
-
+    /**
+     *
+     */
     private String message;
 
+    /**
+     *
+     * @param message
+     */
     public BusinessLogicException(String message) {
         this.message = message;
     }

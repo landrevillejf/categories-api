@@ -1,5 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.exception;
 
+@SuppressWarnings("CheckStyle")
 public class DuplicateEntryException extends RuntimeException {
     /**
      *
