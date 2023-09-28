@@ -24,8 +24,6 @@ public class EntityDtoMapper {
      */
     private static final ModelMapper modelMapper = new ModelMapper();
 
-    // Convert Entity to DTO
-
     /**convertToDto.
      * CategoryDto categoryDto = EntityDtoMapper.convertToDto(category, CategoryDto.class);
      * @param entity
@@ -37,8 +35,6 @@ public class EntityDtoMapper {
     public static <D, E> D convertToDto(E entity, Class<D> dtoClass) {
         return modelMapper.map(entity, dtoClass);
     }
-
-    // Convert DTO to Entity
 
     /**convertToEntity.
      * Category category = EntityDtoMapper.convertToEntity(categoryDto, Category.class);
@@ -66,9 +62,7 @@ public class EntityDtoMapper {
                 .collect(Collectors.toList());
     }
 
-    // If you have more complex mappings or specific configuration, you can configure ModelMapper here
     static {
-        // Example configuration (customize as needed)
          modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 }
