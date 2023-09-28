@@ -19,6 +19,10 @@ public class SubCategoryDto {
     /**
      *
      */
+    private String uid;
+    /**
+     *
+     */
     private String description;
     /**
      *

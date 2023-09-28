@@ -2,11 +2,14 @@ package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
+import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -34,12 +37,15 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      */
     private final CategoryRepository repository;
 
+    private final SubCategoryRepository subCategoryRepository;
+
     /**
-     *
      * @param repository
+     * @param subCategoryRepository
      */
-    public CategoryServiceImpl(final CategoryRepository repository) {
+    public CategoryServiceImpl(final CategoryRepository repository, SubCategoryRepository subCategoryRepository) {
         this.repository = repository;
+        this.subCategoryRepository = subCategoryRepository;
     }
 
     //region Find Category
@@ -122,17 +128,40 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param entity
      * @return
      */
+    @ExecutionTime
     @Override
     public Category save(Category entity) {
-        String categoryName=(entity.getName());
+        String categoryName = entity.getName();
 
-        Category getCategory= repository.findByName(categoryName);
-        if (getCategory != null){
+        Category getCategory = repository.findByName(categoryName);
+        if (getCategory != null) {
             logger.error(ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
         }
 
         try {
+            // Create and add SubCategory entities here if needed
+            List<SubCategory> subCategories = entity.getSubCategories();
+            if (subCategories != null) {
+                for (SubCategory subCategory : subCategories) {
+                    // Check if the subCategory has a uid
+                    if (subCategory.getUid() == null) {
+                        logger.error("ERROR");
+                        throw new CommonApiException("Subcategory UID is required");
+                    }
+
+                    // Retrieve the SubCategory by uid
+                    SubCategory existingSubCategory = subCategoryRepository.findByUid(subCategory.getUid());
+                    if (existingSubCategory == null) {
+                        logger.error("Subcategory not found");
+                        throw new CommonApiException("Subcategory not found with UID: " + subCategory.getUid());
+                    }
+
+                    // Set the reference to the parent Category
+                    subCategory.setCategory(existingSubCategory.getCategory());
+                }
+            }
+
             entity.setName(entity.getName());
             entity.setDescription(entity.getDescription());
             entity.setUid(UUIDGenerator.generateType1UUID().toString());
@@ -144,6 +173,9 @@ public class CategoryServiceImpl implements ICommonService<Category> {
 
         return repository.save(entity);
     }
+
+
+
     //endregion
 
     //region Update Category

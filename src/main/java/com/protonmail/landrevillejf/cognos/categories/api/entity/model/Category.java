@@ -43,7 +43,7 @@ public class Category extends CommonEntity {
      *
      */
     @JsonIgnoreProperties("category")
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private List<SubCategory> subCategories = new ArrayList<>();
 
     @CreationTimestamp
