@@ -36,6 +36,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * DatabaseInitializer initializes the database with categories and subcategories.
+ *
+ */
 @SuppressWarnings("CheckStyle")
 @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
 @Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
@@ -46,24 +50,26 @@ import java.util.Map;
 )
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
-    @SuppressWarnings("CheckStyle")
     /**
-     *
+     * Logger for DatabaseInitializer.
      */
     private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializer.class);
+
     /**
-     *
+     * Repository for categories.
      */
     private final CategoryRepository categoryRepository;
+
     /**
-     *
+     * Repository for subcategories.
      */
     private final SubCategoryRepository subCategoryRepository;
 
     /**
+     * Constructor for DatabaseInitializer.
      *
-     * @param categoryRepository
-     * @param subCategoryRepository
+     * @param categoryRepository    The category repository.
+     * @param subCategoryRepository The subcategory repository.
      */
     public DatabaseInitializer(final CategoryRepository categoryRepository, final SubCategoryRepository subCategoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -71,8 +77,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     /**
-     *
-     * @param args incoming main method arguments
+     * {@inheritDoc}
      */
     @ExecutionTime
     @Override
@@ -81,7 +86,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     /**
-     *
+     * Initialize categories and subcategories in the database.
      */
     private void initializeCategories() {
         List<CategoryEnum> statusNames = Arrays.asList(
