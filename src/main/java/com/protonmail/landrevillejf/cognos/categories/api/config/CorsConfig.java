@@ -1,3 +1,7 @@
+/**
+ * CorsConfig is a configuration class for handling Cross-Origin Resource Sharing (CORS) in the application.
+ * It implements the WebMvcConfigurer interface to configure CORS settings.
+ */
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
@@ -19,8 +23,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     /**
+     * Configures CORS settings for specific API endpoints.
      *
-     * @param registry
+     * @param registry The CorsRegistry instance used to register CORS configurations.
      */
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
@@ -30,3 +35,4 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders(Api.ALLOWED_HEADERS);
     }
 }
+
