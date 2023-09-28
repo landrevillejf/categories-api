@@ -4,6 +4,10 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 
+/**
+ * A custom exception class for common API-related exceptions.
+ *
+ */
 @SuppressWarnings("CheckStyle")
 @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
@@ -14,17 +18,19 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 )
 public class CommonApiException extends RuntimeException {
     /**
+     * Constructs a new CommonApiException with the specified error message.
      *
-     * @param message
+     * @param message The error message.
      */
     public CommonApiException(final String message) {
         super(message);
     }
 
     /**
+     * Constructs a new CommonApiException with the specified error message and cause.
      *
-     * @param message
-     * @param cause
+     * @param message The error message.
+     * @param cause   The cause of this exception.
      */
     public CommonApiException(final String message, final Throwable cause) {
         super(message, cause);
