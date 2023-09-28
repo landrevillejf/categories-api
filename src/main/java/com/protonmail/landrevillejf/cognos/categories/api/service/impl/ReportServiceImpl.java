@@ -112,13 +112,12 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
-    // TODO: 2023-09-28 not working
     @ExecutionTime
     @Override
     public FileDTO generatePdfFullReport() throws JRException {
 
         List<Category> categoryList = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+        List<CategoryReportDTO> mainReportRecords =  new ArrayList<>();
 
         for (Category category : categoryList) {
             CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
