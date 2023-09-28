@@ -1,5 +1,8 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +11,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+		date = "2020-01-01",
+		revision = 1,
+		comments = "Author CronUtil"
+)
 @SuppressWarnings("CheckStyle")
 public class CronUtil {
 	/**Logger.

@@ -1,14 +1,28 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.annotation.Documented;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
+
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2022-10-28",
+        revision = 1,
+        comments = "Author UUIDGenerator"
+)
+@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 @SuppressWarnings("CheckStyle")
 public class UUIDGenerator {
 

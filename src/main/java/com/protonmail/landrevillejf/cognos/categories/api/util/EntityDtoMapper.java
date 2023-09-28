@@ -1,11 +1,22 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2023-09-26",
+        revision = 1,
+        comments = "Author UUIDGenerator"
+)
 public class EntityDtoMapper {
 
     /**

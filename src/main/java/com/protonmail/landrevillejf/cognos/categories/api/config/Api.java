@@ -1,6 +1,17 @@
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
+
 @SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2020-01-01",
+        revision = 1,
+        comments = "Author Api"
+)
 public class Api {
     //URI Path
     /**API_URI_PATH.
