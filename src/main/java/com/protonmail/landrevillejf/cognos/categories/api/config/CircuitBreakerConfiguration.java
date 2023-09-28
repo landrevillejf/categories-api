@@ -11,20 +11,25 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * CircuitBreakerConfiguration configures a circuit breaker for resilience in the application.
+ *
+ */
 @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
-        date = "2022-05-01",
-        revision = 1,
-        comments = "Author CircuitBreakerConfiguration"
+     date = "2022-05-01",
+     revision = 1,
+     comments = "Author CircuitBreakerConfiguration"
 )
+@SuppressWarnings("CheckStyle")
 @Configuration
 public class CircuitBreakerConfiguration {
 
-    /**circuitBreaker.
+    /**
+     * Creates and configures a CircuitBreaker bean.
      *
-     * @return CircuitBreaker
+     * @return CircuitBreaker instance.
      */
     @Qualifier("cognosCircuitBreaker")
     @Bean
