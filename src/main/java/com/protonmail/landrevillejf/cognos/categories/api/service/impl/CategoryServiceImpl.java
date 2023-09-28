@@ -55,6 +55,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param limit
      * @return
      */
+    @ExecutionTime
     @Override
     public List<Category> findAll(int page, int limit) {
         Page<Category> categoryPage = null;
@@ -74,6 +75,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param search
      * @return
      */
+    @ExecutionTime
     @Override
     public List<Category> findAllByCriteria(int page, final int limit, final String search) {
         Pageable pageable = null;
@@ -104,6 +106,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param id
      * @return
      */
+    @ExecutionTime
     @Override
     public Category findById(long id) {
         Optional <Category> category = repository.findById(id);
@@ -115,6 +118,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param uid
      * @return
      */
+    @ExecutionTime
     @Override
     public Category findByUid(String uid) {
         return repository.findByUid(uid);
@@ -185,6 +189,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param entity
      * @return
      */
+    @ExecutionTime
     @Override
     public Category update(Category entity) {
         Category category = findByUid(entity.getUid());
@@ -210,6 +215,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      * @param uid
      * @return
      */
+    @ExecutionTime
     @Override
     public Category update(Category entity, String uid) {
         Category category = findByUid(uid);
@@ -236,6 +242,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      *
      * @param entity
      */
+    @ExecutionTime
     @Override
     public void delete(Category entity) {
         int categoryListSize= repository.findAll().size();
@@ -250,6 +257,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      *
      * @param uid
      */
+    @ExecutionTime
     @Override
     public void deleteByUid(String uid) {
         Category category = findByUid(uid);
@@ -263,6 +271,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     /**
      *
      */
+    @ExecutionTime
     @Override
     public void deleteAll() {
         int size = repository.findAll().size();
@@ -280,6 +289,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
      *
      * @return
      */
+    @ExecutionTime
     @Override
     public long count() {
         return repository.count();

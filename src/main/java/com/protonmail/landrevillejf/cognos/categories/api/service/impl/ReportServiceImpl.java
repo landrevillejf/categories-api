@@ -96,6 +96,7 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    @ExecutionTime
     @Override
     public FileDTO generateSubCategoriesExcelReport() throws JRException {
         FileDTO fileDTO;
@@ -190,6 +191,7 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    @ExecutionTime
     @Override
     public FileDTO generateAndZipReports() throws JRException, IOException {
         FileDTO fileDTO;
@@ -255,6 +257,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     // TODO: 2023-09-28 not working
+    @ExecutionTime
     @Override
     public FileDTO generateMultiSheetExcelReport() throws JRException {
         FileDTO fileDTO = null;

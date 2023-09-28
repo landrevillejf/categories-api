@@ -74,6 +74,7 @@ public class DatabaseInitializer implements CommandLineRunner {
      *
      * @param args incoming main method arguments
      */
+    @ExecutionTime
     @Override
     public void run(final String... args) {
         initializeCategories();
@@ -82,7 +83,6 @@ public class DatabaseInitializer implements CommandLineRunner {
     /**
      *
      */
-    @ExecutionTime
     private void initializeCategories() {
         List<CategoryEnum> statusNames = Arrays.asList(
                 CategoryEnum.ACADEMICS,
