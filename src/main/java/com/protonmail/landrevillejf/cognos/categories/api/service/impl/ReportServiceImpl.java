@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service class for generating various reports.
+ */
 @SuppressWarnings("CheckStyle")
 @AllArgsConstructor
 @Service
@@ -55,9 +58,10 @@ public class ReportServiceImpl implements ReportService {
     private final SimpleReportFiller simpleReportFiller;
 
     /**
+     * Generate an Excel report containing category information.
      *
-     * @return
-     * @throws JRException
+     * @return A FileDTO containing the generated Excel report.
+     * @throws JRException If there is an error while generating the report.
      */
     @ExecutionTime
     @Override
@@ -96,6 +100,12 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    /**
+     * Generate an Excel report containing subcategory information.
+     *
+     * @return A FileDTO containing the generated Excel report.
+     * @throws JRException If there is an error while generating the report.
+     */
     @ExecutionTime
     @Override
     public FileDTO generateSubCategoriesExcelReport() throws JRException {
@@ -131,6 +141,12 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    /**
+     * Generate a PDF report containing both category and subcategory information.
+     *
+     * @return A FileDTO containing the generated PDF report.
+     * @throws JRException If there is an error while generating the report.
+     */
     @ExecutionTime
     @Override
     public FileDTO generatePdfFullReport() throws JRException {
@@ -189,6 +205,13 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
+    /**
+     * Generate multiple reports (subcategories and categories) and zip them into a single file.
+     *
+     * @return A FileDTO containing the generated zip file.
+     * @throws JRException If there is an error while generating the reports.
+     * @throws IOException  If there is an error while zipping the reports.
+     */
     @ExecutionTime
     @Override
     public FileDTO generateAndZipReports() throws JRException, IOException {
@@ -254,7 +277,12 @@ public class ReportServiceImpl implements ReportService {
         return fileDTO;
     }
 
-    // TODO: 2023-09-28 not working
+    /**
+     * Generate a multi-sheet Excel report containing both category and subcategory information.
+     *
+     * @return A FileDTO containing the generated Excel report.
+     * @throws JRException If there is an error while generating the report.
+     */
     @ExecutionTime
     @Override
     public FileDTO generateMultiSheetExcelReport() throws JRException {
