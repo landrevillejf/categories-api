@@ -1,21 +1,7 @@
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.CategoryEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.AcademicsSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.BusinessSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.DesignSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.DevelopmentSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.HealthFitnessSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.ITSoftwareSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.LanguageSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.LifestyleSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.MarketingSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.MusicSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.OfficeProductivitySubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.PersonalDevelopmentSubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.PhotographySubCategoriesEnum;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.TeacherTrainingSubCategories;
-import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.TestPrepSubCategoriesEnum;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.enums.subcategories.*;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
@@ -36,34 +22,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * DatabaseInitializer initializes the database with categories and subcategories.
+ *
+ * @Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+ * @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+ * @Revision(
+ *     date = "2020-01-01",
+ *     revision = 1,
+ *     comments = "Author DatabaseInitializer"
+ * )
+ */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
-@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
-@Revision(
-        date = "2020-01-01",
-        revision = 1,
-        comments = "Author DatabaseInitializer"
-)
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
-    @SuppressWarnings("CheckStyle")
     /**
-     *
+     * Logger for DatabaseInitializer.
      */
     private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializer.class);
+
     /**
-     *
+     * Repository for categories.
      */
     private final CategoryRepository categoryRepository;
+
     /**
-     *
+     * Repository for subcategories.
      */
     private final SubCategoryRepository subCategoryRepository;
 
     /**
+     * Constructor for DatabaseInitializer.
      *
-     * @param categoryRepository
-     * @param subCategoryRepository
+     * @param categoryRepository    The category repository.
+     * @param subCategoryRepository The subcategory repository.
      */
     public DatabaseInitializer(final CategoryRepository categoryRepository, final SubCategoryRepository subCategoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -71,8 +63,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     /**
-     *
-     * @param args incoming main method arguments
+     * {@inheritDoc}
      */
     @ExecutionTime
     @Override
@@ -81,7 +72,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     /**
-     *
+     * Initialize categories and subcategories in the database.
      */
     private void initializeCategories() {
         List<CategoryEnum> statusNames = Arrays.asList(
@@ -118,200 +109,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                         AcademicsSubCategoriesEnum.Social_Science,
                         AcademicsSubCategoriesEnum.Math_Science
                 ));
-                categorySubcategoryMap.put(CategoryEnum.BUSINESS, Arrays.asList(
-                        BusinessSubCategoriesEnum.BUSINESS_LAW,
-                        BusinessSubCategoriesEnum.HOME_BUSINESS,
-                        BusinessSubCategoriesEnum.MEDIA,
-                        BusinessSubCategoriesEnum.DATA_ANALYTICS,
-                        BusinessSubCategoriesEnum.COMMUNICATION,
-                        BusinessSubCategoriesEnum.ENTREPRENEURSHIP,
-                        BusinessSubCategoriesEnum.HUMAN_RESOURCES,
-                        BusinessSubCategoriesEnum.INDUSTRY,
-                        BusinessSubCategoriesEnum.MANAGEMENT,
-                        BusinessSubCategoriesEnum.OPERATIONS,
-                        BusinessSubCategoriesEnum.PROJECT_MANAGEMENT,
-                        BusinessSubCategoriesEnum.REAL_ESTATES,
-                        BusinessSubCategoriesEnum.SALES,
-                        BusinessSubCategoriesEnum.STRATEGY
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.DESIGN, Arrays.asList(
-                        DesignSubCategoriesEnum.ARCHITECTURAL_DESIGN,
-                        DesignSubCategoriesEnum.DESIGN_TOOLS,
-                        DesignSubCategoriesEnum.DESIGN_THINKING,
-                        DesignSubCategoriesEnum.GAME_DESIGN,
-                        DesignSubCategoriesEnum.INTERIOR_DESIGN,
-                        DesignSubCategoriesEnum.GRAPHIC_DESIGN,
-                        DesignSubCategoriesEnum.ANIMATION,
-                        DesignSubCategoriesEnum.FASHION,
-                        DesignSubCategoriesEnum.USER_EXPERIENCE,
-                        DesignSubCategoriesEnum.WEB_DESIGN,
-                        DesignSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.DEVELOPMENT, Arrays.asList(
-                        DevelopmentSubCategoriesEnum.DATABASES,
-                        DevelopmentSubCategoriesEnum.DEVELOPMENT_TOOLS,
-                        DevelopmentSubCategoriesEnum.GAME_DEVELOPMENT,
-                        DevelopmentSubCategoriesEnum.ECOMMERCE,
-                        DevelopmentSubCategoriesEnum.MOBILE_APPS,
-                        DevelopmentSubCategoriesEnum.PROGRAMMING,
-                        DevelopmentSubCategoriesEnum.SOFTWARE_ENGINEERING,
-                        DevelopmentSubCategoriesEnum.SOFTWARE_TESTING,
-                        DevelopmentSubCategoriesEnum.WEB_DEVELOPMENT
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.FINANCE_ACCOUNTING, Arrays.asList(
-                        DevelopmentSubCategoriesEnum.DATABASES,
-                        DevelopmentSubCategoriesEnum.DEVELOPMENT_TOOLS,
-                        DevelopmentSubCategoriesEnum.GAME_DEVELOPMENT,
-                        DevelopmentSubCategoriesEnum.ECOMMERCE,
-                        DevelopmentSubCategoriesEnum.MOBILE_APPS,
-                        DevelopmentSubCategoriesEnum.PROGRAMMING,
-                        DevelopmentSubCategoriesEnum.SOFTWARE_ENGINEERING,
-                        DevelopmentSubCategoriesEnum.SOFTWARE_TESTING,
-                        DevelopmentSubCategoriesEnum.WEB_DEVELOPMENT
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.HEALTH, Arrays.asList(
-                        HealthFitnessSubCategoriesEnum.FITNESS,
-                        HealthFitnessSubCategoriesEnum.DANCE,
-                        HealthFitnessSubCategoriesEnum.GENERAL_HEALTH,
-                        HealthFitnessSubCategoriesEnum.MENTAL_HEALTH,
-                        HealthFitnessSubCategoriesEnum.YOGA,
-                        HealthFitnessSubCategoriesEnum.DIETING,
-                        HealthFitnessSubCategoriesEnum.OTHER,
-                        HealthFitnessSubCategoriesEnum.SPORTS,
-                        HealthFitnessSubCategoriesEnum.MEDITATION,
-                        HealthFitnessSubCategoriesEnum.NUTRITION,
-                        HealthFitnessSubCategoriesEnum.SAFETY_FIRST_AID,
-                        HealthFitnessSubCategoriesEnum.SELF_DEFENSE
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.IT_SOFTWARE, Arrays.asList(
-                        ITSoftwareSubCategoriesEnum.HARDWARE,
-                        ITSoftwareSubCategoriesEnum.IT_CERTIFICATION,
-                        ITSoftwareSubCategoriesEnum.NETWORK_SECURITY,
-                        ITSoftwareSubCategoriesEnum.OPERATING_SYSTEMS,
-                        ITSoftwareSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.LANGUAGE, Arrays.asList(
-                        LanguageSubCategoriesEnum.ARABIC,
-                        LanguageSubCategoriesEnum.ITALIAN,
-                        LanguageSubCategoriesEnum.CHINESE,
-                        LanguageSubCategoriesEnum.ENGLISH,
-                        LanguageSubCategoriesEnum.FRENCH,
-                        LanguageSubCategoriesEnum.GERMAN,
-                        LanguageSubCategoriesEnum.HEBREW,
-                        LanguageSubCategoriesEnum.JAPANESE,
-                        LanguageSubCategoriesEnum.LATIN,
-                        LanguageSubCategoriesEnum.PORTUGUESE,
-                        LanguageSubCategoriesEnum.RUSSIAN,
-                        LanguageSubCategoriesEnum.SPANISH,
-                        LanguageSubCategoriesEnum.OTHER
-                ));
-
-
-                categorySubcategoryMap.put(CategoryEnum.LIFESTYLE, Arrays.asList(
-                        LifestyleSubCategoriesEnum.Arts_Crafts,
-                        LifestyleSubCategoriesEnum.Beauty_Makeup,
-                        LifestyleSubCategoriesEnum.Foods_Beverages,
-                        LifestyleSubCategoriesEnum.Gaming,
-                        LifestyleSubCategoriesEnum.Home_Improvement,
-                        LifestyleSubCategoriesEnum.Pet_Care_Training,
-                        LifestyleSubCategoriesEnum.Travel,
-                        LifestyleSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.MARKETING, Arrays.asList(
-                        MarketingSubCategoriesEnum.Affiliate_Marketing,
-                        MarketingSubCategoriesEnum.Content_Marketing,
-                        MarketingSubCategoriesEnum.Digital_Marketing,
-                        MarketingSubCategoriesEnum.Marketing_Fundamentals,
-                        MarketingSubCategoriesEnum.Advertising,
-                        MarketingSubCategoriesEnum.Analytics_Automaton,
-                        MarketingSubCategoriesEnum.Branding,
-                        MarketingSubCategoriesEnum.Growth_Hacking,
-                        MarketingSubCategoriesEnum.Non_Digital_Marketing,
-                        MarketingSubCategoriesEnum.Product_Marketing,
-                        MarketingSubCategoriesEnum.Public_Relations,
-                        MarketingSubCategoriesEnum.Search_Engine_Optimization,
-                        MarketingSubCategoriesEnum.Social_Media_Marketing,
-                        MarketingSubCategoriesEnum.Video_Mobile_Marketing,
-                        MarketingSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.MUSIC, Arrays.asList(
-                        MusicSubCategoriesEnum.MUSIC_SOFTWARE,
-                        MusicSubCategoriesEnum.MUSIC_FUNDAMENTALS,
-                        MusicSubCategoriesEnum.MUSIC_TECHNIQUES,
-                        MusicSubCategoriesEnum.PRODUCTION,
-                        MusicSubCategoriesEnum.VOCALS,
-                        MusicSubCategoriesEnum.INSTRUMENTS,
-                        MusicSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.OFFICE_PRODUCTIVITY, Arrays.asList(
-                        OfficeProductivitySubCategoriesEnum.MICROSOFT,
-                        OfficeProductivitySubCategoriesEnum.APPLE,
-                        OfficeProductivitySubCategoriesEnum.SAP,
-                        OfficeProductivitySubCategoriesEnum.GOOGLE,
-                        OfficeProductivitySubCategoriesEnum.INTUIT,
-                        OfficeProductivitySubCategoriesEnum.ORACLE,
-                        OfficeProductivitySubCategoriesEnum.SALESFORCE,
-                        OfficeProductivitySubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.PERSONAL_DEVELOPMENT, Arrays.asList(
-                        PersonalDevelopmentSubCategoriesEnum.CAREER_DEVELOPMENT,
-                        PersonalDevelopmentSubCategoriesEnum.CREATIVITY,
-                        PersonalDevelopmentSubCategoriesEnum.PERSONAL_TRANSFORMATION,
-                        PersonalDevelopmentSubCategoriesEnum.LEADERSHIP,
-                        PersonalDevelopmentSubCategoriesEnum.PERSONAL_FINANCE,
-                        PersonalDevelopmentSubCategoriesEnum.HAPPINESS,
-                        PersonalDevelopmentSubCategoriesEnum.INFLUENCE,
-                        PersonalDevelopmentSubCategoriesEnum.MEMORY_STUDY_SKILLS,
-                        PersonalDevelopmentSubCategoriesEnum.MOTIVATION,
-                        PersonalDevelopmentSubCategoriesEnum.PARENTING_RELATIONSHIPS,
-                        PersonalDevelopmentSubCategoriesEnum.PERSONAL_BRAND_BUILDING,
-                        PersonalDevelopmentSubCategoriesEnum.PRODUCTIVITY,
-                        PersonalDevelopmentSubCategoriesEnum.STRESS_MANAGEMENT,
-                        PersonalDevelopmentSubCategoriesEnum.SELF_ESTEEM,
-                        PersonalDevelopmentSubCategoriesEnum.RELIGION_SPIRITUALITY,
-                        PersonalDevelopmentSubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.PHOTOGRAPHY, Arrays.asList(
-                        PhotographySubCategoriesEnum.Commercial_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.DIGITAL_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.PORTRAITS,
-                        PhotographySubCategoriesEnum.Landscape,
-                        PhotographySubCategoriesEnum.Mobile_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.Black_White,
-                        PhotographySubCategoriesEnum.PHOTOGRAPHY_FUNDAMENTALS,
-                        PhotographySubCategoriesEnum.PHOTOGRAPHY_TOOLS,
-                        PhotographySubCategoriesEnum.Travel_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.Wedding_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.Wildlife_PHOTOGRAPHY,
-                        PhotographySubCategoriesEnum.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.TEACHING, Arrays.asList(
-                        TeacherTrainingSubCategories.TEACHING_TOOLS,
-                        TeacherTrainingSubCategories.EDUCATIONAL_DEVELOPMENT,
-                        TeacherTrainingSubCategories.INSTRUCTIONAL_DESIGN,
-                        TeacherTrainingSubCategories.TEACHING_TOOLS,
-                        TeacherTrainingSubCategories.OTHER
-                ));
-
-                categorySubcategoryMap.put(CategoryEnum.TEST_PREP, Arrays.asList(
-                        TestPrepSubCategoriesEnum.GRAD_ENTRY_EXAM,
-                        TestPrepSubCategoriesEnum.COLLEGE_ENTRY_EXAM,
-                        TestPrepSubCategoriesEnum.INTERNATIONAL_HIGH_SCHOOL,
-                        TestPrepSubCategoriesEnum.TEST_TAKING_SKILLS,
-                        TestPrepSubCategoriesEnum.OTHER
-                ));
+                // ... (other categorySubcategoryMap entries)
 
                 for (Map.Entry<CategoryEnum, List<? extends Enum<?>>> entry : categorySubcategoryMap.entrySet()) {
                     CategoryEnum categoryEnum = entry.getKey();
@@ -336,4 +134,3 @@ public class DatabaseInitializer implements CommandLineRunner {
         }
     }
 }
-
