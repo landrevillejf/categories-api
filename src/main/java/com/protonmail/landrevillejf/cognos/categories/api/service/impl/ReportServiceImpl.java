@@ -140,7 +140,6 @@ public class ReportServiceImpl implements ReportService {
             subReportRecords.add(subCategoryReportDTO);
         }
 
-
         String dateAsString = Utils.getCurrentDateAsString();
         String fileName = "Full_Report_" + dateAsString + ".pdf";
 
@@ -235,7 +234,7 @@ public class ReportServiceImpl implements ReportService {
         String excelFileName = "Multi_Sheet_Report_" + dateAsString + ".xlsx";
 
         List<Category> categoryList = categoryRepository.findAll();
-        List<CategoryReportDTO> mainReportRecords = EntityDtoMapper.convertToDtoList(categoryList, CategoryReportDTO.class);
+        List<CategoryReportDTO> mainReportRecords = new ArrayList<>();
 
         for (Category category : categoryList) {
             CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);

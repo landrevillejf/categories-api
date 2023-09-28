@@ -241,15 +241,4 @@
 			</textField>
 		</band>
 	</detail>
-
-	<summary>
-		<band height="250">
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<subreport>
-				<reportElement x="0" y="0" width="980" height="230" uuid="86e93d34-3c8d-4aa5-8368-f40a9abce52a"/>
-				<dataSourceExpression><![CDATA[$P{subDataSource}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{subReport}]]></subreportExpression>
-			</subreport>
-		</band>
-	</summary>
 </jasperReport>

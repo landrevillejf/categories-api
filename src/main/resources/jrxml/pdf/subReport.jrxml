@@ -37,7 +37,7 @@
 					<font size="12" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Total Employees:]]></text>
+				<text><![CDATA[Total Subcategories:]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="120" y="6" width="160" height="25" uuid="f33f8398-1d1e-4b0b-ac25-1ad0dc31f25c">
