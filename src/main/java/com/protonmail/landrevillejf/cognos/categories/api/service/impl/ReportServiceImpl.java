@@ -163,11 +163,9 @@ public class ReportServiceImpl implements ReportService {
             String dateAsString = Utils.getCurrentDateAsString();
             String fileName = "Full_Report_" + dateAsString + ".pdf";
 
-            // prepare the sub report
             JasperReport subReport = simpleReportFiller.compileReport("jrxml/pdf/subReport");
             JRBeanCollectionDataSource subDataSource = reportExporter.getSubReportDataSource(subReportRecords);
 
-            // add the sub report as parameter to the main report
             Map<String, Object> jasperParameters = new HashMap<>();
             jasperParameters.put("subReport", subReport);
             jasperParameters.put("subDataSource", subDataSource);
@@ -289,27 +287,20 @@ public class ReportServiceImpl implements ReportService {
                 subReportRecords.add(subCategoryReportDTO);
             }
 
-            // prepare categories sub report
             JasperReport categorySubReport = simpleReportFiller.compileReport("jrxml/excel/categoriesExcelReport");
             JRBeanCollectionDataSource categorySubDataSource = reportExporter.getSubReportDataSource(mainReportRecords);
 
-
-            // prepare subcategories sub report
             JasperReport subCategorySubReport = simpleReportFiller.compileReport("jrxml/excel/subcategoriesExcelReport");
             JRBeanCollectionDataSource subCategorySubDataSource = reportExporter.getSubReportDataSource(subReportRecords);
 
-            // After creating the data sources, log the number of records in each data source.
             logger.info("Number of records in categorySubDataSource: " + categorySubDataSource.getRecordCount());
             logger.info("Number of records in subCategorySubDataSource: " + subCategorySubDataSource.getRecordCount());
 
-            // add sub reports as parameters to Jasper Report
             Map<String, Object> jasperParameters = new HashMap<>();
             jasperParameters.put("categorySubReport", categorySubReport);
             jasperParameters.put("categorySubDataSource", categorySubDataSource);
             jasperParameters.put("subCategorySubReport", subCategorySubReport);
             jasperParameters.put("subCategorySubDataSource", subCategorySubDataSource);
-
-            // set sheet names for each sub report
             jasperParameters.put("firstSheetName", "CATEGORIES_REPORT");
             jasperParameters.put("secondSheetName", "SUB_CATEGORIES_REPORT");
 
