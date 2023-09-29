@@ -1,19 +1,62 @@
-package com.protonmail.landrevillejf.cognos.categories.api.unit;
+package com.protonmail.landrevillejf.cognos.categories.api.entity.model;
 
-
-import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class CategoryTest {
+class CategoryTest {
 
     private Category category;
 
     @BeforeEach
     public void setUp() {
         category = new Category();
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void getName() {
+    }
+
+    @Test
+    void getDescription() {
+    }
+
+    @Test
+    void getSubCategories() {
+    }
+
+    @Test
+    void getCreatedAt() {
+    }
+
+    @Test
+    void getUpdatedAt() {
+    }
+
+    @Test
+    void setName() {
+    }
+
+    @Test
+    void setDescription() {
+    }
+
+    @Test
+    void setSubCategories() {
+    }
+
+    @Test
+    void setCreatedAt() {
+    }
+
+    @Test
+    void setUpdatedAt() {
     }
 
     @Test
@@ -42,4 +85,3 @@ public class CategoryTest {
         assertEquals("Test Description", category.getDescription());
     }
 }
-
