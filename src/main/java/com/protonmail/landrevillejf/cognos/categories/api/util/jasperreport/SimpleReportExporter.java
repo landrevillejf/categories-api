@@ -201,12 +201,12 @@ public class SimpleReportExporter {
     }
 
     /**
-     * This method is used to zip a List<JasperPrint> and then return them as a byte[].
+     * This method is used to zip a List&lt;JasperPrint&gt; and then return them as a byte[].
      *
-     * @param listOfJasperPrints
-     * @return zipped list as a byte array
-     * @throws IOException
-     * @throws JRException
+     * @param listOfJasperPrints List of JasperPrint objects to be zipped.
+     * @return Zipped list as a byte array.
+     * @throws IOException If there is an I/O error while zipping.
+     * @throws JRException If there is an error with JasperReports.
      */
     public byte[] zipJasperPrintList(List<JasperPrint> listOfJasperPrints) throws IOException, JRException {
 
