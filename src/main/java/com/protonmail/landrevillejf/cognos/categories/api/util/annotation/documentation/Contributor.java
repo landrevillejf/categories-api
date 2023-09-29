@@ -18,7 +18,11 @@ import java.lang.annotation.Documented;
         email = "landrevillejf@protonmail.com",
         website = "https://www.lanaforge.ca"
 )
-@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Revision(
         author =  "Jean-Francois Landreville",
         date = "2022-10-28",
