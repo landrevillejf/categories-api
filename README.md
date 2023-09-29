@@ -64,7 +64,7 @@ docker run -p 5432:5432 -d --name my-postgres-db -e POSTGRES_PASSWORD=pass -e PO
 
 ## Start the application
 ```shell
-./mvnw spring-boot:run
+./gradlew spring-boot:run
 ```
 
 
@@ -72,7 +72,7 @@ docker run -p 5432:5432 -d --name my-postgres-db -e POSTGRES_PASSWORD=pass -e PO
 ## Start App as a Docker container.
 1. First, build the application using the Maven wrapper by running the following command in the terminal:
  ```shell
-./mvnw install -DskipTests
+./gradlew install -DskipTests
 ```
 This command will build the application and generate a jar file located at target/department-api-0.0.1-SNAPSHOT.jar.
 
@@ -133,7 +133,7 @@ individual units of code.
 
 To run the unit tests, use the following command:
 ```shell
-./mvnw test
+./gradlew test
 ```
 
 
@@ -147,7 +147,7 @@ To run the integration tests, follow these steps:
 2. Execute the following command:
 
 ```shell
-./mvnw verify -Pintegration-tests
+./gradlew verify -Pintegration-tests
 ```
 
 
