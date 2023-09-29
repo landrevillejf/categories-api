@@ -13,7 +13,11 @@ import java.lang.annotation.Documented;
  */
 @SuppressWarnings("CheckStyle")
 @Documented
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
         author =  "Jean-Francois Landreville",
