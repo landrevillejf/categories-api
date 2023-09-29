@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Revision(
         date = "2023-09-26",
         revision = 1,
-        comments = "Author UUIDGenerator"
+        comments = "Author EntityDtoMapper"
 )
 public class EntityDtoMapper {
 
