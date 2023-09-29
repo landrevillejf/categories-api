@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class EntityDtoMapper {
 
     /**
-     *
+     * ModelMapper instance for EntityDtoMapper class.
      */
     private static final ModelMapper modelMapper = new ModelMapper();
 
