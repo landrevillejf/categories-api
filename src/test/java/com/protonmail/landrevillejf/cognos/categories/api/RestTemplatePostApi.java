@@ -1,8 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +11,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @SpringBootTest(classes = CognosCategoriesApiApplication.class,
         webEnvironment = WebEnvironment.RANDOM_PORT)
