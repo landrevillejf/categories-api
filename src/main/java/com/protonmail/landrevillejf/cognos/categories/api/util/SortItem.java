@@ -6,12 +6,21 @@ import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
 
+/**
+ * Represents a sorting item used for defining sorting criteria.
+ */
 @Getter
 public class SortItem implements Serializable {
 
-
-    @Schema(example = "id") // set a default sorting property for swagger
+    /**
+     * The field or property by which to sort the results.
+     */
+    @Schema(example = "id") // Set a default sorting property for Swagger
     private String field;
-    private Sort.Direction direction;
 
+    /**
+     * The sorting direction (ASCENDING or DESCENDING).
+     */
+    private Sort.Direction direction;
 }
+
