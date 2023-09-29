@@ -11,6 +11,9 @@ import com.protonmail.landrevillejf.cognos.categories.api.service.ReportService;
 import com.protonmail.landrevillejf.cognos.categories.api.util.EntityDtoMapper;
 import com.protonmail.landrevillejf.cognos.categories.api.util.Utils;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.SimpleReportExporter;
 import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.SimpleReportFiller;
 import lombok.AllArgsConstructor;
@@ -33,27 +36,38 @@ import java.util.Map;
  * Service class for generating various reports.
  */
 @SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2019-01-01",
+        revision = 1,
+        comments = "Author ReportServiceImpl"
+)
 @AllArgsConstructor
 @Service
 public class ReportServiceImpl implements ReportService {
     /**
-     *
+     * Logger for this service.
      */
     private final Logger logger = LoggerFactory.getLogger(ReportServiceImpl.class);
+
     /**
-     *
+     * Repository for managing categories.
      */
     private final CategoryRepository categoryRepository;
+
     /**
-     *
+     * Repository for managing subcategories.
      */
     private final SubCategoryRepository subCategoryRepository;
+
     /**
-     *
+     * Report exporter for exporting reports.
      */
     private final SimpleReportExporter reportExporter;
+
     /**
-     *
+     * Report filler for filling report templates.
      */
     private final SimpleReportFiller simpleReportFiller;
 

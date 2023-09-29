@@ -1,6 +1,9 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import net.sf.jasperreports.engine.JRException;
 
 import java.io.IOException;
@@ -8,6 +11,14 @@ import java.io.IOException;
 /**
  * An interface for generating various reports.
  */
+@SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2019-01-01",
+        revision = 1,
+        comments = "Author ReportService Interface"
+)
 public interface ReportService {
 
     /**
