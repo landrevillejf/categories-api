@@ -1,10 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,22 +13,6 @@ import java.util.UUID;
  * This class provides utility methods for generating Type 1 UUIDs (Universally Unique Identifiers)
  * based on time and random data.
  */
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2022-10-28",
-        revision = 1,
-        comments = "Author UUIDGenerator"
-)
-@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 @SuppressWarnings("CheckStyle")
 public class UUIDGenerator {
 
