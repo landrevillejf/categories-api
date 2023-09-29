@@ -1,3 +1,8 @@
+/**
+ * DBConfiguration is a configuration class responsible for configuring the database connection properties
+ * based on the active Spring profiles (dev, test, staging, uat, prod). It uses the @Profile annotation to specify
+ * different database configurations for each profile.
+ */
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
@@ -27,29 +32,34 @@ import org.springframework.context.annotation.Profile;
 @ConfigurationProperties("spring.datasource")
 public class DBConfiguration {
     /**
-     *
+     * Logger instance for logging database connection information.
      */
     private Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
+
     /**
-     *
+     * The JDBC driver class name for the database connection.
      */
     private String driverClassName;
+
     /**
-     *
+     * The JDBC URL for the database connection.
      */
     private String url;
+
     /**
-     *
+     * The username for authenticating with the database.
      */
     private String username;
+
     /**
-     *
+     * The password for authenticating with the database.
      */
     private String password;
 
     /**
+     * Configures the database connection for the "dev" profile.
      *
-     * @return
+     * @return A string representing the database connection information.
      */
     @Profile("dev")
     @Bean
@@ -61,8 +71,9 @@ public class DBConfiguration {
     }
 
     /**
+     * Configures the database connection for the "test" profile.
      *
-     * @return
+     * @return A string representing the database connection information.
      */
     @Profile("test")
     @Bean
@@ -74,8 +85,9 @@ public class DBConfiguration {
     }
 
     /**
+     * Configures the database connection for the "staging" profile.
      *
-     * @return
+     * @return A string representing the database connection information.
      */
     @Profile("staging")
     @Bean
@@ -87,8 +99,9 @@ public class DBConfiguration {
     }
 
     /**
+     * Configures the database connection for the "uat" profile.
      *
-     * @return
+     * @return A string representing the database connection information.
      */
     @Profile("uat")
     @Bean
@@ -100,8 +113,9 @@ public class DBConfiguration {
     }
 
     /**
+     * Configures the database connection for the "prod" profile.
      *
-     * @return
+     * @return A string representing the database connection information.
      */
     @Profile("prod")
     @Bean
@@ -112,3 +126,4 @@ public class DBConfiguration {
         return "DB Connection to PROD - High Performance Instance";
     }
 }
+

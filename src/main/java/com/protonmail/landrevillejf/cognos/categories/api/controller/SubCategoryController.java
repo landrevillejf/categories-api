@@ -6,6 +6,9 @@ import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCatego
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,6 +37,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2023-09-25",
+        revision = 1,
+        comments = "Author SubCategoryController"
+)
 @Tag(name = "SubCategory", description = "E-Learning SubCategories management APIs")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(Api.SUBCATEGORY)

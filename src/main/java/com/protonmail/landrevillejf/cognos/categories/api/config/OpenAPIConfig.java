@@ -1,3 +1,6 @@
+/**
+ * Configuration class for configuring the OpenAPI documentation for the API.
+ */
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
@@ -14,12 +17,13 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.",email = "landrevillejf@protonmail.com")
-@Maintainer(name = "Jean-Francois Landreville",enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
         date = "2023-09-01",
         revision = 1,
-        comments = "Author DatabaseInitializer"
+        comments = "Author OpenAPIConfig"
 )
 @Configuration
 public class OpenAPIConfig {
@@ -30,8 +34,14 @@ public class OpenAPIConfig {
     @Value("${openapi.prod-url}")
     private String prodUrl;
 
+    /**
+     * Creates and configures the OpenAPI documentation bean.
+     *
+     * @return An OpenAPI instance representing the API documentation.
+     */
     @Bean
     public OpenAPI myOpenAPI() {
+        // Create server configurations for Development and Production environments
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("Server URL in Development environment");
@@ -40,21 +50,26 @@ public class OpenAPIConfig {
         prodServer.setUrl(prodUrl);
         prodServer.setDescription("Server URL in Production environment");
 
+        // Create contact information for the API
         Contact contact = new Contact();
         contact.setEmail("landrevillejf@protonmail.com");
         contact.setName("Jean-Francois Landreville");
         contact.setUrl("https://www.lanaforge.ca");
 
+        // Create MIT License information
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
 
+        // Create API information
         Info info = new Info()
                 .title("Cognos E-Learning Categories API")
                 .version("1.0")
                 .contact(contact)
-                .description("This API exposes endpoints to manage Cognos E-leaning courses categories.")
+                .description("This API exposes endpoints to manage Cognos E-learning courses categories.")
                 .termsOfService("https://www.lanaforge.com/cognos/terms")
                 .license(mitLicense);
 
+        // Create and configure the OpenAPI documentation
         return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
     }
 }
+
