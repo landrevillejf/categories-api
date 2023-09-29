@@ -161,6 +161,15 @@ tasks.withType(Checkstyle).configureEach {
     }
 }
 
+tasks.register('generateJavadoc', Javadoc) {
+    sourceSets.main.allJava.srcDirs.each {
+        source it
+    }
+    classpath += configurations.compileClasspath
+    destinationDir = file("${buildDir}/javadoc")
+}
+
+
 checkstyle {
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
