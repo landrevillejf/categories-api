@@ -47,6 +47,14 @@ configurations.configureEach {
                         ', CVE-2023-35116'
             }
 
+            if (details.requested.group == 'com.fasterxml.jackson.core' &&
+                    details.requested.name == 'jackson-core' && details.requested.version < '2.15.2') {
+                details.useVersion '2.15.2'
+                details.because '**DISPUTED: jackson-core before 2.15.0-rc1 allows a Java StackOverflow ' +
+                        'exception and denial of service via a large depth of nested objects.' +
+                        ', CVE-2020-36518 '
+            }
+
             if (details.requested.group == 'org.yaml' &&
                     details.requested.name == 'snakeyaml' && details.requested.version < '2.2') {
                 details.useVersion '2.2'
@@ -180,3 +188,5 @@ checkstyleMain {
 checkstyleTest {
     source ='src/test/java'
 }
+
+
