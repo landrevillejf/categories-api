@@ -74,7 +74,7 @@ docker run -p 5432:5432 -d --name my-postgres-db -e POSTGRES_PASSWORD=pass -e PO
  ```shell
 ./gradlew install -DskipTests
 ```
-This command will build the application and generate a jar file located at target/department-api-0.0.1-SNAPSHOT.jar.
+This command will build the application and generate a jar file located at target/cognos-categories-api-0.0.1-SNAPSHOT.jar.
 
 2. Make sure you have `Docker Desktop` installed and running on your machine.
 
