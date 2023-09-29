@@ -17,7 +17,11 @@ import java.util.UUID;
  * This class provides utility methods for generating Type 1 UUIDs (Universally Unique Identifiers)
  * based on time and random data.
  */
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
         date = "2022-10-28",

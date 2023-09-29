@@ -8,7 +8,11 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import lombok.Getter;
 
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
         date = "2023-08-01",

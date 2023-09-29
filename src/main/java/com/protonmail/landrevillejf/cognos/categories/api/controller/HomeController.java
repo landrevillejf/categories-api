@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Controller class responsible for handling requests related to the SWAGGER-UI home page.
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
         date = "2023-09-01",

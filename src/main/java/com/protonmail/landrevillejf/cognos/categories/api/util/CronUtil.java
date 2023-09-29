@@ -17,7 +17,11 @@ import java.util.Date;
 /**
  * The {@code CronUtil} class provides utility methods for generating cron expressions based on dates.
  */
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+		enterprise = "Lanaforge Inc.",
+		email = "landrevillejf@protonmail.com",
+		website = "https://www.lanaforge.ca"
+)
 @Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
 @Revision(
 		date = "2020-01-01",
