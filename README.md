@@ -112,7 +112,8 @@ This will stop and remove the containers, networks, and volumes created by Docke
 
 
 ## Swagger
-Swagger was set on the root path, and you can access it on this URL: http://localhost:8080/
+Swagger was set on the root path, and you can access it on this URL: http://localhost:9090/cognos-categories-api/
+It will redirect to the Swagger-UI page.
 
 
 The API also allows for `generating various reports` using `JasperReport`, such as generating an Excel file, generating
