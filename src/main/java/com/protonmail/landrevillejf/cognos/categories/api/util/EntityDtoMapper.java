@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
         website = "https://www.lanaforge.ca"
 )
 @Revision(
-        date = "2023-09-26",
-        revision = 1,
+        date = "2023-09-29",
+        revision = 2,
         comments = "Author EntityDtoMapper"
 )
 public class EntityDtoMapper {
@@ -34,11 +34,11 @@ public class EntityDtoMapper {
 
     /**convertToDto.
      * CategoryDto categoryDto = EntityDtoMapper.convertToDto(category, CategoryDto.class);
-     * @param entity
-     * @param dtoClass
-     * @return
-     * @param <D>
-     * @param <E>
+     * @param entity entity object.
+     * @param dtoClass dto object.
+     * @return A Dto object.
+     * @param <D> Type of the DTO.
+     * @param <E> Type of the entity.
      */
     public static <D, E> D convertToDto(E entity, Class<D> dtoClass) {
         return modelMapper.map(entity, dtoClass);
@@ -46,11 +46,11 @@ public class EntityDtoMapper {
 
     /**convertToEntity.
      * Category category = EntityDtoMapper.convertToEntity(categoryDto, Category.class);
-     * @param dto
-     * @param entityClass
-     * @return
-     * @param <D>
-     * @param <E>
+     * @param dto dto object.
+     * @param entityClass entity object.
+     * @return An Entity object.
+     * @param <D> Type of the DTO.
+     * @param <E> Type of the entity.
      */
     public static <D, E> E convertToEntity(D dto, Class<E> entityClass) {
         return modelMapper.map(dto, entityClass);
