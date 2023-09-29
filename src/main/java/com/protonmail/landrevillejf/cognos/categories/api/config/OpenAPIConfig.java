@@ -23,7 +23,11 @@ import java.util.List;
         email = "landrevillejf@protonmail.com",
         website = "https://www.lanaforge.ca"
 )
-@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Revision(
         date = "2023-09-01",
         revision = 1,

@@ -6,8 +6,16 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.docume
 import lombok.Getter;
 
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
-@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Author(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
+@Maintainer(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Revision(
         date = "2019-01-01",
         revision = 1,

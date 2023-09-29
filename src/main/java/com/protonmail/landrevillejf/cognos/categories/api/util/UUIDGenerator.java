@@ -22,7 +22,11 @@ import java.util.UUID;
         email = "landrevillejf@protonmail.com",
         website = "https://www.lanaforge.ca"
 )
-@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
 @Revision(
         date = "2022-10-28",
         revision = 1,
