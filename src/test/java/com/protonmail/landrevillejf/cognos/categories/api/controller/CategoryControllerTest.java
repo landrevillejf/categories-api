@@ -1,5 +1,6 @@
-package com.protonmail.landrevillejf.cognos.categories.api;
+package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
+import com.protonmail.landrevillejf.cognos.categories.api.TestConfig;
 import com.protonmail.landrevillejf.cognos.categories.api.controller.CategoryController;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.service.impl.CategoryServiceImpl;

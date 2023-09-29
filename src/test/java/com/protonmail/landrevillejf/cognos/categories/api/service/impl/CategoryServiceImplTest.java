@@ -1,8 +1,9 @@
-package com.protonmail.landrevillejf.cognos.categories.api;
+package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.service.impl.CategoryServiceImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -44,5 +45,37 @@ public class CategoryServiceImplTest {
         assertNotNull(result);
         assertEquals(categories.size(), result.size());
         assertEquals(categories, result);
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void findAll() {
+    }
+
+    @Test
+    void findAllByCriteria() {
+    }
+
+    @Test
+    void findById() {
+    }
+
+    @Test
+    void findByUid() {
+    }
+
+    @Test
+    void save() {
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void testUpdate() {
     }
 }

@@ -1,4 +1,4 @@
-package com.protonmail.landrevillejf.cognos.categories.api;
+package com.protonmail.landrevillejf.cognos.categories.api.unit;
 
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;

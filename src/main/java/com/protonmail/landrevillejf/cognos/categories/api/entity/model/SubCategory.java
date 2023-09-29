@@ -80,4 +80,16 @@ public class SubCategory extends CommonEntity {
      */
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    /**
+     * Creates a new Subcategory with the specified name and description.
+     *
+     * @param name        The name of the Subcategory.
+     * @param description The description of the Subcategory.
+     */
+    public SubCategory(final String name, final String description) {
+        super();
+        this.name = name;
+        this.description = description;
+    }
 }
