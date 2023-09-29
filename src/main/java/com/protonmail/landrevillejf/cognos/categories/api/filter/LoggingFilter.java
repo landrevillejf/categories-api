@@ -1,5 +1,8 @@
 package com.protonmail.landrevillejf.cognos.categories.api.filter;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +12,13 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @SuppressWarnings("CheckStyle")
+@Author(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
+@Revision(
+        date = "2019-01-01",
+        revision = 1,
+        comments = "Author LoggingFilter"
+)
 @Component
 @Slf4j
 public class LoggingFilter implements Filter {
