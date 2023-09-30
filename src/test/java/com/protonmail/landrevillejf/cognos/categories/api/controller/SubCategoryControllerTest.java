@@ -44,7 +44,7 @@ class SubCategoryControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(subCategoryController).build();
         objectMapper = new ObjectMapper();
     }
