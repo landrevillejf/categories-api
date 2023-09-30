@@ -2,6 +2,9 @@ package com.protonmail.landrevillejf.cognos.categories.api.repository;
 
 import com.protonmail.landrevillejf.cognos.categories.api.CognosCategoriesApiApplication;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
+import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -56,14 +59,17 @@ class CategoryRepositoryTest {
     }
 
     @Test
+    @Transactional
     void existsByName() {
         // Create a sample category
         Category category = new Category();
-        category.setName("TestCategory");
+        category.setName("SampleCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
+
         categoryRepository.save(category);
 
-        // Check if a category with the given name exists
-        boolean exists = categoryRepository.existsByName("TestCategory");
+        // Check if the category exists by name
+        boolean exists = categoryRepository.existsByName("SampleCategory");
 
         // Assert that the category exists
         assertTrue(exists);

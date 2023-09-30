@@ -3,6 +3,8 @@ package com.protonmail.landrevillejf.cognos.categories.api.repository;
 import com.protonmail.landrevillejf.cognos.categories.api.CognosCategoriesApiApplication;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
+import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -58,10 +60,20 @@ class SubCategoryRepositoryTest {
     }
 
     @Test
+    @Transactional
     void existsByName() {
-        // Create a sample subcategory and save it to the database
+        // Create a sample category and subcategory
+        Category category = new Category();
+        category.setName("SampleCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
+
         SubCategory subCategory = new SubCategory();
         subCategory.setName("SampleSubCategory");
+        subCategory.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory.setCategory(category); // Associate the subcategory with the category
+
+        // Save both the category and subcategory to the database
+        category = categoryRepository.save(category);
         subCategoryRepository.save(subCategory);
 
         // Check if the subcategory exists by name
@@ -76,11 +88,14 @@ class SubCategoryRepositoryTest {
         // Create a sample category and subcategories associated with it
         Category category = new Category();
         category.setName("SampleCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
         SubCategory subCategory1 = new SubCategory();
         subCategory1.setName("SubCategory1");
+        subCategory1.setUid(UUIDGenerator.generateType1UUID().toString());
         subCategory1.setCategory(category);
         SubCategory subCategory2 = new SubCategory();
         subCategory2.setName("SubCategory2");
+        subCategory2.setUid(UUIDGenerator.generateType1UUID().toString());
         subCategory2.setCategory(category);
 
         // Save the category and subcategories to the database
