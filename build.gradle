@@ -18,6 +18,7 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
     cucumberRuntime {
         extendsFrom testImplementation
     }
@@ -42,6 +43,15 @@ repositories {
 configurations.configureEach {
     resolutionStrategy.eachDependency {
         DependencyResolveDetails details ->
+
+            if (details.requested.group == 'org.xerial.snappy' &&
+                    details.requested.name == 'snappy-java' && details.requested.version < '1.1.10.5') {
+                details.useVersion '1.1.10.5'
+                details.because 'snappy-java is a fast compressor/decompressor for Java.' +
+                        ' Due to unchecked multiplications, an integer overflow may occur in versions prior to 1.1.10.1,'
+                        +' CVE-2023-34453/CVE-2023-34454/CVE-2023-34455/CVE-2023-43642 '
+            }
+
             if (details.requested.group == 'com.fasterxml.jackson.core' &&
                     details.requested.name == 'jackson-databind' && details.requested.version < '2.15.2') {
                 details.useVersion '2.15.2'
@@ -109,7 +119,7 @@ dependencies {
     implementation group: 'net.sf.jasperreports', name: 'jasperreports-functions', version: '6.20.6'
     implementation group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.20.6'
     implementation 'com.github.librepdf:openpdf:1.3.30'
-    implementation 'org.springframework.kafka:spring-kafka:3.0.9'
+    implementation group: 'org.apache.kafka', name: 'kafka_2.13', version: '3.5.1'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
@@ -124,10 +134,9 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.h2database:h2'
-    implementation 'io.cucumber:cucumber-java:7.2.3'
-    implementation 'io.cucumber:cucumber-spring:7.2.3'
-    implementation 'io.cucumber:cucumber-junit:7.2.3'
-
+    testImplementation 'io.cucumber:cucumber-java:7.13.0'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
+    testImplementation 'io.cucumber:cucumber-junit:7.13.0'
     // Exclude commons-logging from Spring dependencies
     configurations {
         all*.exclude group: 'commons-logging', module: 'commons-logging'
@@ -148,7 +157,7 @@ tasks.register('deleteStaticFolder', Delete) {
     }
 }
 
-tasks.register('cucumber') {
+/*tasks.register('cucumber') {
     dependsOn assemble, compileTestJava
     doLast {
         javaexec {
@@ -159,6 +168,21 @@ tasks.register('cucumber') {
                     '--plugin', 'pretty', // You can customize the output format
                     'src/test/resources' // Path to your feature files
             ]
+        }
+    }
+}*/
+
+tasks.register('cucumber') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:target/cucumber-report.html',
+                    '--glue', 'com.protonmail.landrevillejf.cognos.categories.api.cucumber',
+                    'src/test/resources']
         }
     }
 }
