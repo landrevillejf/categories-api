@@ -21,11 +21,11 @@ public class JasperReportUtils {
     /**
      * Logger.
      */
-    private final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 
-    private JasperPrint jasperPrint;
+    private static JasperPrint jasperPrint;
 
-    public void exportToPdf(String fileName, String author) {
+    public static void exportToPdf(String fileName, String author) {
 
         // print report to file
         JRPdfExporter exporter = new JRPdfExporter();
@@ -51,7 +51,7 @@ public class JasperReportUtils {
         }
     }
 
-    public void exportToXlsx(String fileName, String sheetName) {
+    public static void exportToXlsx(String fileName, String sheetName) {
         JRXlsxExporter exporter = new JRXlsxExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
@@ -69,7 +69,7 @@ public class JasperReportUtils {
         }
     }
 
-    public void exportToCsv(String fileName) {
+    public static void exportToCsv(String fileName) {
         JRCsvExporter exporter = new JRCsvExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
@@ -82,7 +82,7 @@ public class JasperReportUtils {
         }
     }
 
-    public void exportToHtml(String fileName) {
+    public static void exportToHtml(String fileName) {
         HtmlExporter exporter = new HtmlExporter();
 
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
