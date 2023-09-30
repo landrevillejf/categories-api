@@ -212,9 +212,9 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
-            entity.setName(entity.getName());
-            entity.setDescription(entity.getDescription());
-            entity.setUpdatedAt(LocalDateTime.now());
+            category.setName(entity.getName());
+            category.setDescription(entity.getDescription());
+            category.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
