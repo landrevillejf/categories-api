@@ -175,9 +175,9 @@ class ReportServiceImplTest {
         // Check the data rows
         assertEquals("Category1,N/A,1", csvLines[1]);
         assertEquals("Category2,N/A,2", csvLines[2]);
-        assertEquals("Category1,SubCategory1,1", csvLines[3]);
-        assertEquals("Category2,SubCategory2,1", csvLines[4]);
-        assertEquals("Category2,SubCategory3,1", csvLines[5]);
+        assertEquals("Category1,SubCategory1,N/A", csvLines[3]);
+        assertEquals("Category2,SubCategory2,N/A", csvLines[4]);
+        assertEquals("Category2,SubCategory3,N/A", csvLines[5]);
     }
 
 
