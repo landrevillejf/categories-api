@@ -63,4 +63,6 @@ public interface SubCategoryRepository extends CommonRepository<SubCategory> {
      * @return The count of subcategories associated with the given category.
      */
     int countByCategory(Category category);
+
+    SubCategory findByCategory(Category category);
 }

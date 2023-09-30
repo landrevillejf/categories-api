@@ -261,13 +261,25 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     @ExecutionTime
     @Override
     public void delete(Category entity) {
-        int categoryListSize= repository.findAll().size();
-        if (categoryListSize < 1) {
-            logger.error(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
-            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
+        // Check if the category exists
+        Category existingCategory = repository.findByUid(entity.getUid());
+        if (existingCategory == null) {
+            logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
+            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
-        repository.delete(entity);
+
+        // Get the associated subcategories
+        List<SubCategory> subCategories = existingCategory.getSubCategories();
+
+        // Delete associated subcategories first
+        if (subCategories != null && !subCategories.isEmpty()) {
+            subCategoryRepository.deleteAll(subCategories);
+        }
+
+        // Finally, delete the category
+        repository.delete(existingCategory);
     }
+
 
     /**
      * Delete a Category entity by its UID.

@@ -5,6 +5,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
+import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,9 @@ public class CategoryServiceImplTest {
 
     @Mock
     private CategoryRepository repository;
+
+    @Mock
+    private SubCategoryRepository subCategoryRepository;
 
     @BeforeEach
     void setUp() {
@@ -207,6 +211,23 @@ public class CategoryServiceImplTest {
     void delete() {
         // Arrange
         Category category = new Category("Category1", "Description1");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
+
+        // Create a list of sample subcategories associated with 'category'
+        List<SubCategory> subCategories = new ArrayList<>();
+        SubCategory subCategory1 = new SubCategory();
+        subCategory1.setName("SubCategory1");
+        subCategory1.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory1.setCategory(category);
+        subCategories.add(subCategory1);
+
+        SubCategory subCategory2 = new SubCategory();
+        subCategory2.setName("SubCategory2");
+        subCategory2.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory2.setCategory(category);
+        subCategories.add(subCategory2);
+
+        category.setSubCategories(subCategories);
 
         // Mock the repository to return the specified category when findByUid is called
         when(repository.findByUid(category.getUid())).thenReturn(category);
@@ -216,6 +237,10 @@ public class CategoryServiceImplTest {
 
         // Assert: Verify that the repository's delete method was called with the specified category
         verify(repository, times(1)).delete(eq(category));
+        // Assert: Verify that the delete method was called for each associated subcategory
+        for (SubCategory subCategory : subCategories) {
+            verify(subCategoryRepository, times(1)).delete(eq(subCategory));
+        }
     }
 
     @Test
