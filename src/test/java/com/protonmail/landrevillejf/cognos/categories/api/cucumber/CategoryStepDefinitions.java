@@ -8,11 +8,15 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CategoryStepDefinitions {
 
-
-    private final TestRestTemplate restTemplate;
+    private TestRestTemplate restTemplate;
     private ResponseEntity<String> response;
+
+    public CategoryStepDefinitions() {
+    }
 
     public CategoryStepDefinitions(TestRestTemplate restTemplate) {
         this.restTemplate = restTemplate;

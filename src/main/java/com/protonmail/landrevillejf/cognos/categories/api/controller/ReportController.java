@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @SuppressWarnings("CheckStyle")
 @Author(name = "Jean-Francois Landreville",
@@ -188,4 +189,43 @@ public class ReportController {
     }
 
 
+    @Operation(summary = "Generate a PDF report for categories")
+    @GetMapping(Api.PDF_CATEGORIES_REPORT)
+    public ResponseEntity<InputStreamResource> generatePdfCategoriesReport() throws IOException, JRException {
+        FileDTO report = reportService.generatePdfCategoryReport();
+        return createResponseEntity(report);
+    }
+
+    @Operation(summary = "Generate a PDF report for subcategories")
+    @GetMapping(Api.PDF_SUBCATEGORIES_REPORT)
+    public ResponseEntity<InputStreamResource> generatePdfSubcategoriesReport() throws IOException, JRException {
+        FileDTO report = reportService.generatePdfSubCategoryReport();
+        return createResponseEntity(report);
+    }
+
+    @Operation(summary = "Export data to CSV")
+    @GetMapping(Api.EXPORT_TO_CSV)
+    public ResponseEntity<InputStreamResource> exportToCsv() throws IOException {
+        FileDTO report = reportService.exportToCsv();
+        return createResponseEntity(report);
+    }
+
+    @Operation(summary = "Export data to HTML")
+    @GetMapping(Api.EXPORT_TO_HTML)
+    public ResponseEntity<InputStreamResource> exportToHtml() throws IOException {
+        FileDTO report = reportService.exportToHtml();
+        return createResponseEntity(report);
+    }
+
+    private ResponseEntity<InputStreamResource> createResponseEntity(FileDTO report) {
+        byte[] file = report.getFileContent().getBytes(StandardCharsets.UTF_8);
+        InputStream targetStream = new ByteArrayInputStream(file);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Disposition", "attachment; filename=" + report.getFileName());
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(file.length)
+                .body(new InputStreamResource(targetStream));
+    }
 }

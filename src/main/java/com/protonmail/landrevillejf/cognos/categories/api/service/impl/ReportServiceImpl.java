@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,6 +79,133 @@ public class ReportServiceImpl implements ReportService {
      * Report filler for filling report templates.
      */
     private final SimpleReportFiller simpleReportFiller;
+
+    // Generate a PDF report only for categories
+    @ExecutionTime
+    @Override
+    // Generate a PDF report only for categories
+    public FileDTO generatePdfCategoryReport() throws JRException {
+        try {
+            List<Category> categoryList = categoryRepository.findAll();
+            List<CategoryReportDTO> reportRecords = new ArrayList<>();
+
+            for (Category category : categoryList) {
+                CategoryReportDTO categoryReportDTO = EntityDtoMapper.convertToDto(category, CategoryReportDTO.class);
+                int totalSubcategories = subCategoryRepository.countByCategory(category);
+                categoryReportDTO.setTotalSubcategories(totalSubcategories);
+                categoryReportDTO.setCreatedAtFormatted(categoryReportDTO.getFormattedCreatedAt());
+                categoryReportDTO.setUpdatedAtFormatted(categoryReportDTO.getFormattedUpdatedAt());
+
+                reportRecords.add(categoryReportDTO);
+            }
+
+            String dateAsString = Utils.getCurrentDateAsString();
+            String fileName = "Category_Report_" + dateAsString + ".pdf";
+
+            byte[] reportAsByteArray = reportExporter.exportReportToByteArray(
+                    reportRecords, fileName, "jrxml/pdf/categoryPdfReport");
+
+            String base64String = Base64.encodeBase64String(reportAsByteArray);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileContent(base64String);
+            fileDTO.setFileName(fileName);
+
+            return fileDTO;
+        } catch (JRException e) {
+            logger.error("Error generating PDF category report: {}", e.getMessage(), e);
+            throw new JRException("Error generating PDF category report: {}", e.getMessage(), e);
+        }
+    }
+
+    // Generate a PDF report only for subcategories
+    @ExecutionTime
+    @Override
+    // Generate a PDF report only for subcategories
+    public FileDTO generatePdfSubCategoryReport() throws JRException {
+        try {
+            List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+            List<SubCategoryReportDTO> reportRecords = new ArrayList<>();
+
+            for (SubCategory subCategory : subCategoryList) {
+                SubCategoryReportDTO subCategoryReportDTO = EntityDtoMapper.convertToDto(subCategory, SubCategoryReportDTO.class);
+                subCategoryReportDTO.setCategory(subCategory.getCategory().getName());
+                subCategoryReportDTO.setCreatedAtFormatted(subCategoryReportDTO.getFormattedCreatedAt());
+                subCategoryReportDTO.setUpdatedAtFormatted(subCategoryReportDTO.getFormattedUpdatedAt());
+                reportRecords.add(subCategoryReportDTO);
+            }
+
+            String dateAsString = Utils.getCurrentDateAsString();
+            String fileName = "SubCategory_Report_" + dateAsString + ".pdf";
+
+            byte[] reportAsByteArray = reportExporter.exportReportToByteArray(
+                    reportRecords, fileName, "jrxml/pdf/subcategoryPdfReport");
+
+            String base64String = Base64.encodeBase64String(reportAsByteArray);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileContent(base64String);
+            fileDTO.setFileName(fileName);
+
+            return fileDTO;
+        } catch (JRException e) {
+            logger.error("Error generating PDF subcategory report: {}", e.getMessage(), e);
+            throw new JRException("Error generating PDF subcategory report: {}", e.getMessage(), e);
+        }
+    }
+
+    // Export data to CSV
+    @ExecutionTime
+    @Override
+    public FileDTO exportToCsv() throws IOException {
+        try {
+            // Implement the logic to export data to CSV here
+            // You can use libraries like Apache Commons CSV or OpenCSV
+            // Example code to generate CSV will go here
+            String csvData = "CSV Data"; // Replace with your CSV data
+            String dateAsString = Utils.getCurrentDateAsString();
+            String fileName = "Data_" + dateAsString + ".csv";
+
+            byte[] csvBytes = csvData.getBytes(StandardCharsets.UTF_8);
+
+            String base64String = Base64.encodeBase64String(csvBytes);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileContent(base64String);
+            fileDTO.setFileName(fileName);
+
+            return fileDTO;
+        } catch (Exception e) {
+            logger.error("Error exporting data to CSV: {}", e.getMessage(), e);
+            throw new IOException("Error exporting data to CSV: " + e.getMessage(), e);
+        }
+    }
+
+    // Export data to HTML
+    @ExecutionTime
+    @Override
+    public FileDTO exportToHtml() throws IOException {
+        try {
+            // Implement the logic to export data to HTML here
+            // Example code to generate HTML will go here
+            String htmlData = "<html><body><h1>HTML Data</h1></body></html>"; // Replace with your HTML data
+            String dateAsString = Utils.getCurrentDateAsString();
+            String fileName = "Data_" + dateAsString + ".html";
+
+            byte[] htmlBytes = htmlData.getBytes(StandardCharsets.UTF_8);
+
+            String base64String = Base64.encodeBase64String(htmlBytes);
+
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setFileContent(base64String);
+            fileDTO.setFileName(fileName);
+
+            return fileDTO;
+        } catch (Exception e) {
+            logger.error("Error exporting data to HTML: {}", e.getMessage(), e);
+            throw new IOException("Error exporting data to HTML: " + e.getMessage(), e);
+        }
+    }
 
     /**
      * Generate an Excel report containing category information.

@@ -54,6 +54,10 @@ public class Api {
     public static final String PDF_FULL_REPORT = "/pdf/full-report";
     public static final String ZIP_REPORT = "/zip";
     public static final String MULTI_SHEET_EXCEL_REPORT = "/multi-sheet-excel";
+    public static final String EXPORT_TO_HTML = "/export-to-html";
+    public static final String EXPORT_TO_CSV = "/export-to-csv";
+    public static final String PDF_SUBCATEGORIES_REPORT = "/pdf/subcategories-report";
+    public static final String PDF_CATEGORIES_REPORT = "/pdf/categories-report";
 
     /** Get Verb. */
     public static final String GET = "GET";
@@ -65,4 +69,5 @@ public class Api {
     public static final String DELETE = "DELETE";
     /** ALLOWED_HEADERS. */
     public static final String ALLOWED_HEADERS = "*";
+
 }

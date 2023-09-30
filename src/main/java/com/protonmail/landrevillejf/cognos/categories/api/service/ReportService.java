@@ -1,6 +1,7 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
@@ -28,6 +29,22 @@ import java.io.IOException;
         comments = "Author ReportService Interface"
 )
 public interface ReportService {
+
+    // Generate a PDF report only for categories
+    @ExecutionTime
+    FileDTO generatePdfCategoryReport() throws JRException;
+
+    // Generate a PDF report only for subcategories
+    @ExecutionTime
+    FileDTO generatePdfSubCategoryReport() throws JRException;
+
+    // Export data to CSV
+    @ExecutionTime
+    FileDTO exportToCsv() throws IOException;
+
+    // Export data to HTML
+    @ExecutionTime
+    FileDTO exportToHtml() throws IOException;
 
     /**
      * Generates an Excel report for categories.
