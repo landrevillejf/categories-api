@@ -30,14 +30,6 @@ import java.io.IOException;
 )
 public interface ReportService {
 
-    // Generate a PDF report only for categories
-    @ExecutionTime
-    FileDTO generatePdfCategoryReport() throws JRException;
-
-    // Generate a PDF report only for subcategories
-    @ExecutionTime
-    FileDTO generatePdfSubCategoryReport() throws JRException;
-
     // Export data to CSV
     @ExecutionTime
     FileDTO exportToCsv() throws IOException;

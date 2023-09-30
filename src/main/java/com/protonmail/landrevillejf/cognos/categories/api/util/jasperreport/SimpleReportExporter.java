@@ -1,6 +1,7 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport;
 
 
+import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryReportDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ReportGenerationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -240,4 +241,7 @@ public class SimpleReportExporter {
     }
 
 
+    public JRBeanCollectionDataSource getMainReportDataSource(List<CategoryReportDTO> records) {
+        return new JRBeanCollectionDataSource(records);
+    }
 }

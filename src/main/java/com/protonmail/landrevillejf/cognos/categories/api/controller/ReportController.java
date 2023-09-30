@@ -188,21 +188,6 @@ public class ReportController {
                 .body(new InputStreamResource(targetStream));
     }
 
-
-    @Operation(summary = "Generate a PDF report for categories")
-    @GetMapping(Api.PDF_CATEGORIES_REPORT)
-    public ResponseEntity<InputStreamResource> generatePdfCategoriesReport() throws IOException, JRException {
-        FileDTO report = reportService.generatePdfCategoryReport();
-        return createResponseEntity(report);
-    }
-
-    @Operation(summary = "Generate a PDF report for subcategories")
-    @GetMapping(Api.PDF_SUBCATEGORIES_REPORT)
-    public ResponseEntity<InputStreamResource> generatePdfSubcategoriesReport() throws IOException, JRException {
-        FileDTO report = reportService.generatePdfSubCategoryReport();
-        return createResponseEntity(report);
-    }
-
     @Operation(summary = "Export data to CSV")
     @GetMapping(Api.EXPORT_TO_CSV)
     public ResponseEntity<InputStreamResource> exportToCsv() throws IOException {
