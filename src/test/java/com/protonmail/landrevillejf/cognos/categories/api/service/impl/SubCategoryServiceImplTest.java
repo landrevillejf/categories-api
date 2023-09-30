@@ -7,6 +7,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -163,16 +165,31 @@ class SubCategoryServiceImplTest {
         SubCategory existingSubCategory = new SubCategory("Category1", "Description1");
         when(repository.findByUid(uid)).thenReturn(existingSubCategory);
 
+        ArgumentCaptor<SubCategory> subCategoryCaptor = ArgumentCaptor.forClass(SubCategory.class);
+        when(repository.save(subCategoryCaptor.capture())).thenAnswer(invocation -> {
+            SubCategory savedSubCategory = subCategoryCaptor.getValue();
+
+            // Update existingSubCategory with values from savedSubCategory
+            existingSubCategory.setName(savedSubCategory.getName());
+            existingSubCategory.setDescription(savedSubCategory.getDescription());
+            existingSubCategory.setUpdatedAt(savedSubCategory.getUpdatedAt());
+
+            return existingSubCategory;
+        });
+
         SubCategory updatedSubCategory = new SubCategory("UpdatedCategory", "UpdatedDescription");
-        when(repository.save(updatedSubCategory)).thenReturn(updatedSubCategory);
 
         // Act
         SubCategory result = service.update(updatedSubCategory, uid);
 
         // Assert
         assertNotNull(result);
-        assertEquals(updatedSubCategory, result);
+        assertEquals("UpdatedCategory", result.getName());
+        assertEquals("UpdatedDescription", result.getDescription());
     }
+
+
+
 
 
     @Test
@@ -192,12 +209,16 @@ class SubCategoryServiceImplTest {
         // Arrange
         SubCategory subCategory = new SubCategory("Category1", "Description1");
 
+        // Mock the repository to return the specified subCategory when findByUid is called
+        when(repository.findByUid(subCategory.getUid())).thenReturn(subCategory);
+
         // Act
         assertDoesNotThrow(() -> service.delete(subCategory));
 
-        // Assert
+        // Assert: Verify that the repository's delete method was called with the specified subCategory
         verify(repository, times(1)).delete(eq(subCategory));
     }
+
     @Test
     void deleteByUid() {
         // Arrange
@@ -225,14 +246,18 @@ class SubCategoryServiceImplTest {
 
     @Test
     void deleteAll() {
-        // Arrange
-        when(repository.findAll()).thenReturn(new ArrayList<>());
+        // Arrange: Mock the repository to return a list of sub-categories
+        List<SubCategory> subCategories = new ArrayList<>();
+        subCategories.add(new SubCategory("Category1", "Description1"));
+        when(repository.findAll()).thenReturn(subCategories);
 
         // Act
         assertDoesNotThrow(() -> service.deleteAll());
 
-        // Assert: No exception thrown
+        // Assert: Verify that the repository's deleteAll method was called
+        verify(repository, times(1)).deleteAll();
     }
+
 
     @Test
     void count() {

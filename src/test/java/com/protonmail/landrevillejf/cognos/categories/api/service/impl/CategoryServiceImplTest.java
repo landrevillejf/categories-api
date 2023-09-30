@@ -160,7 +160,7 @@ public class CategoryServiceImplTest {
     void update() {
         // Arrange
         String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
-        Category existingCategory = new Category("Category1", "Description1");
+        Category existingCategory = new Category("Academics", "Academics");
         when(repository.findByUid(uid)).thenReturn(existingCategory);
 
         Category updatedCategory = new Category("UpdatedCategory", "UpdatedDescription");
@@ -173,6 +173,7 @@ public class CategoryServiceImplTest {
         assertNotNull(result);
         assertEquals(updatedCategory, result);
     }
+
 
 
     @Test
@@ -192,12 +193,16 @@ public class CategoryServiceImplTest {
         // Arrange
         Category category = new Category("Category1", "Description1");
 
+        // Mock the repository to return the specified category when findByUid is called
+        when(repository.findByUid(category.getUid())).thenReturn(category);
+
         // Act
         assertDoesNotThrow(() -> service.delete(category));
 
-        // Assert
+        // Assert: Verify that the repository's delete method was called with the specified category
         verify(repository, times(1)).delete(eq(category));
     }
+
     @Test
     void deleteByUid() {
         // Arrange
@@ -225,14 +230,18 @@ public class CategoryServiceImplTest {
 
     @Test
     void deleteAll() {
-        // Arrange
-        when(repository.findAll()).thenReturn(new ArrayList<>());
+        // Arrange: Mock the repository to return a list of sub-categories
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Category1", "Description1"));
+        when(repository.findAll()).thenReturn(categories);
 
         // Act
         assertDoesNotThrow(() -> service.deleteAll());
 
-        // Assert: No exception thrown
+        // Assert: Verify that the repository's deleteAll method was called
+        verify(repository, times(1)).deleteAll();
     }
+
 
     @Test
     void count() {
