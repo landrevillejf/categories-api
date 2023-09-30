@@ -1,35 +1,39 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.SimpleReportExporter;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
-import net.sf.jasperreports.export.SimpleWriterExporterOutput;
-import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import net.sf.jasperreports.export.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Utility class for exporting JasperReports to various formats.
+ */
 public class JasperReportUtils {
-    /**
-     * Logger.
-     */
     private static final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 
-    private static JasperPrint jasperPrint;
+    // Private constructor to prevent instantiation
+    private JasperReportUtils() {
+        throw new AssertionError("Utility class should not be instantiated.");
+    }
 
-    public static void exportToPdf(String fileName, String author) {
+    /**
+     * Export a JasperPrint object to PDF format.
+     *
+     * @param jasperPrint The JasperPrint object to export.
+     * @param fileName    The name of the PDF file to create.
+     * @param author      The author metadata for the PDF.
+     * @throws JRException If an error occurs during the export process.
+     */
+    public static void exportToPdf(JasperPrint jasperPrint, String fileName, String author) throws JRException {
+        validateJasperPrint(jasperPrint);
 
-        // print report to file
         JRPdfExporter exporter = new JRPdfExporter();
-
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fileName));
 
@@ -44,16 +48,22 @@ public class JasperReportUtils {
 
         exporter.setConfiguration(reportConfig);
         exporter.setConfiguration(exportConfig);
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to pdf: {}", ex.getMessage(), ex);
-        }
+
+        exporter.exportReport();
     }
 
-    public static void exportToXlsx(String fileName, String sheetName) {
-        JRXlsxExporter exporter = new JRXlsxExporter();
+    /**
+     * Export a JasperPrint object to XLSX format.
+     *
+     * @param jasperPrint The JasperPrint object to export.
+     * @param fileName    The name of the XLSX file to create.
+     * @param sheetName   The name of the XLSX sheet.
+     * @throws JRException If an error occurs during the export process.
+     */
+    public static void exportToXlsx(JasperPrint jasperPrint, String fileName, String sheetName) throws JRException {
+        validateJasperPrint(jasperPrint);
 
+        JRXlsxExporter exporter = new JRXlsxExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fileName));
 
@@ -62,36 +72,54 @@ public class JasperReportUtils {
 
         exporter.setConfiguration(reportConfig);
 
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to xlsx: {}", ex.getMessage(), ex);
-        }
+        exporter.exportReport();
     }
 
-    public static void exportToCsv(String fileName) {
-        JRCsvExporter exporter = new JRCsvExporter();
+    /**
+     * Export a JasperPrint object to CSV format.
+     *
+     * @param jasperPrint The JasperPrint object to export.
+     * @param fileName    The name of the CSV file to create.
+     * @throws JRException If an error occurs during the export process.
+     */
+    public static void exportToCsv(JasperPrint jasperPrint, String fileName) throws JRException {
+        validateJasperPrint(jasperPrint);
 
+        JRCsvExporter exporter = new JRCsvExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleWriterExporterOutput(fileName));
 
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to csv: {}", ex.getMessage(), ex);
-        }
+        exporter.exportReport();
     }
 
-    public static void exportToHtml(String fileName) {
-        HtmlExporter exporter = new HtmlExporter();
+    /**
+     * Export a JasperPrint object to HTML format.
+     *
+     * @param jasperPrint The JasperPrint object to export.
+     * @param fileName    The name of the HTML file to create.
+     * @throws JRException If an error occurs during the export process.
+     */
+    public static void exportToHtml(JasperPrint jasperPrint, String fileName) throws JRException {
+        validateJasperPrint(jasperPrint);
 
+        HtmlExporter exporter = new HtmlExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleHtmlExporterOutput(fileName));
 
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to html: {}", ex.getMessage(), ex);
+        exporter.exportReport();
+    }
+
+    /**
+     * Validates a JasperPrint object to ensure it is not null.
+     *
+     * @param jasperPrint The JasperPrint object to validate.
+     * @throws JRException If the JasperPrint object is null.
+     */
+    private static void validateJasperPrint(JasperPrint jasperPrint) throws JRException {
+        if (jasperPrint == null) {
+            throw new JRException("JasperPrint object is null. Ensure it is properly initialized.");
         }
     }
 }
+
+
