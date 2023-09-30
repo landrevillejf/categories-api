@@ -1,5 +1,9 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
@@ -14,6 +18,25 @@ import org.slf4j.LoggerFactory;
 /**
  * Utility class for exporting JasperReports to various formats.
  */
+@Author(
+        name = "Eugene",
+        enterprise = "Kovko",
+        email = "eugenekovko@baeldung.com",
+        website = "https://www.baeldung.com"
+)
+@Maintainer(
+        name = "Jean-Francois Landreville",
+        enterprise = "Lanaforge Inc.",
+        email = "landrevillejf@protonmail.com",
+        website = "https://www.lanaforge.ca"
+)
+@Revision(
+        date = "2022-10-28",
+        revision = 1,
+        comments = "(JFL) My Version of UUIDGenerator"
+)
+@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
+@SuppressWarnings("CheckStyle")
 public class JasperReportUtils {
     private static final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 
@@ -49,7 +72,13 @@ public class JasperReportUtils {
         exporter.setConfiguration(reportConfig);
         exporter.setConfiguration(exportConfig);
 
-        exporter.exportReport();
+        try {
+            exporter.exportReport();
+            logger.info("PDF report exported to: {}", fileName);
+        } catch (JRException ex) {
+            logger.error("Error exporting data to pdf: {}", ex.getMessage(), ex);
+            throw ex;
+        }
     }
 
     /**
@@ -72,7 +101,13 @@ public class JasperReportUtils {
 
         exporter.setConfiguration(reportConfig);
 
-        exporter.exportReport();
+        try {
+            exporter.exportReport();
+            logger.info("XLSX report exported to: {}", fileName);
+        } catch (JRException ex) {
+            logger.error("Error exporting data to xlsx: {}", ex.getMessage(), ex);
+            throw ex;
+        }
     }
 
     /**
@@ -89,7 +124,13 @@ public class JasperReportUtils {
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleWriterExporterOutput(fileName));
 
-        exporter.exportReport();
+        try {
+            exporter.exportReport();
+            logger.info("CSV report exported to: {}", fileName);
+        } catch (JRException ex) {
+            logger.error("Error exporting data to csv: {}", ex.getMessage(), ex);
+            throw ex;
+        }
     }
 
     /**
@@ -106,7 +147,13 @@ public class JasperReportUtils {
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleHtmlExporterOutput(fileName));
 
-        exporter.exportReport();
+        try {
+            exporter.exportReport();
+            logger.info("HTML report exported to: {}", fileName);
+        } catch (JRException ex) {
+            logger.error("Error exporting data to html: {}", ex.getMessage(), ex);
+            throw ex;
+        }
     }
 
     /**
@@ -121,5 +168,6 @@ public class JasperReportUtils {
         }
     }
 }
+
 
 
