@@ -2,6 +2,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 
+import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
@@ -62,6 +63,20 @@ public class CategoryServiceImplTest {
 
     @Test
     void findAll() {
+        // Arrange
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Category1", "Description1"));
+        categories.add(new Category("Category2", "Description2"));
+        Page<Category> categoryPage = new PageImpl<>(categories);
+        when(repository.findAll(any(Pageable.class))).thenReturn(categoryPage);
+
+        // Act
+        List<Category> result = service.findAll(1, 15);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(categories.size(), result.size());
+        assertEquals(categories, result);
     }
 
     @Test
