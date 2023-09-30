@@ -1,6 +1,7 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Creation;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
@@ -29,6 +30,10 @@ import org.slf4j.LoggerFactory;
     enterprise = "Lanaforge Inc.",
     email = "landrevillejf@protonmail.com",
     website = "https://www.lanaforge.ca"
+)
+@Creation(
+        date = "2023-09-30",
+        comments = "Creation Annotation"
 )
 @Revision(
     date = "2023-09-30",
