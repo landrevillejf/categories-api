@@ -53,8 +53,6 @@ public class SimpleReportExporter {
      */
     private final Logger logger = LoggerFactory.getLogger(SimpleReportExporter.class);
 
-
-    private JasperPrint jasperPrint;
     /**
      * This method is used to generate a <strong>JasperPrint</strong> by providing the
      * list of records, the name of the generated file and the name of the jrxml file
@@ -261,74 +259,6 @@ public class SimpleReportExporter {
         return new JRBeanCollectionDataSource(records);
     }
 
-    public void exportToPdf(String fileName, String author) {
 
-        // print report to file
-        JRPdfExporter exporter = new JRPdfExporter();
-
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fileName));
-
-        SimplePdfReportConfiguration reportConfig = new SimplePdfReportConfiguration();
-        reportConfig.setSizePageToContent(true);
-        reportConfig.setForceLineBreakPolicy(false);
-
-        SimplePdfExporterConfiguration exportConfig = new SimplePdfExporterConfiguration();
-        exportConfig.setMetadataAuthor(author);
-        exportConfig.setEncrypted(true);
-        exportConfig.setAllowedPermissionsHint("PRINTING");
-
-        exporter.setConfiguration(reportConfig);
-        exporter.setConfiguration(exportConfig);
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to pdf: {}", ex.getMessage(), ex);
-        }
-    }
-
-    public void exportToXlsx(String fileName, String sheetName) {
-        JRXlsxExporter exporter = new JRXlsxExporter();
-
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fileName));
-
-        SimpleXlsxReportConfiguration reportConfig = new SimpleXlsxReportConfiguration();
-        reportConfig.setSheetNames(new String[] { sheetName });
-
-        exporter.setConfiguration(reportConfig);
-
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to xlsx: {}", ex.getMessage(), ex);
-        }
-    }
-
-    public void exportToCsv(String fileName) {
-        JRCsvExporter exporter = new JRCsvExporter();
-
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(new SimpleWriterExporterOutput(fileName));
-
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to csv: {}", ex.getMessage(), ex);
-        }
-    }
-
-    public void exportToHtml(String fileName) {
-        HtmlExporter exporter = new HtmlExporter();
-
-        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-        exporter.setExporterOutput(new SimpleHtmlExporterOutput(fileName));
-
-        try {
-            exporter.exportReport();
-        } catch (JRException ex) {
-            logger.error("Error exporting data to html: {}", ex.getMessage(), ex);
-        }
-    }
 
 }
