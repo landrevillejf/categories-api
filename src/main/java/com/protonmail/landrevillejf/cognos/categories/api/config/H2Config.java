@@ -40,7 +40,7 @@ public class H2Config {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:file:~/tmpdb/projects_db"); // temporary database location
+        dataSource.setUrl("jdbc:h2:file:~/tmpdb/test_db"); // temporary database location
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         return dataSource;
