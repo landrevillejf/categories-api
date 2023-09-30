@@ -28,6 +28,7 @@ class CategoryRepositoryTest {
         // Create a sample category
         Category category = new Category();
         category.setName("TestCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
         categoryRepository.save(category);
 
         // Try to find the category by name
@@ -43,10 +44,12 @@ class CategoryRepositoryTest {
         // Create sample categories
         Category category1 = new Category();
         category1.setName("TestCategory1");
+        category1.setUid(UUIDGenerator.generateType1UUID().toString());
         categoryRepository.save(category1);
 
         Category category2 = new Category();
         category2.setName("AnotherCategory");
+        category2.setUid(UUIDGenerator.generateType1UUID().toString());
         categoryRepository.save(category2);
 
         // Try to find categories containing "Category"

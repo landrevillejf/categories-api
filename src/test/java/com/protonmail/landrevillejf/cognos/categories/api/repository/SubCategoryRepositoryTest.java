@@ -27,10 +27,20 @@ class SubCategoryRepositoryTest {
     private CategoryRepository categoryRepository;
 
     @Test
+    @Transactional
     void findByName() {
-        // Create a sample subcategory and save it to the database
+        // Create a sample category and subcategory
+        Category category = new Category();
+        category.setName("SampleCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
+
         SubCategory subCategory = new SubCategory();
         subCategory.setName("SampleSubCategory");
+        subCategory.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory.setCategory(category); // Associate the subcategory with the category
+
+        // Save both the category and subcategory to the database
+        category = categoryRepository.save(category);
         subCategoryRepository.save(subCategory);
 
         // Perform the findByName operation
@@ -40,16 +50,26 @@ class SubCategoryRepositoryTest {
         assertNotNull(foundSubCategory);
         assertEquals("SampleSubCategory", foundSubCategory.getName());
     }
-
     @Test
+    @Transactional
     void findByNameContaining() {
+        // Create and save a sample Category
+        Category category = new Category();
+        category.setName("SampleCategory");
+        category.setUid(UUIDGenerator.generateType1UUID().toString());
+        categoryRepository.save(category);
+
         // Create and save sample subcategories with names containing "Sample"
         SubCategory subCategory1 = new SubCategory();
         subCategory1.setName("SampleSubCategory1");
+        subCategory1.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory1.setCategory(category); // Associate with the Category
         subCategoryRepository.save(subCategory1);
 
         SubCategory subCategory2 = new SubCategory();
         subCategory2.setName("SubCategorySample2");
+        subCategory2.setUid(UUIDGenerator.generateType1UUID().toString());
+        subCategory2.setCategory(category); // Associate with the Category
         subCategoryRepository.save(subCategory2);
 
         // Perform the findByNameContaining operation
