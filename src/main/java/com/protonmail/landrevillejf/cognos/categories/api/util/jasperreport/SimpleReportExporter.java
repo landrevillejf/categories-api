@@ -3,7 +3,6 @@ package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryReportDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ReportGenerationException;
-import com.protonmail.landrevillejf.cognos.categories.api.service.impl.ReportServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
@@ -11,17 +10,9 @@ import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
-import net.sf.jasperreports.export.SimpleWriterExporterOutput;
-import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -46,7 +37,7 @@ public class SimpleReportExporter {
     /**
      *
      */
-    private final SimpleReportFiller reportFiller;
+    private final SimpleReportFiller simpleReportFiller;
 
     /**
      * Logger.
@@ -71,7 +62,7 @@ public class SimpleReportExporter {
         jasperParameters.put(JRParameter.REPORT_LOCALE, Locale.US);    // set Locale to Italy
 
         try {
-            JasperPrint jasperPrint = reportFiller.prepareReport(jrxmlFileName, jasperParameters, dataSource);
+            JasperPrint jasperPrint = simpleReportFiller.prepareReport(jrxmlFileName, jasperParameters, dataSource);
             jasperPrint.setName(reportFileName);
 
             return jasperPrint;

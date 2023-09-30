@@ -7,6 +7,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.controller;
 import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.service.ReportService;
+import com.protonmail.landrevillejf.cognos.categories.api.service.impl.ReportServiceImpl;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
@@ -51,7 +52,7 @@ import java.nio.charset.StandardCharsets;
 public class ReportController {
 
 
-    private final ReportService reportService;
+    private final ReportServiceImpl reportService;
 
     /**
      * Generates an Excel report containing all the categories.
