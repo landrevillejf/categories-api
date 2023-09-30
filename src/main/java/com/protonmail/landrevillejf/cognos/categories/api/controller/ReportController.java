@@ -52,7 +52,7 @@ import java.nio.charset.StandardCharsets;
 public class ReportController {
 
 
-    private final ReportServiceImpl reportService;
+    private final ReportService reportService;
 
     /**
      * Generates an Excel report containing all the categories.
