@@ -19,21 +19,21 @@ import org.slf4j.LoggerFactory;
  * Utility class for exporting JasperReports to various formats.
  */
 @Author(
-        name = "Eugene",
-        enterprise = "Kovko",
-        email = "eugenekovko@baeldung.com",
-        website = "https://www.baeldung.com"
+    name = "Jean-Francois Landreville",
+    enterprise = "Lanaforge Inc.",
+    email = "landrevillejf@protonmail.com",
+    website = "https://www.lanaforge.ca"
 )
 @Maintainer(
-        name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
+    name = "Jean-Francois Landreville",
+    enterprise = "Lanaforge Inc.",
+    email = "landrevillejf@protonmail.com",
+    website = "https://www.lanaforge.ca"
 )
 @Revision(
-        date = "2022-10-28",
-        revision = 1,
-        comments = "(JFL) My Version of UUIDGenerator"
+    date = "2023-09-30",
+    revision = 2,
+    comments = "JasperReportUtils"
 )
 @License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 @SuppressWarnings("CheckStyle")
