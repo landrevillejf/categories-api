@@ -188,7 +188,7 @@ public class ReportController {
                 .body(new InputStreamResource(targetStream));
     }
 
-    @Operation(summary = "Export data to CSV")
+    /*@Operation(summary = "Export data to CSV")
     @GetMapping(Api.EXPORT_TO_CSV)
     public ResponseEntity<InputStreamResource> exportToCsv() throws IOException {
         FileDTO report = reportService.exportToCsv();
@@ -212,5 +212,5 @@ public class ReportController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .contentLength(file.length)
                 .body(new InputStreamResource(targetStream));
-    }
+    }*/
 }
