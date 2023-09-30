@@ -44,8 +44,19 @@ configurations.configureEach {
     resolutionStrategy.eachDependency {
         DependencyResolveDetails details ->
 
+            if (details.requested.group == 'io.netty' &&
+                details.requested.name == 'netty-handler' && details.requested.version < '5.0.0.Alpha2') {
+                details.useVersion '5.0.0.Alpha2'
+                details.because 'netty-handler - Improper Certificate Validation' +
+                        'The product does not adequately verify the identity of actors at both ends of a communication' +
+                        ' channel, or does not adequately ensure the integrity of the channel, in a way that allows the' +
+                        ' channel to be accessed or influenced by an actor that is not an endpoint.' +
+                        'CWE-300 Channel Accessible by Non-Endpoint,'+
+                        ' CVE-2023-4586 '
+            }
+
             if (details.requested.group == 'org.xerial.snappy' &&
-                    details.requested.name == 'snappy-java' && details.requested.version < '1.1.10.5') {
+                details.requested.name == 'snappy-java' && details.requested.version < '1.1.10.1') {
                 details.useVersion '1.1.10.5'
                 details.because 'snappy-java is a fast compressor/decompressor for Java.' +
                         ' Due to unchecked multiplications, an integer overflow may occur in versions prior to 1.1.10.1,'
@@ -53,7 +64,7 @@ configurations.configureEach {
             }
 
             if (details.requested.group == 'com.fasterxml.jackson.core' &&
-                    details.requested.name == 'jackson-databind' && details.requested.version < '2.15.2') {
+                details.requested.name == 'jackson-databind' && details.requested.version < '2.15.2') {
                 details.useVersion '2.15.2'
                 details.because '**DISPUTED: jackson-databind before 2.15.0-rc1 allows a Java StackOverflow ' +
                         'exception and denial of service via a large depth of nested objects.' +
@@ -61,7 +72,7 @@ configurations.configureEach {
             }
 
             if (details.requested.group == 'com.fasterxml.jackson.core' &&
-                    details.requested.name == 'jackson-core' && details.requested.version < '2.15.2') {
+                details.requested.name == 'jackson-core' && details.requested.version < '2.15.2') {
                 details.useVersion '2.15.2'
                 details.because '**DISPUTED: jackson-core before 2.15.0-rc1 allows a Java StackOverflow ' +
                         'exception and denial of service via a large depth of nested objects.' +
@@ -69,31 +80,31 @@ configurations.configureEach {
             }
 
             if (details.requested.group == 'org.yaml' &&
-                    details.requested.name == 'snakeyaml' && details.requested.version < '2.2') {
+                details.requested.name == 'snakeyaml' && details.requested.version < '2.2') {
                 details.useVersion '2.2'
                 details.because 'CVE-2022-1471'
             }
 
             if (details.requested.group == 'org.apache.tomcat.embed' &&
-                    details.requested.name == 'tomcat-embed-core' && details.requested.version < '10.1.13') {
+                details.requested.name == 'tomcat-embed-core' && details.requested.version < '10.1.13') {
                 details.useVersion '10.1.13'
                 details.because 'CVE-2023-41080'
             }
 
             if (details.requested.group == 'org.apache.tomcat.embed' &&
-                    details.requested.name == 'tomcat-embed-websocket' && details.requested.version < '10.1.13') {
+                details.requested.name == 'tomcat-embed-websocket' && details.requested.version < '10.1.13') {
                 details.useVersion '10.1.13'
                 details.because 'CVE-2023-41080'
             }
 
             if (details.requested.group == 'org.springframework.security' &&
-                    details.requested.name == 'spring-security-config' && details.requested.version < '6.1.4') {
+                details.requested.name == 'spring-security-config' && details.requested.version < '6.1.4') {
                 details.useVersion '6.1.4'
                 details.because 'CVE-2023-34042'
             }
 
             if (details.requested.group == 'com.google.guava' &&
-                    details.requested.name == 'guava' && details.requested.version < '32.1.2-jre') {
+                details.requested.name == 'guava' && details.requested.version < '32.1.2-jre') {
                 details.useVersion '32.1.2-jre'
                 details.because 'CVE-2023-2976'
             }
@@ -119,12 +130,13 @@ dependencies {
     implementation group: 'net.sf.jasperreports', name: 'jasperreports-functions', version: '6.20.6'
     implementation group: 'net.sf.jasperreports', name: 'jasperreports-fonts', version: '6.20.6'
     implementation 'com.github.librepdf:openpdf:1.3.30'
-    implementation group: 'org.apache.kafka', name: 'kafka_2.13', version: '3.5.1'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.0.11'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     implementation 'org.modelmapper:modelmapper:3.1.0'
     compileOnly 'org.projectlombok:lombok'
+    implementation group: 'org.xerial.snappy', name: 'snappy-java', version: '1.1.10.5'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
