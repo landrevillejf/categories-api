@@ -3,6 +3,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
+import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class SubCategoryServiceImplTest {
@@ -62,8 +66,25 @@ class SubCategoryServiceImplTest {
 
     @Test
     void findAllByCriteria() {
-        // Your test logic here
+        // Arrange
+        String searchCriteria = "Category1"; // Replace with your desired search criteria
+        List<SubCategory> subCategories = new ArrayList<>();
+        subCategories.add(new SubCategory("Category1", "Description1"));
+        subCategories.add(new SubCategory("Category1_2", "Description1_2")); // Additional sub-category with the same search criteria
+        Page<SubCategory> categoryPage = new PageImpl<>(subCategories);
+
+        // Mock the repository to return the list of sub-categories based on the criteria
+        when(repository.findByNameContaining(any(Pageable.class), eq(searchCriteria))).thenReturn(categoryPage);
+
+        // Act
+        List<SubCategory> result = service.findAllByCriteria(1, 15, searchCriteria);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size()); // Assuming two sub-categories match the criteria
+        assertEquals(subCategories, result);
     }
+
 
     @Test
     void findById() {
@@ -96,7 +117,7 @@ class SubCategoryServiceImplTest {
     @Test
     void findByUid() {
         // Arrange
-        String uid = "unique-id";
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
         SubCategory subCategory = new SubCategory("Category1", "Description1");
         when(repository.findByUid(uid)).thenReturn(subCategory);
 
@@ -111,7 +132,7 @@ class SubCategoryServiceImplTest {
     @Test
     void findByUid_NotFound() {
         // Arrange
-        String uid = "non-existent-id";
+        String uid = UUIDGenerator.generateType1UUID().toString();
         when(repository.findByUid(uid)).thenReturn(null);
 
         // Act
@@ -138,11 +159,12 @@ class SubCategoryServiceImplTest {
     @Test
     void update() {
         // Arrange
-        String uid = "unique-id";
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
         SubCategory existingSubCategory = new SubCategory("Category1", "Description1");
         when(repository.findByUid(uid)).thenReturn(existingSubCategory);
 
         SubCategory updatedSubCategory = new SubCategory("UpdatedCategory", "UpdatedDescription");
+        when(repository.save(updatedSubCategory)).thenReturn(updatedSubCategory);
 
         // Act
         SubCategory result = service.update(updatedSubCategory, uid);
@@ -152,10 +174,11 @@ class SubCategoryServiceImplTest {
         assertEquals(updatedSubCategory, result);
     }
 
+
     @Test
     void update_NotFound() {
         // Arrange
-        String uid = "non-existent-id";
+        String uid = UUIDGenerator.generateType1UUID().toString();
         when(repository.findByUid(uid)).thenReturn(null);
 
         SubCategory updatedSubCategory = new SubCategory("UpdatedCategory", "UpdatedDescription");
@@ -172,26 +195,28 @@ class SubCategoryServiceImplTest {
         // Act
         assertDoesNotThrow(() -> service.delete(subCategory));
 
-        // Assert: No exception thrown
+        // Assert
+        verify(repository, times(1)).delete(eq(subCategory));
     }
-
     @Test
     void deleteByUid() {
         // Arrange
-        String uid = "unique-id";
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
         SubCategory subCategory = new SubCategory("Category1", "Description1");
         when(repository.findByUid(uid)).thenReturn(subCategory);
 
         // Act
         assertDoesNotThrow(() -> service.deleteByUid(uid));
 
-        // Assert: No exception thrown
+        // Assert
+        verify(repository, times(1)).delete(eq(subCategory));
     }
+
 
     @Test
     void deleteByUid_NotFound() {
         // Arrange
-        String uid = "non-existent-id";
+        String uid = UUIDGenerator.generateType1UUID().toString();
         when(repository.findByUid(uid)).thenReturn(null);
 
         // Act and Assert

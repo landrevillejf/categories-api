@@ -1,8 +1,10 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
+
+import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
-import com.protonmail.landrevillejf.cognos.categories.api.service.impl.CategoryServiceImpl;
+import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,19 +17,26 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CategoryServiceImplTest {
 
     @InjectMocks
-    private CategoryServiceImpl categoryService;
+    private CategoryServiceImpl service;
 
     @Mock
-    private CategoryRepository categoryRepository;
+    private CategoryRepository repository;
 
     @BeforeEach
     void setUp() {
@@ -40,8 +49,8 @@ public class CategoryServiceImplTest {
         categories.add(new Category("Category1", "Description1"));
         categories.add(new Category("Category2", "Description2"));
         Page<Category> categoryPage = new PageImpl<>(categories);
-        when(categoryRepository.findAll(any(Pageable.class))).thenReturn(categoryPage);
-        List<Category> result = categoryService.findAll(1, 15);
+        when(repository.findAll(any(Pageable.class))).thenReturn(categoryPage);
+        List<Category> result = service.findAll(1, 15);
         assertNotNull(result);
         assertEquals(categories.size(), result.size());
         assertEquals(categories, result);
@@ -57,25 +66,184 @@ public class CategoryServiceImplTest {
 
     @Test
     void findAllByCriteria() {
+        // Arrange
+        String searchCriteria = "Category1";
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Category1", "Description1"));
+        categories.add(new Category("Category1_2", "Description1_2"));
+        Page<Category> categoryPage = new PageImpl<>(categories);
+
+        // Mock the repository to return the list of categories based on the criteria
+        when(repository.findByNameContaining(any(Pageable.class), eq(searchCriteria))).thenReturn(categoryPage);
+
+        // Act
+        List<Category> result = service.findAllByCriteria(1, 15, searchCriteria);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size()); // Assuming two categories match the criteria
+        assertEquals(categories, result);
     }
+
 
     @Test
     void findById() {
+        // Arrange
+        long id = 1;
+        Category category = new Category("Category1", "Description1");
+        when(repository.findById(id)).thenReturn(Optional.of(category));
+
+        // Act
+        Category result = service.findById(id);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(category, result);
+    }
+
+    @Test
+    void findById_NotFound() {
+        // Arrange
+        long id = 1;
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        // Act
+        Category result = service.findById(id);
+
+        // Assert
+        assertNull(result);
     }
 
     @Test
     void findByUid() {
+        // Arrange
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
+        Category category = new Category("Category1", "Description1");
+        when(repository.findByUid(uid)).thenReturn(category);
+
+        // Act
+        Category result = service.findByUid(uid);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(category, result);
+    }
+
+    @Test
+    void findByUid_NotFound() {
+        // Arrange
+        String uid = UUIDGenerator.generateType1UUID().toString();
+        when(repository.findByUid(uid)).thenReturn(null);
+
+        // Act
+        Category result = service.findByUid(uid);
+
+        // Assert
+        assertNull(result);
     }
 
     @Test
     void save() {
+        // Arrange
+        Category category = new Category("Category1", "Description1");
+        when(repository.save(category)).thenReturn(category);
+
+        // Act
+        Category result = service.save(category);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(category, result);
     }
 
     @Test
     void update() {
+        // Arrange
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
+        Category existingCategory = new Category("Category1", "Description1");
+        when(repository.findByUid(uid)).thenReturn(existingCategory);
+
+        Category updatedCategory = new Category("UpdatedCategory", "UpdatedDescription");
+        when(repository.save(updatedCategory)).thenReturn(updatedCategory);
+
+        // Act
+        Category result = service.update(updatedCategory, uid);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(updatedCategory, result);
+    }
+
+
+    @Test
+    void update_NotFound() {
+        // Arrange
+        String uid = UUIDGenerator.generateType1UUID().toString();
+        when(repository.findByUid(uid)).thenReturn(null);
+
+        Category updatedCategory = new Category("UpdatedCategory", "UpdatedDescription");
+
+        // Act and Assert
+        assertThrows(CommonApiException.class, () -> service.update(updatedCategory, uid));
     }
 
     @Test
-    void testUpdate() {
+    void delete() {
+        // Arrange
+        Category category = new Category("Category1", "Description1");
+
+        // Act
+        assertDoesNotThrow(() -> service.delete(category));
+
+        // Assert
+        verify(repository, times(1)).delete(eq(category));
+    }
+    @Test
+    void deleteByUid() {
+        // Arrange
+        String uid = "01ee5e28-a952-1cb1-b723-7f650bcdd7ad";
+        Category category = new Category("Category1", "Description1");
+        when(repository.findByUid(uid)).thenReturn(category);
+
+        // Act
+        assertDoesNotThrow(() -> service.deleteByUid(uid));
+
+        // Assert
+        verify(repository, times(1)).delete(eq(category));
+    }
+
+
+    @Test
+    void deleteByUid_NotFound() {
+        // Arrange
+        String uid = UUIDGenerator.generateType1UUID().toString();
+        when(repository.findByUid(uid)).thenReturn(null);
+
+        // Act and Assert
+        assertThrows(CommonApiException.class, () -> service.deleteByUid(uid));
+    }
+
+    @Test
+    void deleteAll() {
+        // Arrange
+        when(repository.findAll()).thenReturn(new ArrayList<>());
+
+        // Act
+        assertDoesNotThrow(() -> service.deleteAll());
+
+        // Assert: No exception thrown
+    }
+
+    @Test
+    void count() {
+        // Arrange
+        long expectedCount = 42;
+        when(repository.count()).thenReturn(expectedCount);
+
+        // Act
+        long result = service.count();
+
+        // Assert
+        assertEquals(expectedCount, result);
     }
 }
