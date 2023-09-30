@@ -178,21 +178,23 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
     @Override
     public SubCategory update(SubCategory entity) {
         SubCategory category = findByUid(entity.getUid());
-        if (category == null){
+        if (category == null) {
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
-            entity.setName(entity.getName());
-            entity.setDescription(entity.getDescription());
-            entity.setUpdatedAt(LocalDateTime.now());
+            category.setName(entity.getName());
+            category.setDescription(entity.getDescription());
+            category.setUpdatedAt(LocalDateTime.now());
+            // Save the updated category object
+            return repository.save(category);
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
+            throw e; // Rethrow the exception to indicate the update failure
         }
-
-        return repository.save(category);
     }
+
     /**
      * Update an existing SubCategory entity by its UID.
      *
