@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -241,6 +242,51 @@ public class CategoryServiceImplTest {
         for (SubCategory subCategory : subCategories) {
             verify(subCategoryRepository, times(1)).delete(eq(subCategory));
         }
+    }
+
+    @Test
+    void deleteCategoryWithSubcategories() {
+        // Create a sample category and associated subcategories
+        Category category = new Category();
+        category.setUid("category-uid");
+        category.setName("SampleCategory");
+        List<SubCategory> subCategories = new ArrayList<>();
+        SubCategory subCategory1 = new SubCategory();
+        subCategory1.setUid("sub-category-1-uid");
+        subCategory1.setName("SubCategory1");
+        subCategory1.setCategory(category);
+        subCategories.add(subCategory1);
+        category.setSubCategories(subCategories);
+
+        // Mock the repository to return the category when findByUid is called
+        when(repository.findByUid(category.getUid())).thenReturn(category);
+
+        // Call the delete method
+        service.delete(category);
+
+        // Verify that deleteAll was called on the subCategoryRepository with the associated subcategories
+        verify(subCategoryRepository, times(1)).deleteAll(subCategories);
+        // Verify that delete was called on the categoryRepository with the category
+        verify(repository, times(1)).delete(category);
+    }
+
+    @Test
+    void deleteCategoryWithoutSubcategories() {
+        // Create a sample category without associated subcategories
+        Category category = new Category();
+        category.setUid("category-uid");
+        category.setName("SampleCategory");
+
+        // Mock the repository to return the category when findByUid is called
+        when(repository.findByUid(category.getUid())).thenReturn(category);
+
+        // Call the delete method
+        service.delete(category);
+
+        // Verify that deleteAll was not called on the subCategoryRepository
+        verify(subCategoryRepository, never()).deleteAll(any());
+        // Verify that delete was called on the categoryRepository with the category
+        verify(repository, times(1)).delete(category);
     }
 
     @Test
