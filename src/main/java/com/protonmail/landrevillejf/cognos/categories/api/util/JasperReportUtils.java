@@ -23,7 +23,6 @@ public class JasperReportUtils {
      */
     private final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 
-
     private JasperPrint jasperPrint;
 
     public void exportToPdf(String fileName, String author) {
