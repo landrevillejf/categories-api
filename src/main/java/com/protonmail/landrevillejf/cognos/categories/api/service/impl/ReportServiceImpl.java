@@ -84,19 +84,44 @@ public class ReportServiceImpl implements ReportService {
      */
     private final SimpleReportFiller simpleReportFiller;
 
-    // Export data to CSV
+    /**
+     * Export data to CSV with category and subcategory information.
+     *
+     * @return A FileDTO containing the exported CSV data.
+     * @throws IOException If there is an error while exporting the data.
+     */
     @ExecutionTime
     @Override
     public FileDTO exportToCsv() throws IOException {
         try {
-            // Implement the logic to export data to CSV here
-            // You can use libraries like Apache Commons CSV or OpenCSV
-            // Example code to generate CSV will go here
-            String csvData = "CSV Data"; // Replace with your CSV data
+            // Generate CSV data with category and subcategory information
+            List<Category> categoryList = categoryRepository.findAll();
+            List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+
+            StringBuilder csvData = new StringBuilder();
+            csvData.append("Category Name,Subcategory Name,Total Subcategories\n");
+
+            for (Category category : categoryList) {
+                int totalSubcategories = subCategoryList.stream()
+                        .filter(subCategory -> subCategory.getCategory().equals(category))
+                        .mapToInt(subCategory -> 1)
+                        .sum();
+
+                csvData.append(category.getName()).append(",");
+                csvData.append("N/A").append(","); // No subcategory name for categories
+                csvData.append(totalSubcategories).append("\n");
+            }
+
+            for (SubCategory subCategory : subCategoryList) {
+                csvData.append(subCategory.getCategory().getName()).append(",");
+                csvData.append(subCategory.getName()).append(",");
+                csvData.append("N/A").append("\n"); // No total subcategories for subcategories
+            }
+
             String dateAsString = Utils.getCurrentDateAsString();
             String fileName = "Data_" + dateAsString + ".csv";
 
-            byte[] csvBytes = csvData.getBytes(StandardCharsets.UTF_8);
+            byte[] csvBytes = csvData.toString().getBytes(StandardCharsets.UTF_8);
 
             String base64String = Base64.encodeBase64String(csvBytes);
 
@@ -111,18 +136,51 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
-    // Export data to HTML
+    /**
+     * Export data to HTML with category and subcategory information.
+     *
+     * @return A FileDTO containing the exported HTML data.
+     * @throws IOException If there is an error while exporting the data.
+     */
     @ExecutionTime
     @Override
     public FileDTO exportToHtml() throws IOException {
         try {
-            // Implement the logic to export data to HTML here
-            // Example code to generate HTML will go here
-            String htmlData = "<html><body><h1>HTML Data</h1></body></html>"; // Replace with your HTML data
+            // Generate HTML data with category and subcategory information
+            List<Category> categoryList = categoryRepository.findAll();
+            List<SubCategory> subCategoryList = subCategoryRepository.findAll();
+
+            StringBuilder htmlData = new StringBuilder();
+            htmlData.append("<html><body><h1>Data with Category and Subcategory Information</h1>");
+            htmlData.append("<table border='1'><tr><th>Category Name</th><th>Subcategory Name</th><th>Total Subcategories</th></tr>");
+
+            for (Category category : categoryList) {
+                int totalSubcategories = subCategoryList.stream()
+                        .filter(subCategory -> subCategory.getCategory().equals(category))
+                        .mapToInt(subCategory -> 1)
+                        .sum();
+
+                htmlData.append("<tr>");
+                htmlData.append("<td>").append(category.getName()).append("</td>");
+                htmlData.append("<td>").append("N/A").append("</td>"); // No subcategory name for categories
+                htmlData.append("<td>").append(totalSubcategories).append("</td>");
+                htmlData.append("</tr>");
+            }
+
+            for (SubCategory subCategory : subCategoryList) {
+                htmlData.append("<tr>");
+                htmlData.append("<td>").append(subCategory.getCategory().getName()).append("</td>");
+                htmlData.append("<td>").append(subCategory.getName()).append("</td>");
+                htmlData.append("<td>").append("N/A").append("</td>"); // No total subcategories for subcategories
+                htmlData.append("</tr>");
+            }
+
+            htmlData.append("</table></body></html>");
+
             String dateAsString = Utils.getCurrentDateAsString();
             String fileName = "Data_" + dateAsString + ".html";
 
-            byte[] htmlBytes = htmlData.getBytes(StandardCharsets.UTF_8);
+            byte[] htmlBytes = htmlData.toString().getBytes(StandardCharsets.UTF_8);
 
             String base64String = Base64.encodeBase64String(htmlBytes);
 

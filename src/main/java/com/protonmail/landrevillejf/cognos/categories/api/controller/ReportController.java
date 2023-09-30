@@ -188,29 +188,43 @@ public class ReportController {
                 .body(new InputStreamResource(targetStream));
     }
 
-    /*@Operation(summary = "Export data to CSV")
+    @Operation(summary = "Export data to CSV")
     @GetMapping(Api.EXPORT_TO_CSV)
     public ResponseEntity<InputStreamResource> exportToCsv() throws IOException {
         FileDTO report = reportService.exportToCsv();
-        return createResponseEntity(report);
+
+        byte[] file = Base64.decodeBase64(report.getFileContent());
+        InputStream targetStream = new ByteArrayInputStream(file);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Disposition", "attachment; filename=".concat(report.getFileName()));
+
+        return ResponseEntity
+                .ok()
+                .headers(httpHeaders)
+                .contentType(MediaType.parseMediaType("text/csv")) // Set the content type as CSV
+                .contentLength(file.length)
+                .body(new InputStreamResource(targetStream));
     }
 
     @Operation(summary = "Export data to HTML")
     @GetMapping(Api.EXPORT_TO_HTML)
     public ResponseEntity<InputStreamResource> exportToHtml() throws IOException {
         FileDTO report = reportService.exportToHtml();
-        return createResponseEntity(report);
-    }
 
-    private ResponseEntity<InputStreamResource> createResponseEntity(FileDTO report) {
-        byte[] file = report.getFileContent().getBytes(StandardCharsets.UTF_8);
+        byte[] file = Base64.decodeBase64(report.getFileContent());
         InputStream targetStream = new ByteArrayInputStream(file);
+
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-Disposition", "attachment; filename=" + report.getFileName());
-        return ResponseEntity.ok()
+        httpHeaders.add("Content-Disposition", "attachment; filename=".concat(report.getFileName()));
+
+        return ResponseEntity
+                .ok()
                 .headers(httpHeaders)
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.TEXT_HTML) // Set the content type as HTML
                 .contentLength(file.length)
                 .body(new InputStreamResource(targetStream));
-    }*/
+    }
+
+
 }
