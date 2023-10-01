@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ReportFiller {
+public class AdvancedReportFiller {
     private String reportFileName;
 
     private JasperReport jasperReport;
@@ -23,7 +23,7 @@ public class ReportFiller {
 
     private Map<String, Object> parameters;
 
-    public ReportFiller() {
+    public AdvancedReportFiller() {
         parameters = new HashMap<>();
     }
 
@@ -38,7 +38,7 @@ public class ReportFiller {
             jasperReport = JasperCompileManager.compileReport(reportStream);
             JRSaver.saveObject(jasperReport, reportFileName.replace(".jrxml", ".jasper"));
         } catch (JRException ex) {
-            Logger.getLogger(ReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportFiller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -46,7 +46,7 @@ public class ReportFiller {
         try {
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
         } catch (JRException | SQLException ex) {
-            Logger.getLogger(ReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportFiller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

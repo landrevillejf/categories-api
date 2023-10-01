@@ -13,14 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
-public class ReportExporter {
+public class AdvancedReportExporter {
 
     private JasperPrint jasperPrint;
 
-    public ReportExporter() {
+    public AdvancedReportExporter() {
     }
 
-    public ReportExporter(JasperPrint jasperPrint) {
+    public AdvancedReportExporter(JasperPrint jasperPrint) {
         this.jasperPrint = jasperPrint;
     }
 
@@ -54,7 +54,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -85,7 +85,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,7 +98,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AdvancedReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
