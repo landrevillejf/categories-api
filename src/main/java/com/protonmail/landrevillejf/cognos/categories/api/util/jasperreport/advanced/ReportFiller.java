@@ -1,9 +1,7 @@
-package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport;
+package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.advanced;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRSaver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.io.InputStream;

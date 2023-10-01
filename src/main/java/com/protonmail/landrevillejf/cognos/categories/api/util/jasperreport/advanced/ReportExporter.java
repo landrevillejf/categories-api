@@ -1,4 +1,4 @@
-package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport;
+package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.advanced;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;

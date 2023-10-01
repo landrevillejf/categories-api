@@ -1,4 +1,4 @@
-package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport;
+package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.simple;
 
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.CategoryReportDTO;
