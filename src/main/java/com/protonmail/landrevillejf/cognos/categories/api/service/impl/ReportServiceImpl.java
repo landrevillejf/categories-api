@@ -14,13 +14,10 @@ import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.Execut
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
-import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.SimpleReportExporter;
-import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.SimpleReportFiller;
+import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.simple.SimpleReportExporter;
+import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.simple.SimpleReportFiller;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -30,7 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;

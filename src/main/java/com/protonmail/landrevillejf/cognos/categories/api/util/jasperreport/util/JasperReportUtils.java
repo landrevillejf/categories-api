@@ -16,9 +16,11 @@ import net.sf.jasperreports.export.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * Utility class for exporting JasperReports to various formats.
  */
+@SuppressWarnings("CheckStyle")
 @Author(
     name = "Jean-Francois Landreville",
     enterprise = "Lanaforge Inc.",
@@ -41,7 +43,6 @@ import org.slf4j.LoggerFactory;
     comments = "JasperReportUtils"
 )
 @License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
-@SuppressWarnings("CheckStyle")
 public class JasperReportUtils {
     private static final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 

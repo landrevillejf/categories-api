@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Revision {
-    String author() default "Jean-Francois Landreville";
+    String author() default "author";
     String date();
     int revision() default 1;
     String comments();
