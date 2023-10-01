@@ -40,7 +40,7 @@ public class ReportFiller {
             jasperReport = JasperCompileManager.compileReport(reportStream);
             JRSaver.saveObject(jasperReport, reportFileName.replace(".jrxml", ".jasper"));
         } catch (JRException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportFiller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -48,7 +48,7 @@ public class ReportFiller {
         try {
             jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
         } catch (JRException | SQLException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportFiller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

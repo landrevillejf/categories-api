@@ -54,7 +54,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -85,7 +85,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -98,7 +98,7 @@ public class ReportExporter {
         try {
             exporter.exportReport();
         } catch (JRException ex) {
-            Logger.getLogger(SimpleReportFiller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportExporter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
