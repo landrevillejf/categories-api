@@ -1,4 +1,4 @@
-package com.protonmail.landrevillejf.cognos.categories.api.util;
+package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.util;
 
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Creation;
