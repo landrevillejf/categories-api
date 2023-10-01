@@ -1,5 +1,10 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util.annotation;
 
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Creation;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
+import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -7,67 +12,62 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.Duration;
 
+@Author(
+		name = "Jean-Francois Landreville",
+		enterprise = "Lanaforge Inc.",
+		email = "landrevillejf@protonmail.com",
+		website = "https://www.lanaforge.ca"
+)
+@Maintainer(
+		name = "Jean-Francois Landreville",
+		enterprise = "Lanaforge Inc.",
+		email = "landrevillejf@protonmail.com",
+		website = "https://www.lanaforge.ca"
+)
+@Creation(
+		date = "2023-09-30",
+		comments = "ExecutionTimeCalculator Annotation"
+)
+@Revision(
+		date = "2023-10-01",
+		revision = 2,
+		comments = "optimization"
+)
+@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 @SuppressWarnings("CheckStyle")
 @Slf4j
 @Aspect
 @Component
 public class ExecutionTimeCalculator {
 
-//	\033[38;2;<r>;<g>;<b>m     #Select RGB foreground color
-//	\033[48;2;<r>;<g>;<b>m     #Select RGB background color
-
-	// more colors can be found here: 
-	// https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#256-colors
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_GREEN = "\033[38;2;0;189;25m";
 	public static final String ANSI_YELLOW = "\033[38;2;255;255;0m";
-	public static final String ANSI_BLUE = "\u001B[38;5;33m";
-	public static final String ANSI_BLACK = "\u001B[38;5;234m";
-	public static final String ANSI_GREY = "\u001B[38;5;249m";
-	public static final String ANSI_RED = "\u001B[38;5;196m";
 	public static final String ANSI_ORANGE = "\u001B[38;5;208m";
 
-
-	// I have to put the whole path to my custom annotation class as a parameter of @annotation
-	// @Around can perform custom behavior Before and After the method Invocation
 	@Around("@annotation(com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime)")
-	public Object getExecutionTime(ProceedingJoinPoint proJoinPoint) throws Throwable {
+	public Object getExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+		Instant startTime = Instant.now();
+		Object result = joinPoint.proceed();
+		Instant endTime = Instant.now();
+		Duration duration = Duration.between(startTime, endTime);
 
-		// get time when method execution starts
-		long startTimeInMillis = System.currentTimeMillis();
-		
-		LocalDateTime startLocalDateTime = Instant.ofEpochMilli(startTimeInMillis)
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-		
-		// execute method
-		Object obj = proJoinPoint.proceed();
-		
-		
-		// get time when method execution ends
-		long endTimeInMillis = System.currentTimeMillis();
-		
-		LocalDateTime endLocalDateTime = Instant.ofEpochMilli(endTimeInMillis)
-                .atZone(ZoneId.systemDefault()).toLocalDateTime();
-		
-		// get elapsed time in milliseconds
-		long executionTimeInMilliseconds = (endTimeInMillis - startTimeInMillis);
-		
-		// milliseconds to minutes. 
-        long minutes = (executionTimeInMilliseconds / 1000) / 60;
-        
-        // milliseconds to seconds 
-        long seconds = (executionTimeInMilliseconds / 1000) % 60;
+		long minutes = duration.toMinutes();
+		long seconds = duration.getSeconds() % 60;
 
+		logExecutionTime(joinPoint.getSignature().getName(), startTime, endTime, minutes, seconds);
+		return result;
+	}
 
-		log.info("Method " + ANSI_YELLOW + proJoinPoint.getSignature().getName() + ANSI_RESET
-				+ " called at: " + ANSI_ORANGE + startLocalDateTime + ANSI_RESET
-				+ " and finished execution at: " + ANSI_ORANGE + endLocalDateTime + ANSI_RESET
-				+ ". The execution time was: " + ANSI_GREEN + minutes + " minutes" + ANSI_RESET
-				+ " and " + ANSI_GREEN + seconds + " seconds." + ANSI_RESET);
-		
-		return obj;
+	private void logExecutionTime(String methodName, Instant startTime, Instant endTime, long minutes, long seconds) {
+		log.info("Method {}{}{} called at: {}{}{} and finished execution at: {}{}{}. " +
+						"The execution time was: {}{} minutes{} and {}{} seconds{}.",
+				ANSI_YELLOW, methodName, ANSI_RESET,
+				ANSI_ORANGE, startTime, ANSI_RESET,
+				ANSI_ORANGE, endTime, ANSI_RESET,
+				ANSI_GREEN, minutes, ANSI_RESET,
+				ANSI_GREEN, seconds, ANSI_RESET);
 	}
 }
