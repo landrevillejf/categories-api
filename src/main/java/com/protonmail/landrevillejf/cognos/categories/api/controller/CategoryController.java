@@ -98,9 +98,10 @@ public class CategoryController {
     @GetMapping(produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Category>> getAllCategories (
             @RequestParam(value = "page", defaultValue = "1",required = false) int page,
-            @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit) throws CommonApiException{
+            @RequestParam(value = "limit", defaultValue = "15" ,required = false) int limit,
+            @RequestParam(value = "search",required = false) String search) throws Exception{
         List<Category> categoryList = circuitBreaker.executeSupplier(() -> {
-            List<Category> result = iCommonService.findAll(page, limit);
+            List<Category> result = iCommonService.findAllByCriteria(page, limit, search);
             if (result.isEmpty()){
                 logger.error(ApiExceptionEnums.EMPTY_LIST.name());
                 throw new CommonApiException(ApiExceptionEnums.EMPTY_LIST.name());
