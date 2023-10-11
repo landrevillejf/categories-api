@@ -7,10 +7,6 @@ package com.protonmail.landrevillejf.cognos.categories.api.controller;
 import com.protonmail.landrevillejf.cognos.categories.api.config.Api;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.dto.FileDTO;
 import com.protonmail.landrevillejf.cognos.categories.api.service.ReportService;
-import com.protonmail.landrevillejf.cognos.categories.api.service.impl.ReportServiceImpl;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -27,24 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2023-09-25",
-        revision = 1,
-        comments = "Author ReportController"
-)
 @Tag(name = "Report", description = "Reports management APIs")
 @AllArgsConstructor
 @RequestMapping(Api.REPORTS)

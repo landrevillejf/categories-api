@@ -5,9 +5,6 @@
  */
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -18,21 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2020-01-01",
-        revision = 1,
-        comments = "Author DBConfiguration"
-)
 @Getter
 @Setter
 @Profile("dev,prod")

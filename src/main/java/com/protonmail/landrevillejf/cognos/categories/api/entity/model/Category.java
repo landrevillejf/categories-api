@@ -5,9 +5,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.common.CommonEntity;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,21 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2023-09-25",
-        revision = 1,
-        comments = "Author Category Entity"
-)
 @Getter
 @Setter
 @AllArgsConstructor

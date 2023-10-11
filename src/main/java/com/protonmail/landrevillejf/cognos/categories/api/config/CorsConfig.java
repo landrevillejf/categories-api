@@ -4,29 +4,11 @@
  */
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2021-07-01",
-        revision = 1,
-        comments = "Author CorsConfig"
-)
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 

@@ -1,8 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.controller;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -10,21 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Controller class responsible for handling requests related to the SWAGGER-UI home page.
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2023-09-01",
-        revision = 1,
-        comments = "Author HomeController"
-)
+
 @Controller
 public class HomeController {
 

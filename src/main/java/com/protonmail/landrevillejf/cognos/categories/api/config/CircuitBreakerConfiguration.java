@@ -1,8 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.config;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,21 +12,6 @@ import java.time.Duration;
  * CircuitBreakerConfiguration configures a circuit breaker for resilience in the application.
  *
  */
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-     date = "2022-05-01",
-     revision = 1,
-     comments = "Author CircuitBreakerConfiguration"
-)
 @SuppressWarnings("CheckStyle")
 @Configuration
 public class CircuitBreakerConfiguration {

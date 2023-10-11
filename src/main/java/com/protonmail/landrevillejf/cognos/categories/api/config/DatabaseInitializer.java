@@ -22,9 +22,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRep
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -41,21 +39,6 @@ import java.util.Map;
  *
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2020-01-01",
-        revision = 1,
-        comments = "Author DatabaseInitializer"
-)
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
     /**

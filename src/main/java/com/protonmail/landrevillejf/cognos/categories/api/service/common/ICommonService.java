@@ -1,9 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.common;
 
 import com.protonmail.landrevillejf.cognos.categories.api.entity.common.CommonEntity;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -14,17 +11,6 @@ import java.util.List;
  * @param <E> The type of entity this service works with, extending {@link CommonEntity}.
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville", enterprise = "Lanaforge Inc.", email = "landrevillejf@protonmail.com")
-@Revision(
-        date = "2019-01-01",
-        revision = 1,
-        comments = "Author ICommonService"
-)
 public interface ICommonService<E extends CommonEntity> {
 
     /**

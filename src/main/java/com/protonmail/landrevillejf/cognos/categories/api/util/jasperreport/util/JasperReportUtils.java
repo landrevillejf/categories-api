@@ -1,10 +1,5 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.util;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Creation;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
@@ -21,28 +16,6 @@ import org.slf4j.LoggerFactory;
  * Utility class for exporting JasperReports to various formats.
  */
 @SuppressWarnings("CheckStyle")
-@Author(
-    name = "Jean-Francois Landreville",
-    enterprise = "Lanaforge Inc.",
-    email = "landrevillejf@protonmail.com",
-    website = "https://www.lanaforge.ca"
-)
-@Maintainer(
-    name = "Jean-Francois Landreville",
-    enterprise = "Lanaforge Inc.",
-    email = "landrevillejf@protonmail.com",
-    website = "https://www.lanaforge.ca"
-)
-@Creation(
-        date = "2023-09-30",
-        comments = "Creation Annotation"
-)
-@Revision(
-    date = "2023-09-30",
-    revision = 2,
-    comments = "JasperReportUtils"
-)
-@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 public class JasperReportUtils {
     private static final Logger logger = LoggerFactory.getLogger(JasperReportUtils.class);
 

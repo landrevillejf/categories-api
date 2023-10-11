@@ -11,9 +11,7 @@ import com.protonmail.landrevillejf.cognos.categories.api.service.ReportService;
 import com.protonmail.landrevillejf.cognos.categories.api.util.EntityDtoMapper;
 import com.protonmail.landrevillejf.cognos.categories.api.util.Utils;
 import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.ExecutionTime;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
+
 import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.simple.SimpleReportExporter;
 import com.protonmail.landrevillejf.cognos.categories.api.util.jasperreport.simple.SimpleReportFiller;
 import lombok.AllArgsConstructor;
@@ -37,21 +35,6 @@ import java.util.Map;
  * Service class for generating various reports.
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2019-01-01",
-        revision = 1,
-        comments = "Author ReportServiceImpl"
-)
 @AllArgsConstructor
 @Service
 public class ReportServiceImpl implements ReportService {

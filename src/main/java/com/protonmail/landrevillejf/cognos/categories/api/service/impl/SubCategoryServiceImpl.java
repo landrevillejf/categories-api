@@ -6,9 +6,6 @@ import com.protonmail.landrevillejf.cognos.categories.api.exception.CommonServic
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -26,21 +23,6 @@ import java.util.Optional;
  * Service implementation class for managing SubCategory entities.
  */
 @SuppressWarnings("CheckStyle")
-@Author(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Maintainer(name = "Jean-Francois Landreville",
-        enterprise = "Lanaforge Inc.",
-        email = "landrevillejf@protonmail.com",
-        website = "https://www.lanaforge.ca"
-)
-@Revision(
-        date = "2019-01-01",
-        revision = 1,
-        comments = "Author SubCategoryServiceImpl"
-)
 @Transactional
 @Service
 public class SubCategoryServiceImpl implements ICommonService<SubCategory> {

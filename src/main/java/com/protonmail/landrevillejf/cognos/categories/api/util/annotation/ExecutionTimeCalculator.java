@@ -1,10 +1,6 @@
 package com.protonmail.landrevillejf.cognos.categories.api.util.annotation;
 
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Author;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Creation;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.License;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Maintainer;
-import com.protonmail.landrevillejf.cognos.categories.api.util.annotation.documentation.Revision;
+
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,28 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.Duration;
 
-@Author(
-		name = "Jean-Francois Landreville",
-		enterprise = "Lanaforge Inc.",
-		email = "landrevillejf@protonmail.com",
-		website = "https://www.lanaforge.ca"
-)
-@Maintainer(
-		name = "Jean-Francois Landreville",
-		enterprise = "Lanaforge Inc.",
-		email = "landrevillejf@protonmail.com",
-		website = "https://www.lanaforge.ca"
-)
-@Creation(
-		date = "2023-09-30",
-		comments = "ExecutionTimeCalculator Annotation"
-)
-@Revision(
-		date = "2023-10-01",
-		revision = 2,
-		comments = "optimization"
-)
-@License(name = "Apache", version = "2.0", site = "https://www.apache.org/licenses/LICENSE-2.0.html")
 @SuppressWarnings("CheckStyle")
 @Slf4j
 @Aspect
