@@ -1,10 +1,8 @@
 package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 
-import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.CommonServiceException;
-import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.service.common.ICommonService;
 import com.protonmail.landrevillejf.cognos.categories.api.util.UUIDGenerator;
@@ -175,7 +173,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         SubCategory getCategory= repository.findByName(categoryName);
         if (getCategory != null){
             logger.error(ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
-            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
+            throw new CommonServiceException(entity.getName() + " " + ApiExceptionEnums.OBJECT_EXIST_EXCEPTION.name());
         }
         try {
             entity.setName(entity.getName());
@@ -202,7 +200,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         SubCategory subCategory = findByUid(entity.getUid());
         if (subCategory == null) {
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
-            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
+            throw new CommonServiceException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
             subCategory.setName(entity.getName());
@@ -229,7 +227,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         SubCategory category = findByUid(uid);
         if (category == null){
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
-            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
+            throw new CommonServiceException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         try {
             entity.setName(entity.getName());
@@ -256,7 +254,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         int categoryListSize = repository.findAll().size();
         if (categoryListSize < 1) {
             logger.error(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
-            throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
+            throw new CommonServiceException(entity.getName() + " " + ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
         }
         repository.delete(entity);
     }
@@ -270,7 +268,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         SubCategory category=findByUid(uid);
         if(category == null){
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
-            throw new CommonApiException(uid + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
+            throw new CommonServiceException(uid + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
         repository.delete(category);
     }
@@ -282,7 +280,7 @@ public class SubCategoryServiceImpl implements ICommonService<SubCategory> {
         int categoryListSize = repository.findAll().size();
         if(categoryListSize < 1) {
             logger.error(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
-            throw new CommonApiException(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
+            throw new CommonServiceException(ApiExceptionEnums.LIST_ALREADY_EMPTY.name());
         }
         repository.deleteAll();
     }
