@@ -4,6 +4,7 @@ package com.protonmail.landrevillejf.cognos.categories.api.service.impl;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.Category;
 import com.protonmail.landrevillejf.cognos.categories.api.entity.model.SubCategory;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.ApiExceptionEnums;
+import com.protonmail.landrevillejf.cognos.categories.api.exception.CommonServiceException;
 import com.protonmail.landrevillejf.cognos.categories.api.exception.common.CommonApiException;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.CategoryRepository;
 import com.protonmail.landrevillejf.cognos.categories.api.repository.SubCategoryRepository;
@@ -82,10 +83,16 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     @Override
     public List<Category> findAll(int page, int limit) {
         Page<Category> categoryPage = null;
-        if (page > 0) {
-            page -= 1;
-            Pageable pageable = PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
-            categoryPage = repository.findAll(pageable);
+        try {
+            if (page > 0) {
+                page -= 1;
+                Pageable pageable = PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id"));
+                categoryPage = repository.findAll(pageable);
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error in findAll: " + e.getMessage(), e);
+            throw new CommonServiceException("Error while fetching data.", e);
         }
         assert categoryPage != null;
         return categoryPage.getContent();
@@ -119,6 +126,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             }
         } catch (Exception e) {
             logger.error("Error: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while fetching data.", e);
         }
         assert categories != null;
         return categories.getContent();
@@ -132,7 +140,13 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     @ExecutionTime
     @Override
     public Category findById(long id) {
-        Optional <Category> category = repository.findById(id);
+        Optional<Category> category;
+        try {
+            category = repository.findById(id);
+        } catch (Exception e) {
+            logger.error("Error: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while fetching data.", e);
+        }
         return category.orElse(null);
     }
 
@@ -145,7 +159,14 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     @ExecutionTime
     @Override
     public Category findByUid(String uid) {
-        return repository.findByUid(uid);
+        Category category;
+        try {
+            category = repository.findByUid(uid);
+        } catch (Exception e) {
+            logger.error("Error: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while fetching data.", e);
+        }
+        return category;
     }
     //endregion
 
@@ -190,6 +211,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             entity.setCreatedAt(LocalDateTime.now());
         } catch (Exception e) {
             logger.error("Failed to save values: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while saving data.", e);
         }
 
         return repository.save(entity);
@@ -218,6 +240,7 @@ public class CategoryServiceImpl implements ICommonService<Category> {
         } catch (Exception e) {
             // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while updating data.", e);
         }
 
         return repository.save(category);
@@ -243,8 +266,8 @@ public class CategoryServiceImpl implements ICommonService<Category> {
             entity.setDescription(entity.getDescription());
             entity.setUpdatedAt(LocalDateTime.now());
         } catch (Exception e) {
-            // Log the exception
             logger.error("Failed to update values: {}", e.getMessage(), e);
+            throw new CommonServiceException("Error while updating data.", e);
         }
 
         return repository.save(category);
@@ -261,22 +284,18 @@ public class CategoryServiceImpl implements ICommonService<Category> {
     @ExecutionTime
     @Override
     public void delete(Category entity) {
-        // Check if the category exists
         Category existingCategory = repository.findByUid(entity.getUid());
         if (existingCategory == null) {
             logger.error(ApiExceptionEnums.OBJECT_NOT_FOUND.name());
             throw new CommonApiException(entity.getName() + " " + ApiExceptionEnums.OBJECT_NOT_FOUND.name());
         }
 
-        // Get the associated subcategories
         List<SubCategory> subCategories = existingCategory.getSubCategories();
 
-        // Delete associated subcategories first
         if (subCategories != null && !subCategories.isEmpty()) {
             subCategoryRepository.deleteAll(subCategories);
         }
 
-        // Finally, delete the category
         repository.delete(existingCategory);
     }
 
